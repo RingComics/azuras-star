@@ -1,14 +1,11 @@
 # Find the size of the largest dropdown item
-function GetDropDownWidth
-{
+function GetDropDownWidth {
     param($comboBox)
     $maxWidth = 0
     $width = 0
-    ForEach ($item in $comboBox)
-    {
+    ForEach($item in $comboBox) {
         $width = [System.Windows.Forms.TextRenderer]::MeasureText($item.ToString(), $comboBox.Font).Width;
-        if ($width -gt $maxWidth)
-        {
+        if($width -gt $maxWidth) {
             $maxWidth = $width;
         }
     }
