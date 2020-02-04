@@ -1,5 +1,6 @@
 ﻿Using module .\src\PS\AzurasStar.psm1
 Using module .\src\PS\Skyrim.psm1
+Using module .\src\PS\User.psm1
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.IO.Compression.FileSystem #Zip Compression
 Import-Module .\src\PS\PSUtils.psm1
@@ -7,6 +8,7 @@ Import-Module .\src\PS\PSUtils.psm1
 $azurasStar = [AzurasStar]::new()
 $skyrim = [Skyrim]::new([Windows.Forms.MessageBox])
 $skyrim.setInstallationPath()
+$CurrentUser = [User]::new()
 
 #Is 7-Zip installed?
 if(Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Where-Object DisplayName -like "7-Zip*") {
@@ -46,7 +48,7 @@ $configFormPreReqsLabel.Anchor + "Left,Top"
 $configForm.Controls.Add($configFormPreReqsLabel)
 
 $configFormPreReqsJava = New-Object System.Windows.Forms.Button
-switch($azurasStar.testJava() -eq $true) {
+switch($CurrentUser.isJavaInstalled() -eq $true) {
     $true{
         $configFormPreReqsJava.Text = "Java Installed"
         $configFormPreReqsJava.Enabled = $false
@@ -101,7 +103,7 @@ $configFormPreReqsSkyrim.ADD_CLICK({
     Wait-Process -Name SkyrimLauncher -ErrorAction SilentlyContinue
     Start-Sleep -Seconds 5
     Wait-Process -Name TESV -ErrorAction SilentlyContinue
-    if($azurasStar.testJava() -eq $true -and $7ZipInstalled) {
+    if($CurrentUser.isJavaInstalled() -eq $true -and $7ZipInstalled) {
         $configFormPreReqsPreinstall.Enabled = $true
         output("You may now run the Preinstall")
 
