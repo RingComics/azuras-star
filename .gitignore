@@ -5,7 +5,7 @@ Downloads
 .idea
 
 # GPU info file
-bin/gpuinfo.xml
+src/bin/gpuinfo.xml
 # logs
-bin/automaton/logs/*
-bin/New Text Document.txt
+src/bin/automaton/logs/*
+src/bin/New Text Document.txt
