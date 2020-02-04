@@ -2,7 +2,8 @@
 
 ![Azura's Star](/src/img/azura.png)
 
-Are you sick and tired of manually installing your favorite mod packs when your PC could be doing all the work? Introducing the Azura's Star Modding Tool!
+Are you sick and tired of manually installing your favorite mod packs when your PC could be doing all the work?  
+Introducing the Azura's Star Modding Tool!
 
 ## Requirements
 
@@ -34,7 +35,7 @@ To speed up development on a secondary run, it is worth making a copy of any fil
 
 - Create an archive called `AzurasStar-[release].zip`
 - Copy `src`, `License.md` and `README.md` into the archive (including the `src` folder)
-- Create a new .exe using [this tool](https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5) and copy it into the archive.
+- Create a new .exe using [this tool](https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5). Build with: "-noConsole", "-noOutput", "-noError" and "-requireAdmin".
 - Create a release on GitHub
 
 
