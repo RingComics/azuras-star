@@ -10,13 +10,6 @@ $skyrim = [Skyrim]::new([Windows.Forms.MessageBox])
 $skyrim.setInstallationPath()
 $CurrentUser = [User]::new()
 
-#Is 7-Zip installed?
-if(Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Where-Object DisplayName -like "7-Zip*") {
-    $7ZipInstalled = $true
-} else {
-    $7ZipInstalled = $false
-}
-
 #Configure and install prereqs
 #Root Form window
 $configForm = New-Object System.Windows.Forms.Form
@@ -68,7 +61,7 @@ $configFormPreReqsJava.ADD_CLICK({
 $configForm.Controls.Add($configFormPreReqsJava)
 
 $configFormPreReqs7zip = New-Object System.Windows.Forms.Button
-switch($7zipInstalled) {
+switch($CurrentUser.is7ZipInstalled() -eq $true) {
 
     $true {
         $configFormPreReqs7zip.Text = "7zip Installed"
@@ -103,7 +96,7 @@ $configFormPreReqsSkyrim.ADD_CLICK({
     Wait-Process -Name SkyrimLauncher -ErrorAction SilentlyContinue
     Start-Sleep -Seconds 5
     Wait-Process -Name TESV -ErrorAction SilentlyContinue
-    if($CurrentUser.isJavaInstalled() -eq $true -and $7ZipInstalled) {
+    if($CurrentUser.isJavaInstalled() -eq $true -and $CurrentUser.is7ZipInstalled()) {
         $configFormPreReqsPreinstall.Enabled = $true
         output("You may now run the Preinstall")
 
