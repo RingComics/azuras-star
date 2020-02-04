@@ -1,0 +1,14 @@
+﻿[22:02:42.1546494] [.ctor] 05/02/2020 22:02:42 Automaton/1.3.5.0 (Microsoft Windows NT 10.0.18362.0; x64) .NET Framework 4.8.4075.0
+[22:02:42.1556467] [.ctor] 05/02/2020 22:02:42 Is admin: False
+[22:02:42.1556467] [.ctor] 05/02/2020 22:02:42 Automaton Start
+[22:02:42.2838088] [.ctor] Long path enabled. Continuing.
+[22:02:42.2947794] [.ctor] LineNumber: 0, FilenName: , MethodName: Callout_FoundName
+   at MS.Internal.Xaml.Parser.GenericTypeNameParser.Callout_FoundName(String prefix, String name) Prefix 'materialDesign' does not map to a namespace.
+[22:02:54.7876300] [ChooseModpack] Opening modpack filesystemBrowser
+[22:03:06.0951188] [LoadModpack] Modpack loaded
+[22:03:31.3704579] [Initialize] Initializing API base
+[22:03:31.3704579] [Initialize] Apikey empty
+[22:03:34.5754528] [Initialize] Key captured
+[22:03:34.8517130] [Initialize] User premium status: True
+[22:03:34.8517130] [Initialize] User is logged in
+[22:03:38.1544134] [GetMissingMods] Missing mod count: 0

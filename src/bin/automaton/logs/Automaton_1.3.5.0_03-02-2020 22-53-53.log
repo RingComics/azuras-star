@@ -1,0 +1,490 @@
+﻿[22:53:53.3358148] [.ctor] 03/02/2020 22:53:53 Automaton/1.3.5.0 (Microsoft Windows NT 10.0.18362.0; x64) .NET Framework 4.8.4075.0
+[22:53:53.3358148] [.ctor] 03/02/2020 22:53:53 Is admin: True
+[22:53:53.3358148] [.ctor] 03/02/2020 22:53:53 Automaton Start
+[22:53:53.4634736] [.ctor] Long path enabled. Continuing.
+[22:53:53.4734470] [.ctor] LineNumber: 0, FilenName: , MethodName: Callout_FoundName
+   at MS.Internal.Xaml.Parser.GenericTypeNameParser.Callout_FoundName(String prefix, String name) Prefix 'materialDesign' does not map to a namespace.
+[22:53:54.9455343] [ChooseModpack] Opening modpack filesystemBrowser
+[22:53:59.9268947] [LoadModpack] Modpack loaded
+[22:54:19.2479492] [Initialize] Initializing API base
+[22:54:19.2479492] [Initialize] Apikey empty
+[22:54:22.8395442] [Initialize] Key captured
+[22:54:23.0524896] [Initialize] User premium status: True
+[22:54:23.0524896] [Initialize] User is logged in
+[22:54:25.7508179] [GetMissingMods] Missing mod count: 0
+[22:54:27.5909390] [DebugWrite] [INSTALL] Installing Mod Organizer...
+[22:54:27.6009136] [ExtractToDirectory] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Mod Organizer 2 (Archive)-6194-2-2-1-1564685345.7z to E:\SteamLibrary\steamapps\common\Skyrim\US\US 406hf2 Gamepad
+[22:54:32.3313400] [DebugWrite] [INSTALL] A Closer Look - Simple Smooth Hotkey Zoom
+[22:54:32.3323373] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\A Closer Look - Simple Smooth Hotkey Zoom-64981-1-1.rar
+[22:54:32.3492921] [DebugWrite] [INSTALL] A Matter of Time 2.0.10
+[22:54:32.3492921] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\AMatterOfTime_v2_0_10-44091-v2-0-10.7z
+[22:54:32.3632546] [DebugWrite] [INSTALL] All Thieves Guild Jobs Concurrently
+[22:54:32.3632546] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\All Thieves Guild Jobs Concurrently-52721-1.zip
+[22:54:32.3662467] [DebugWrite] [INSTALL] aMidianBorn Book of Silence - Armors
+[22:54:32.3662467] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\aMidianBorn book of silence_ARMORS-24909-1-9.7z
+[22:54:50.5482439] [DebugWrite] [INSTALL] aMidianBorn Book of Silence - Content Addon
+[22:54:50.5482439] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\aMidianBorn - Content Addon-24909-1-9.7z
+[22:55:05.6838609] [DebugWrite] [INSTALL] aMidianBorn Book of Silence - Creatures
+[22:55:05.6838609] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\aMidianBorn book of silence_Creatures-24909-1-9.7z
+[22:55:09.1685728] [DebugWrite] [INSTALL] aMidianBorn Book of Silence - Dragonborn DLC
+[22:55:09.1685728] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\aMidianBorn book of silence_DRAGONBORN DLC-24909-1-9.7z
+[22:55:14.6394621] [DebugWrite] [INSTALL] aMidianBorn Book of Silence - Unique Items
+[22:55:14.6394621] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\aMidianBorn book of silence_UNIQUE ITEMS-24909-1-9.7z
+[22:55:19.5528604] [DebugWrite] [INSTALL] aMidianBorn Book of Silence - Weapons
+[22:55:19.5528604] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\aMidianBorn book of silence_WEAPONS-24909-1-9.7z
+[22:55:34.5324067] [DebugWrite] [INSTALL] aMidianBorn Caves and Mines
+[22:55:34.5324067] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\aMidianBorn Caves and Mines 2k-39190-3.7z
+[22:55:41.5910793] [DebugWrite] [INSTALL] aMidianBorn Landscape
+[22:55:41.5920767] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\amb landscape with terrain parallax 2k-37865-5.7z
+[22:55:58.6740667] [DebugWrite] [INSTALL] aMidianBorn Solstheim Landscape
+[22:55:58.6760616] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\aMidianBorn Solstheim Land-50013-1.7z
+[22:56:02.3612295] [DebugWrite] [INSTALL] ApachiiSkyHair
+[22:56:02.3612295] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\ApachiiSkyHair_v_1_6_Full-10168-1-6-Full.7z
+[22:56:12.4358695] [DebugWrite] [INSTALL] Art of the Catch
+[22:56:12.4358695] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Art of the Catch 1.0.1 Release-65613-1-0-1.zip
+[22:56:12.4508297] [DebugWrite] [INSTALL] Ashes 0.02
+[22:56:12.4508297] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Ashes - A Simple and Configurable Death Mod-92743-0-02.7z
+[22:56:12.4608027] [DebugWrite] [INSTALL] Atronach Crossing - Build Your Own Home DLC content pack
+[22:56:12.4608027] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Atronach Crossing Content Pack - Bethesda DLC-78990-Pk1v1-0-0.rar
+[22:56:12.4767602] [DebugWrite] [INSTALL] Atronach Crossing 2.3.0
+[22:56:12.4767602] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Atronach Crossing-78990-2-3-0-1548899133.rar
+[22:56:12.8986429] [DebugWrite] [INSTALL] Audio Overhaul for Skyrim 2
+[22:56:12.8996401] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\AOS 2.5.1 Full Install-43773-2-5-1.rar
+[22:56:19.8141930] [DebugWrite] [INSTALL] AV Atronachs
+[22:56:19.8141930] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Aeternus Atronachs-22420-2-0.zip
+[22:56:20.4215791] [DebugWrite] [INSTALL] AV Bellyache
+[22:56:20.4215791] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Bellyaches Animals AV Package-21377-1-0.zip
+[22:56:25.6581230] [DebugWrite] [INSTALL] AV Dog n Fox
+[22:56:25.6581230] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Automatic Variants - GD Dogs and Foxes and Read Me-22727-1-1.zip
+[22:56:26.8833628] [DebugWrite] [INSTALL] AV Draugr
+[22:56:26.8833628] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\StarX AV Package Draugr SDM-21542-1-02.7z
+[22:56:30.7181406] [DebugWrite] [INSTALL] AV Dwemers
+[22:56:30.7181406] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\dwemer automatic variants-46207-1-1.7z
+[22:56:33.0658834] [DebugWrite] [INSTALL] AV Falmer
+[22:56:33.0658834] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\StarX AV Package Falmer SDM-21542-1-02.7z
+[22:56:33.7625263] [DebugWrite] [INSTALL] AV Giant
+[22:56:33.7625263] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\StarX AV Package Giant SDM-21542-1-02.7z
+[22:56:34.3345036] [DebugWrite] [INSTALL] AV Hagraven
+[22:56:34.3345036] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\StarX AV Package Hagraven SDM-21542-1-02.7z
+[22:56:34.8640880] [DebugWrite] [INSTALL] AV Huskies
+[22:56:34.8640880] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Husky 2k Variants-63598-v1-0.7z
+[22:56:35.6958643] [DebugWrite] [INSTALL] AV Insanity
+[22:56:35.6958643] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\InsanitySorrow AV Package-21377-1-1.zip
+[22:56:37.1066259] [DebugWrite] [INSTALL] AV Sounaipr
+[22:56:37.1066259] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Sounaipr AV Package-21377-1-2.zip
+[22:56:38.5657365] [DebugWrite] [INSTALL] AV Storm Atro
+[22:56:38.5657365] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Storms - Hotfixed-53715-1-12.rar
+[22:56:38.6684708] [DebugWrite] [INSTALL] AV Trolls
+[22:56:38.6684708] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\StarX AV Package Trolls SDM-21542-1-0.7z
+[22:56:39.6708008] [DebugWrite] [INSTALL] AV
+[22:56:39.6708008] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Automatic Variants 2.0.1.3H-21377-2-0-1-3H.7z
+[22:56:40.0842006] [DebugWrite] [INSTALL] Bandolier - Bags and Pouches
+[22:56:40.0842006] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Bandolier - Bags and Pouches v1dot2-16438-1-2.7z
+[22:56:40.6103164] [DebugWrite] [INSTALL] Bandolier - Dawnguard
+[22:56:40.6103164] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Bandolier - Dawnguard v1-22119-1-0.zip
+[22:56:40.6352506] [DebugWrite] [INSTALL] Bard Instrumentals Only - Sing Upon Request
+[22:56:40.6352506] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Bard Instrumentals Only - Sing Upon Request USKP-58555-1-0.rar
+[22:56:40.6392400] [DebugWrite] [INSTALL] Bathing in Skyrim
+[22:56:40.6392400] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Bathing in Skyrim 1.11-60421-1-11.zip
+[22:56:40.7688933] [DebugWrite] [INSTALL] Beards
+[22:56:40.7688933] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Beards - 1K Resolution-28363-v4-1.rar
+[22:56:40.9105147] [DebugWrite] [INSTALL] Better Animal Footsteps
+[22:56:40.9105147] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Better Animal Footsteps 1.5-24805-1-5.7z
+[22:56:41.0695954] [DebugWrite] [INSTALL] Better College Application
+[22:56:41.0695954] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\College Application - Plugin Version-60061-2.7z
+[22:56:41.0815632] [DebugWrite] [INSTALL] Better Dialogue Controls
+[22:56:41.0815632] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Better Dialogue Controls v1_2-27371-1-2.zip
+[22:56:41.0845556] [DebugWrite] [INSTALL] Better Docks
+[22:56:41.0845556] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Better Docks FOMOD Installer-14087-1-7.rar
+[22:56:41.1503792] [DebugWrite] [INSTALL] Better Horse Pain Sounds
+[22:56:41.1503792] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Better Horse Pain Sounds-12608-1.zip
+[22:56:41.1623471] [DebugWrite] [INSTALL] Better MessageBox Controls
+[22:56:41.1623471] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Better MessageBox Controls v1_2-28170-1-2.zip
+[22:56:41.1643418] [DebugWrite] [INSTALL] Better Stealing
+[22:56:41.1643418] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Better Stealing 1_0-75296-1-0.zip
+[22:56:41.1683312] [DebugWrite] [INSTALL] Better Vampire Fangs and Eyes
+[22:56:41.1683312] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Better Vampire Fangs and Eyes-38829-1-0.zip
+[22:56:41.5009474] [DebugWrite] [INSTALL] Book Covers Skyrim - Lost Library
+[22:56:41.5009474] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Book Covers Skyrim - Lost Library - DESATURATED-57120-1-7.7z
+[22:56:51.2449757] [DebugWrite] [INSTALL] Book Covers Skyrim
+[22:56:51.2449757] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Book Covers Skyrim 3_6 LEGENDARY - Desaturated-35399-3-6.7z
+[22:57:14.0571492] [DebugWrite] [INSTALL] BreezehomeTNF - Hearthfire
+[22:57:14.0581466] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\BHTNFver2-8-31222-2-8.rar
+[22:57:14.0631331] [DebugWrite] [INSTALL] Brigandage
+[22:57:14.0631331] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Brigandage v.4-32706-4.7z
+[22:57:19.1121600] [DebugWrite] [INSTALL] Brows
+[22:57:19.1121600] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Standard Resolution-30411-v3-1.rar
+[22:57:19.2906827] [DebugWrite] [INSTALL] Bug fixes
+[22:57:19.2906827] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Bug Fixes v1-76747-1.zip
+[22:57:19.2946720] [DebugWrite] [INSTALL] Campfire
+[22:57:19.2946720] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Campfire 1.11-64798-1-11.zip
+[22:57:19.5320374] [DebugWrite] [INSTALL] Carriage and Ferry Travel Overhaul - Covered Carriages Addon
+[22:57:19.5320374] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\CFTO - Covered Carriages add-on-68221-.7z
+[22:57:19.5420309] [DebugWrite] [INSTALL] Carriage and Ferry Travel Overhaul
+[22:57:19.5420309] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Carriage and Ferry Travel Overhaul-68221-2-0.7z
+[22:57:19.8970616] [DebugWrite] [INSTALL] Cidhna Mine Expanded (Deluxe)
+[22:57:19.8970616] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Cidhna Mine Expanded - Deluxe Version-59277-1-2.7z
+[22:57:20.2620858] [DebugWrite] [INSTALL] Cloaks of Skyrim
+[22:57:20.2620858] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Cloaks of Skyrim 1-2 -12092-1-2.rar
+[22:57:22.6417340] [DebugWrite] [INSTALL] Clothing and Clutter Fixes 2.0
+[22:57:22.6417340] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Clothing and Clutter Fixes-43053-2-0.zip
+[22:57:26.3049707] [DebugWrite] [INSTALL] ClothingCraft - Darker Flax
+[22:57:26.3049707] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\ClothingCraft - Darker Flax-67176-1-0.7z
+[22:57:26.3289066] [DebugWrite] [INSTALL] ClothingCraft
+[22:57:26.3289066] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\ClothingCraft v1.11 for Immersive Armors-67176-1-11.7z
+[22:57:27.2700115] [DebugWrite] [INSTALL] Cobb Positioner 2.3.2
+[22:57:27.2700115] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Cobb Positioner-74768-2-3-2-1548901538.rar
+[22:57:27.3167808] [DebugWrite] [INSTALL] College of Winterhold Entry Requirements
+[22:57:27.3167808] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\College of Winterhold Entry Requirements 2.4-38448-2-4.zip
+[22:57:27.3227648] [DebugWrite] [INSTALL] Combat Evolved
+[22:57:27.3227648] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Combat Evolved - Modular-56147-2-4b.7z
+[22:57:27.3257569] [DebugWrite] [INSTALL] Complete Crafting Overhaul Remade
+[22:57:27.3257569] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Complete Crafting Overhaul Remade-49791-1-7.7z
+[22:57:27.6728289] [DebugWrite] [INSTALL] ConsoleUtil
+[22:57:27.6728289] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\ConsoleUtil v3-66257-3.zip
+[22:57:27.6778157] [DebugWrite] [INSTALL] Content Addon Reqtified - Complete
+[22:57:27.6778157] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\CAR - Content Addon Reqtified-72562-1-0b2.7z
+[22:57:27.6828025] [DebugWrite] [INSTALL] Covered Carriages (SMIM Version)
+[22:57:27.6828025] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Covered Carriages - SMIM Version-37084-v2-5.7z
+[22:57:27.7346637] [DebugWrite] [INSTALL] Craft-able Bottled Water for Requiem
+[22:57:27.7346637] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Requiem - Craft-able Bottled Water-90452-1-0-0-0.rar
+[22:57:27.7386530] [DebugWrite] [INSTALL] Craftable Hearthfire Planters
+[22:57:27.7386530] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Craftable planters 1.1-73449-1-1.7z
+[22:57:27.7645838] [DebugWrite] [INSTALL] Craftable Horse Barding
+[22:57:27.7645838] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Craftable Horse Barding-64069-3-4.7z
+[22:57:30.2818741] [DebugWrite] [INSTALL] Crafting Overhaul Reqtified 2.1b3
+[22:57:30.2828715] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\COR - Crafting Overhaul Reqtified-61569-2-1b3.7z
+[22:57:30.3337356] [DebugWrite] [INSTALL] Crash Fixes v12 - Beta
+[22:57:30.3337356] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Crash Fixes v12 - Beta 4-72725-12.zip
+[22:57:30.3427117] [DebugWrite] [INSTALL] Customizable Camera 2.11
+[22:57:30.3427117] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Customizable Camera 2.11-37347-2-11.zip
+[22:57:30.3486955] [DebugWrite] [INSTALL] Cutting Room Floor 2.0.9
+[22:57:30.3486955] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Cutting Room Floor-47327-2-0-9-1557701310.7z
+[22:57:30.6912936] [DebugWrite] [INSTALL] Dark Brotherhood Reborn - Dawnstar Sanctuary
+[22:57:30.6912936] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Dark Brotherhood Reborn - Dawnstar Sanctuary-20700-1-0-7.zip
+[22:57:31.5210860] [DebugWrite] [INSTALL] Dawn of Skyrim (Original Collection) - 1.3 Update
+[22:57:31.5210860] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Upgrade to 1.3-58275-1-3.zip
+[22:57:31.5290646] [DebugWrite] [INSTALL] Dawn of Skyrim (Original Collection)
+[22:57:31.5290646] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Dawn of Skyrim Collection 1.2-58275-1-2.zip
+[22:57:32.4326489] [DebugWrite] [INSTALL] Dawnguard Rewritten - Arvak
+[22:57:32.4326489] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Dawnguard Rewritten - Arvak-24019-1-1-1.7z
+[22:57:33.9401333] [DebugWrite] [INSTALL] Dead Body Collision Fix
+[22:57:33.9401333] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\With Improved Fireball Spell-30947-v2-4.rar
+[22:57:33.9431255] [DebugWrite] [INSTALL] Detailed Rugs 1.5
+[22:57:33.9431255] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Detailed Rugs v1-5-29608-1-5.rar
+[22:57:34.8177873] [DebugWrite] [INSTALL] Disabled Ranged and Magic KillCams
+[22:57:34.8177873] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Disable Ranged KillCams-18938-1-1.7z
+[22:57:34.8337444] [DebugWrite] [INSTALL] Display Enemy Level
+[22:57:34.8337444] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\DisplayEnemyLevel 1.3.1-90041-1-3-1-1556604377.7z
+[22:57:34.8526937] [DebugWrite] [INSTALL] Dragon Masks Retextured
+[22:57:34.8526937] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Main File -54805-V2.7z
+[22:57:41.0905803] [DebugWrite] [INSTALL] Dragon Priest Mask Journal
+[22:57:41.0905803] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\DragonPriestMaskJournal1-0-14042-1-0.zip
+[22:57:41.1105463] [DebugWrite] [INSTALL] Dragon Stalking Fix
+[22:57:41.1105463] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Dragon Stalking Fix-54274-1-2.7z
+[22:57:41.2003063] [DebugWrite] [INSTALL] Dual Wield Parrying Reimplementation
+[22:57:41.2003063] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Dual_wield_parrying_re_1.9-52979-1-9.zip
+[22:57:41.2032984] [DebugWrite] [INSTALL] Dust Effects
+[22:57:41.2032984] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Dust Effects v2.0-44201-2-0.7z
+[22:57:41.2152664] [DebugWrite] [INSTALL] DVA Dynamic Vampire Appearance
+[22:57:41.2152664] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\DVA Dynamic Vampire Appearance-41634-1-1.zip
+[22:57:42.5990720] [DebugWrite] [INSTALL] Dynamic Immersive Seriously Dark Dungeons 2.91
+[22:57:42.5990720] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Dungeon Darkness v2.9.1-72594-2-9-1-1555210932.7z
+[22:57:43.2508430] [DebugWrite] [INSTALL] Dynamic Things - Enhanced
+[22:57:43.2508430] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Dynamic Things - Enhanced v1.7-54116-1-7.7z
+[22:57:43.2747799] [DebugWrite] [INSTALL] Dynamic Things
+[22:57:43.2747799] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Dynamic Things-32448-1-40.rar
+[22:57:43.3346201] [DebugWrite] [INSTALL] Easy Wheelmenu
+[22:57:43.3346201] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Easy Wheel Menu-69878-4-2.7z
+[22:57:43.3435960] [DebugWrite] [INSTALL] Enchantment Reload Fix
+[22:57:43.3435960] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Enchantment Reload Fix-52717-1-2.7z
+[22:57:43.3505781] [DebugWrite] [INSTALL] Enhanced Camera
+[22:57:43.3505781] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Enhanced Camera 1.4-57859-1-4.zip
+[22:57:43.3575586] [DebugWrite] [INSTALL] Enhanced Skyrim Factions - The Companions Guild
+[22:57:43.3575586] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\ESFCompanions FULL VERSION-22650-0-3-8.7z
+[22:57:43.8108519] [DebugWrite] [INSTALL] Even Better Quest Objectives 1.7
+[22:57:43.8108519] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Even Better Quest Objectives v1.7-32695-1-7-1544641942.7z
+[22:57:43.9614492] [DebugWrite] [INSTALL] Exchange currency
+[22:57:43.9614492] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Exchange currency-67504-3-01.zip
+[22:57:44.1220199] [DebugWrite] [INSTALL] Expanded Towns and Cities Complete 14.3.1
+[22:57:44.1220199] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\00. ETaC Old v14.3.1 Complete-13608-14-3-1.7z
+[22:57:56.2671668] [DebugWrite] [INSTALL] Faction Crossbows
+[22:57:56.2671668] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\A. Faction Crossbows 2K-58704-1-03.7z
+[22:57:59.5184942] [DebugWrite] [INSTALL] Fences of Skyrim
+[22:57:59.5184942] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Fences of Skyrim-58980-2-0.zip
+[22:57:59.5374435] [DebugWrite] [INSTALL] FileAccess Interface for Skyrim Script - FISS
+[22:57:59.5374435] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\FileAccess Interface for Skyrim Scripts - FISS-48265-1-21.7z
+[22:57:59.5544143] [DebugWrite] [INSTALL] Fishing In Skyrim
+[22:57:59.5544143] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Fishing In Skyrim-16139-1-00.7z
+[22:58:00.0111957] [DebugWrite] [INSTALL] FNIS PCEA2 - Player Exclusive Animations (dynamic)
+[22:58:00.0111957] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\FNIS PCEA2 1.3-71055-1-3.7z
+[22:58:00.4784512] [DebugWrite] [INSTALL] Follower Potions 2.00.02
+[22:58:00.4784512] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Follower Potions-78982-2-00-02.7z
+[22:58:00.6160927] [DebugWrite] [INSTALL] Follower Trap Safety
+[22:58:00.6160927] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Follower Trap Safety v1_3-11609-1-3.zip
+[22:58:00.6200821] [DebugWrite] [INSTALL] Footprints
+[22:58:00.6200821] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Footprints v1_00 - Legendary-22745-1-00.7z
+[22:58:01.1930554] [DebugWrite] [INSTALL] Fores New Idles in Skyrim 7.4.5
+[22:58:01.1940526] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\FNIS Behavior 7_4_5-11811-7-4-5.7z
+[22:58:01.5491033] [DebugWrite] [INSTALL] Frostfall 3.4 Release
+[22:58:01.5491033] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Frostfall 3.4.1 Release-11163-3-4-1.zip
+[22:58:01.6528262] [DebugWrite] [INSTALL] Fuz Ro Doh 6.1
+[22:58:01.6528262] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Fuz Ro Doh 61-14884-6-1.7z
+[22:58:01.6727727] [DebugWrite] [INSTALL] Gamepad Plus Plus
+[22:58:01.6727727] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\GamepadPlusPlus_LE-98375-1-1-1564179703.7z
+[22:58:01.6897274] [DebugWrite] [INSTALL] Gemling Queen Jewelry
+[22:58:01.6897274] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Gemling Queen Jewelry - All In One Installer v4-1c-52266-4-1c.7z
+[22:58:02.6990483] [DebugWrite] [INSTALL] GIST - Genuinely Intelligent Soul Trap
+[22:58:02.6990483] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\GIST Soul Trap-89971-1-2.zip
+[22:58:02.7170003] [DebugWrite] [INSTALL] Google's Locked City Gates
+[22:58:02.7170003] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Google's Locked City Gates-86539-1-0-1.7z
+[22:58:02.7189950] [DebugWrite] [INSTALL] Grass on Steroids Regular - Vanilla
+[22:58:02.7189950] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\GrassOnSteroids Regular Vanilla-33582-1-3a.zip
+[22:58:02.7219876] [DebugWrite] [INSTALL] Grimy Plugin
+[22:58:02.7219876] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Grimy Plugin-69341-1-14.rar
+[22:58:02.7319605] [DebugWrite] [INSTALL] Guard Dialogue Overhaul
+[22:58:02.7319605] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Guard Dialogue Overhaul-23390-1-4.7z
+[22:58:02.7977843] [DebugWrite] [INSTALL] Guess the Distance - Perceptive Scouting
+[22:58:02.7987822] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Guess the Distance v1_1_3b-30816-1-1-3b.rar
+[22:58:02.8376779] [DebugWrite] [INSTALL] HD Enhanced Terrain
+[22:58:02.8376779] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\HD Enhanced Terrain PRO - Blended Version-29782-PRO.rar
+[22:58:02.8905365] [DebugWrite] [INSTALL] HD Stone Quarry and Clay Deposit for Hearthfire
+[22:58:02.8905365] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\HD Stone Quarry and Clay Deposit 2K-38479-1-0.7z
+[22:58:03.7452607] [DebugWrite] [INSTALL] Heart of the Beast - Werewolf Sound and Texture Overhaul
+[22:58:03.7452607] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Alpha werewolf sounds - Lower volume-13779-1-8.rar
+[22:58:04.0369856] [DebugWrite] [INSTALL] Hearthfire Extended (Legendary)
+[22:58:04.0369856] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Hearthfire Extended - All DLCs (Legendary Edition)-66783-1-0-3.7z
+[22:58:04.2314657] [DebugWrite] [INSTALL] Heavy Armory - aMidianBorn Skyforge Patch
+[22:58:04.2314657] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Heavy Armory - aMidianBorn Skyforge Patch-21120-3-3.7z
+[22:58:04.2554018] [DebugWrite] [INSTALL] Heavy Armory
+[22:58:04.2554018] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Heavy Armory V3.3-21120-3-3.7z
+[22:58:04.8189053] [DebugWrite] [INSTALL] Heljarchen Farm
+[22:58:04.8189053] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Heljarchen Farm - BSA-50992-1-47.zip
+[22:58:05.2876517] [DebugWrite] [INSTALL] Hidden Hideouts of Skyrim - DLC
+[22:58:05.2876517] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Hidden Hideouts of Skyrim - DLC-49723-3-1a.7z
+[22:58:05.3006171] [DebugWrite] [INSTALL] Hidden Hideouts of Skyrim
+[22:58:05.3006171] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Hidden Hideouts of Skyrim - Merged-49723-3-1.7z
+[22:58:05.3794065] [DebugWrite] [INSTALL] High Quality LODs Hi-Res
+[22:58:05.3804038] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\HQLODs - Meshes Hi-Res-4834.7z
+[22:58:07.4399275] [DebugWrite] [INSTALL] Hjerim TNF - Hearthfire
+[22:58:07.4399275] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\HjerimTNF 0-3-44807-0-3.rar
+[22:58:07.5107591] [DebugWrite] [INSTALL] Hold Border Banners
+[22:58:07.5107591] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Hold Border Banners-43493-1-0.rar
+[22:58:07.5247218] [DebugWrite] [INSTALL] Holidays
+[22:58:07.5247218] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Holidays v2_0-64820-2-0.7z
+[22:58:08.8581666] [DebugWrite] [INSTALL] Honed Metal 1.091
+[22:58:08.8581666] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Honed Metal-51024-1-091.7z
+[22:58:09.0481814] [DebugWrite] [INSTALL] Honeyside TNF - Hearthfire
+[22:58:09.0481814] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\HSTNF 1-6-33888-1-6.rar
+[22:58:09.0531681] [DebugWrite] [INSTALL] Horses Revamped - Animations
+[22:58:09.0531681] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Horses Revamped - Animations-70640-1-0.7z
+[22:58:09.0611466] [DebugWrite] [INSTALL] House of Horrors Alternate Ending
+[22:58:09.0611466] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\HouseOfHorrorsAlternateEnding-21700-1-00.zip
+[22:58:09.0641387] [DebugWrite] [INSTALL] Hunterborn 1.6
+[22:58:09.0641387] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Hunterborn-33201-1-6-1540444495.7z
+[22:58:11.9305058] [DebugWrite] [INSTALL] Hunterborn SkyTEST Patch
+[22:58:11.9305058] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Hunterborn SkyTEST Patch v1.5-68822-1-5.7z
+[22:58:11.9674071] [DebugWrite] [INSTALL] Hunters Not Bandits 3.1
+[22:58:11.9684045] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Hunters Not Bandits for RDO-79258-3-1.7z
+[22:58:11.9713966] [DebugWrite] [INSTALL] iEquip 1.1
+[22:58:11.9713966] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\iEquip_LE-97177-1-1-1564120712.7z
+[22:58:12.1219939] [DebugWrite] [INSTALL] Immersive Armors
+[22:58:12.1219939] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Immersive Armors v8-19733-8.7z
+[22:59:00.2092883] [DebugWrite] [INSTALL] Immersive Children 5.0
+[22:59:00.2092883] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Immersive Children 5.0 FOMOD Installer (4th Revision)-83554-5-0.7z
+[22:59:00.2302323] [DebugWrite] [INSTALL] Immersive College of Winterhold 5.3
+[22:59:00.2302323] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Immersive College of Winterhold-36849-V5-3-1547415537.7z
+[22:59:07.8539224] [DebugWrite] [INSTALL] Immersive Compass - iCompass
+[22:59:07.8539224] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\iCompass - Immersive Compass-56992-1-0.rar
+[22:59:07.8589090] [DebugWrite] [INSTALL] Immersive Horses 2K Horse Textures
+[22:59:07.8589090] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Immersive Horses 2K Horse Textures-64067-1-0.7z
+[22:59:10.4494984] [DebugWrite] [INSTALL] Immersive Horses
+[22:59:10.4494984] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Immersive Horses-64067-2-5.7z
+[22:59:11.2603401] [DebugWrite] [INSTALL] Immersive HUD - iHUD
+[22:59:11.2603401] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Immersive HUD - iHUD-3222-3-0-03.rar
+[22:59:11.2633325] [DebugWrite] [INSTALL] Immersive Patrols 2.2.2
+[22:59:11.2633325] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Immersive Patrols-12977-2-2-2-1556497169.7z
+[22:59:12.0966092] [DebugWrite] [INSTALL] Immersive Sounds - Compendium
+[22:59:12.0966092] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Immersive Sounds Compendium 2.0.2-54387-2-0-2.zip
+[22:59:17.0384788] [DebugWrite] [INSTALL] Imperial Mail - Post and Banking Service
+[22:59:17.0384788] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Imperial Mail-63247-2-1-1.7z
+[22:59:17.7002146] [DebugWrite] [INSTALL] Improved Arjestin Font Replacement
+[22:59:17.7002146] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Improved Arjestin Font Replacement-72179-1-00.rar
+[22:59:17.7141778] [DebugWrite] [INSTALL] Improved closefaced helmets
+[22:59:17.7141778] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Improved Closefaced Helmets (Legendary Edition)-15927-1-57.zip
+[22:59:17.9400782] [DebugWrite] [INSTALL] Inconsequential NPCs
+[22:59:17.9400782] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Inconsequential NPCs 1 dot 9e-36334-1-9e.rar
+[22:59:19.0675694] [DebugWrite] [INSTALL] Indistinguishable Vanilla Tree Billboards High Res
+[22:59:19.0675694] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Vanilla Skyrim and Dragonborn billboards High Res 1024-75269-1-4.7z
+[22:59:19.3697615] [DebugWrite] [INSTALL] iNeed - Food, Water and Sleep
+[22:59:19.3697615] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\iNeed v1_602-51473-1-602.7z
+[22:59:19.5567669] [DebugWrite] [INSTALL] Interior and Dungeon Fog Remover
+[22:59:19.5567669] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Fog Mesh Remover-736.zip
+[22:59:19.5896788] [DebugWrite] [INSTALL] iWASM - Immersive Wait And Sleep Menu
+[22:59:19.5896788] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\iWASM V 1-51087-1-0.rar
+[22:59:19.5926708] [DebugWrite] [INSTALL] JaySuS Swords V13C to V13D Update
+[22:59:19.5926708] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\JaySuS Swords V13C to V13D Update-1002-13D.rar
+[22:59:19.8489856] [DebugWrite] [INSTALL] JaySuS Swords
+[22:59:19.8489856] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\JaySuS Swords V13C-1002-13C.rar
+[22:59:22.7592353] [DebugWrite] [INSTALL] JContainers
+[22:59:22.7592353] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\JContainers-49743-3-3-0-RC-3.zip
+[22:59:22.9307869] [DebugWrite] [INSTALL] JS Dragon Claws
+[22:59:22.9307869] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\2k Textures-75377-1-1.rar
+[22:59:26.1541977] [DebugWrite] [INSTALL] Kryptopyr's Fixes Reqtified 2.1b5
+[22:59:26.1541977] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\KFR - Kryptopyr's Fixes Reqtified-61520-2-1b5.7z
+[22:59:26.5650991] [DebugWrite] [INSTALL] LeanWolf's Better-Shaped Weapons - All in One Installer
+[22:59:26.5660965] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\LeanWolfs Better-Shaped Weapons v2.0.09-39870-2-0-09.7z
+[22:59:27.5763956] [DebugWrite] [INSTALL] Less Annoying Merchants
+[22:59:27.5763956] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Less Annoying Merchants v1-58487-1-0.7z
+[22:59:27.6352384] [DebugWrite] [INSTALL] Less Intrusive HUD II - FISS Patch
+[22:59:27.6352384] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Less Intrusive HUD II - FISS Patch -towatot-35154-1.rar
+[22:59:27.6392280] [DebugWrite] [INSTALL] Less Intrusive HUD II
+[22:59:27.6392280] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Less Intrusive Hud - Main files-35154-1-1.rar
+[22:59:27.6511957] [DebugWrite] [INSTALL] Loot and Degradation
+[22:59:27.6511957] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Loot and Degradation v1_31-55677-1-31.7z
+[22:59:27.7848384] [DebugWrite] [INSTALL] Lore-Based Loading Screens
+[22:59:27.7848384] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Lore-Based Loading Screens 1.2-21265-1-2.zip
+[22:59:27.7878305] [DebugWrite] [INSTALL] Memory Blocks Log
+[22:59:27.7878305] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\MemoryBlockLog-50471-1-2.zip
+[22:59:27.7928171] [DebugWrite] [INSTALL] Mfg Console
+[22:59:27.7928171] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\MfgConsole-44596-1-1.zip
+[22:59:27.7988011] [DebugWrite] [INSTALL] Mining Makes Noise - CCO Version
+[22:59:27.7988011] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Mining Makes Noise_CCO Version-31799-2-1.zip
+[22:59:27.8017931] [DebugWrite] [INSTALL] Missives 2.03
+[22:59:27.8017931] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Missives 2.03-85815-2-03-1562184950.rar
+[22:59:27.8197453] [DebugWrite] [INSTALL] Moonlight Tales - Werewolf and Werebear Essentials
+[22:59:27.8197453] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Moonlight Tales - Essentials - Version 2_51-59463-2-51.7z
+[22:59:41.3735903] [DebugWrite] [INSTALL] moreHUD Inventory Edition
+[22:59:41.3735903] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\moreHUD Inventory Edition-93378-1-0-5-1556056485.7z
+[22:59:41.4414084] [DebugWrite] [INSTALL] moreHUD
+[22:59:41.4414084] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\AHZmoreHUD_v2_1_3-51956-2-1-3.7z
+[22:59:41.4753183] [DebugWrite] [INSTALL] Mortal Enemies (Requiem - No Movement)
+[22:59:41.4753183] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Mortal Enemies v1.4 - Requiem - No Movement Tweaks Version-73921-1-4.rar
+[22:59:41.4783100] [DebugWrite] [INSTALL] Nether's Follower Framework 2.4.1
+[22:59:41.4783100] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Nether's Follower Framework LE (FOMOD Installer)-92194-2-4-1-1569058356.zip
+[22:59:41.7705379] [DebugWrite] [INSTALL] Nightingale Hall Restored - Karliah as a Follower
+[22:59:41.7705379] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Nightingale Hall-13632-3-0.zip
+[22:59:41.8214020] [DebugWrite] [INSTALL] No Combat Music
+[22:59:41.8214020] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\No Combat Music V1_2-4548-1-2.7z
+[22:59:41.8233969] [DebugWrite] [INSTALL] No Snow Under The Roof
+[22:59:41.8233969] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\No Snow Under the Roof and 3D snow 2_3-51188-2-3.7z
+[22:59:43.1294201] [DebugWrite] [INSTALL] NVAC - New Vegas Anti Crash
+[22:59:43.1294201] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\NVAC - New Vegas Anti Crash-53635-7-5-1-0.zip
+[22:59:43.1413879] [DebugWrite] [INSTALL] OneTweak
+[22:59:43.1413879] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\OneTweak-40706-2-1-0-2.7z
+[22:59:43.1493666] [DebugWrite] [INSTALL] Osmodius Solitude Texture Pack (Med)
+[22:59:43.1493666] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\OSTP Medium-53879-1-0.rar
+[22:59:44.0793851] [DebugWrite] [INSTALL] Osmodius Solitude Texture Pack - Alternate Wall
+[22:59:44.0793851] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Alternate Wall-53879-1-0.rar
+[22:59:44.4075079] [DebugWrite] [INSTALL] Osmodius Windhelm Texture Pack - Alternate Ground
+[22:59:44.4075079] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Alternate Ground Texture-54322-1-0.rar
+[22:59:44.5680787] [DebugWrite] [INSTALL] Osmodius Windhelm Texture Pack
+[22:59:44.5680787] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\OWTP Regular-54322-1-0.rar
+[22:59:46.5657477] [DebugWrite] [INSTALL] Paper World Map (Texture 2)
+[22:59:46.5657477] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Texture 2-25501-.7z
+[22:59:47.7047028] [DebugWrite] [INSTALL] Paper World Map - Dawnguard
+[22:59:47.7047028] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Dawnguard Addon-25501-.7z
+[22:59:47.7076952] [DebugWrite] [INSTALL] Paper World Map Addons 1.2.2
+[22:59:47.7076952] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Paper World Map Addons-84734-1-2-2.rar
+[22:59:48.1923991] [DebugWrite] [INSTALL] PapyrusUtil - Modders Scripting Utility Functions
+[22:59:48.1923991] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\PapyrusUtil - Scripting Utility Functions-58705-3-3.zip
+[22:59:48.2073590] [DebugWrite] [INSTALL] People are Strangers
+[22:59:48.2073590] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\People are Strangers-56744-1-0.7z
+[22:59:48.2093537] [DebugWrite] [INSTALL] Perseid's Inns and Taverns - Enhanced
+[22:59:48.2093537] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\RealisticRoomRental-Enhanced-25029-1-8-3.7z
+[22:59:48.5175300] [DebugWrite] [INSTALL] Point The Way 1.0.9
+[22:59:48.5175300] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Point The Way-33393-1-0-9-1557702217.7z
+[22:59:48.5584205] [DebugWrite] [INSTALL] Pumping Iron - Dynamic Muscle Growth
+[22:59:48.5584205] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Pumping Iron - Dynamic Muscle Growth v1_0_1-29476-1-0-1.rar
+[22:59:48.5614125] [DebugWrite] [INSTALL] RaceCompatibility with fixes 1.107
+[22:59:48.5614125] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\RaceCompatibility All-in-One NMM installer-24168-1-107.7z
+[22:59:48.6033008] [DebugWrite] [INSTALL] RaceMenu
+[22:59:48.6033008] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\RaceMenu v3-4-5-29624-3-4-5.7z
+[22:59:49.0530984] [DebugWrite] [INSTALL] Real Bows
+[22:59:49.0530984] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Real Bows 1.05-64440-1-05.7z
+[22:59:51.8092639] [DebugWrite] [INSTALL] Real Roads for Skyrim (Dawnguard and Dragonborn)
+[22:59:51.8092639] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Real Roads for Skyrim (Dawnguard and Dragonborn)-55518-1-01.zip
+[22:59:51.8112586] [DebugWrite] [INSTALL] Real Roads for Skyrim
+[22:59:51.8112586] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Real Roads for Skyrim (BSA)-55518-1-01.zip
+[22:59:52.0486240] [DebugWrite] [INSTALL] Realistic Conversations
+[22:59:52.0486240] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Realistic Conversations - longer pause between sentences-80355-2-1.7z
+[22:59:52.0506189] [DebugWrite] [INSTALL] Realistic Humanoid Movement Speed
+[22:59:52.0506189] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Realistic Humanoid Movement Speed 1_03-32229-1-03.rar
+[22:59:52.0526134] [DebugWrite] [INSTALL] Realistic Lighting Overhaul (Interiors Only) 5.0.3
+[22:59:52.0526134] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Realistic Lighting Overhaul v5.0.3 - All-In-One Installer-30450-5-0-3.zip
+[22:59:52.0725602] [DebugWrite] [INSTALL] Realistic Ragdolls and Force
+[22:59:52.0725602] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Realistic Force-601-1-9.rar
+[22:59:52.0964961] [DebugWrite] [INSTALL] Realistic Torches
+[22:59:52.0964961] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Realistic Torches-77924-1-0.zip
+[22:59:52.1144481] [DebugWrite] [INSTALL] Realistic Trading Stocks of Skyrim (with DnD Spellcasting Service)
+[22:59:52.1144481] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Realistic Trading Stocks of Skyrim (with DnD Spellcasting Service)-77680-1-0-1545584906.7z
+[22:59:52.3837282] [DebugWrite] [INSTALL] Realistic Water Two - ENB Textures
+[22:59:52.3837282] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Realistic Water Two - ENB Textures-41076-1-11.7z
+[22:59:55.6335629] [DebugWrite] [INSTALL] Realistic Water Two
+[22:59:55.6335629] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Realistic Water Two v1_11-41076-1-11.7z
+[22:59:58.6600002] [DebugWrite] [INSTALL] Realistic wolf howls
+[22:59:58.6600002] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Realistic Wolf Howls Less barks-30636-1-4.rar
+[22:59:59.0878562] [DebugWrite] [INSTALL] Reflection - Level Up Messages
+[22:59:59.0878562] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Reflection 1_1-25469-1-1.zip
+[22:59:59.0908483] [DebugWrite] [INSTALL] Relationship Dialogue Overhaul 2.0
+[22:59:59.0908483] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Relationship Dialogue Overhaul - RDO v2.0i-74568-2-0.7z
+[22:59:59.6653126] [DebugWrite] [INSTALL] Rent My House - A Landlord Mod
+[22:59:59.6653126] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Rent My House-75073-1-0-1.7z
+[22:59:59.6892485] [DebugWrite] [INSTALL] Requiem - Dragonborn Patch 2.0.x
+[22:59:59.6892485] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Requiem - Dragonborn Patch-78139-2-2-1-1548429055.7z
+[23:00:00.0323313] [DebugWrite] [INSTALL] Requiem - Minor Arcana Reborn
+[23:00:00.0323313] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Requiem - Minor Arcana Reborn 2.68-90983-2-68.7z
+[23:00:02.5311748] [DebugWrite] [INSTALL] Requiem - Undeath Patch
+[23:00:02.5311748] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\NRM Undeath - Requiem Patch-60508-1-0.zip
+[23:00:02.8353617] [DebugWrite] [INSTALL] Requiem - Wyrmstooth Patch
+[23:00:02.8353617] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\NRM Wyrmstooth - Requiem Patch-60508-1-0-3.zip
+[23:00:02.8752559] [DebugWrite] [INSTALL] Requiem 3.0.2
+[23:00:02.8762532] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Requiem 3.0.2 - Consign To Oblivion Bugfix Pack 2-19281-3-0-2-1555097677.7z
+[23:00:31.7203735] [DebugWrite] [INSTALL] Roadsigns Redone
+[23:00:31.7203735] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Roadsigns Redone-33603-1-1.7z
+[23:00:31.9298138] [DebugWrite] [INSTALL] Ruins Clutter Improved 3.1
+[23:00:31.9298138] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Ruins_Clutter_Improved_NMM_v3-1-14227-3-1.rar
+[23:00:37.4570698] [DebugWrite] [INSTALL] Rustic Clothing 3.0
+[23:00:37.4570698] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\RUSTIC CLOTHING - COMPLETE - 2K-69784-3-0.7z
+[23:01:07.7318447] [DebugWrite] [INSTALL] Safety Load
+[23:01:07.7318447] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\SafetyLoad 1_2-46465-1-2.zip
+[23:01:07.7358341] [DebugWrite] [INSTALL] Severin Manor Improvements
+[23:01:07.7358341] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Severin Manor improvements with New Items 1_7_7-31167-1-7-7.7z
+[23:01:07.8874288] [DebugWrite] [INSTALL] SFO Billboards for v2.5b
+[23:01:07.8874288] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\SFO Billboards for v2.5C-141-.7z
+[23:01:08.2863724] [DebugWrite] [INSTALL] Simple Bedrolls and Supplies - for Campfire
+[23:01:08.2863724] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Simple Bedrolls and Supplies-74027-1-0.7z
+[23:01:08.3063186] [DebugWrite] [INSTALL] Simple Taxes
+[23:01:08.3063186] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Simple Taxes 3.5-57239-3-5.7z
+[23:01:08.3113052] [DebugWrite] [INSTALL] Simply Knock
+[23:01:08.3113052] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Simply Knock 1.0.8 Release-73236-1-0-8.zip
+[23:01:08.3294449] [DebugWrite] [INSTALL] Skyrim Flora Overhaul
+[23:01:08.3294449] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Skyrim Flora Overhaul v2.5b-141-2-5b.7z
+[23:01:17.6190077] [DebugWrite] [INSTALL] Skyrim Project Optimization
+[23:01:17.6190077] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Skyrim Project Optimization - No Homes - Full Version-32505-1-6.rar
+[23:01:17.6229970] [DebugWrite] [INSTALL] Skyrim Sewers 4
+[23:01:17.6229970] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Skyrim Sewers 412 Main File-14351-4-12.rar
+[23:01:18.0827792] [DebugWrite] [INSTALL] Skyrim Souls
+[23:01:18.0837768] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\SkyrimSouls - Unpaused Game Menus-83379-V1-0-2-1.7z
+[23:01:18.0977396] [DebugWrite] [INSTALL] SkyTEST - Realistic Animals and Predators 1.65
+[23:01:18.0977396] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\SkyTEST - Realistic Animals and Predators v1_65-10175-1-65.7z
+[23:01:19.4790651] [DebugWrite] [INSTALL] SkyUI
+[23:01:19.4790651] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\SkyUI_5_1-3863-5-1.7z
+[23:01:19.5179611] [DebugWrite] [INSTALL] Sleep Tight
+[23:01:19.5179611] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Sleep Tight v1_04-50954-1-04.7z
+[23:01:19.5508731] [DebugWrite] [INSTALL] Sleep To Gain Experience
+[23:01:19.5508731] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Sleep To Gain Experience-73001-1-2.7z
+[23:01:19.5608464] [DebugWrite] [INSTALL] Smart Cast
+[23:01:19.5608464] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Smart Cast-43123-1-0.7z
+[23:01:19.5847825] [DebugWrite] [INSTALL] Smithing Perks Reqtified
+[23:01:19.5847825] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\SPR - Smithing Perks Reqtified-69587-1-1-1.7z
+[23:01:19.5877750] [DebugWrite] [INSTALL] SnowFall Weathers
+[23:01:19.5877750] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\SnowFall Weathers 1.5-79335-1-5.7z
+[23:01:20.8918031] [DebugWrite] [INSTALL] Sound Hammering Sounds
+[23:01:20.8918031] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Sound Hammering Sounds-80655-1-0.rar
+[23:01:20.8977875] [DebugWrite] [INSTALL] Spell Research 2.1.2
+[23:01:20.8977875] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Spell Research 2.1.2-81214-2-1-2-1558666532.rar
+[23:01:21.7325554] [DebugWrite] [INSTALL] Spellsword - Spell Casting with Weapons
+[23:01:21.7325554] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\Spellsword V1.2.2-81600-1-2-2.7z
+[23:01:21.7584862] [DebugWrite] [INSTALL] Static Mesh Improvement Mod 2.08
+[23:01:21.7584862] [ExtractAll] Extracting: E:\SteamLibrary\steamapps\common\Skyrim\US\Downloads\SMIM 2-08-8655-2-08.7z

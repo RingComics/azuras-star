@@ -1,0 +1,174 @@
+﻿[18:24:07.3418084] [.ctor] 10/01/2020 18:24:07 Automaton/1.3.5.0 (Microsoft Windows NT 10.0.18362.0; x64) .NET Framework 4.8.4075.0
+[18:24:07.3418084] [.ctor] 10/01/2020 18:24:07 Is admin: False
+[18:24:07.3418084] [.ctor] 10/01/2020 18:24:07 Automaton Start
+[18:24:07.4624857] [.ctor] Long path enabled. Continuing.
+[18:24:07.4744537] [.ctor] LineNumber: 0, FilenName: , MethodName: Callout_FoundName
+   at MS.Internal.Xaml.Parser.GenericTypeNameParser.Callout_FoundName(String prefix, String name) Prefix 'materialDesign' does not map to a namespace.
+[18:24:09.7813725] [ChooseModpack] Opening modpack filesystemBrowser
+[18:24:12.3261264] [LoadModpack] Modpack loaded
+[18:24:26.7793065] [Initialize] Initializing API base
+[18:24:26.7803040] [Initialize] Apikey empty
+[18:24:30.0600609] [Initialize] Key captured
+[18:24:30.2794740] [Initialize] User premium status: True
+[18:24:30.2794740] [Initialize] User is logged in
+[18:24:33.0296379] [GetMissingMods] Missing mod count: 40
+[18:24:36.3278698] [QueueController] Detected new item to add to queue modname SV Mods Menu - Merged MD5 of d91ee7b5a9f48b6739de86caa78de928
+[18:24:36.3298644] [DownloadFile] Downloading file: SV Mods Menu - Merged-86109-1-2-0.zip
+[18:24:36.3308617] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:24:36.7956296] [DownloadFile] Download complete
+[18:24:36.9292722] [QueueController] Detected new item to add to queue modname Take Notes - Journal of the Dragonborn MD5 of c8c51855cbfb51aa816a4811dd46dd90
+[18:24:36.9292722] [DownloadFile] Downloading file: Take Notes - Journal of the Dragonborn-48375-1-52.7z
+[18:24:36.9292722] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:24:37.2958200] [DownloadFile] Download complete
+[18:24:37.5306965] [QueueController] Detected new item to add to queue modname Tavern Games MD5 of 6e9f7d6df3a2956ea150f8711f345244
+[18:24:37.5306965] [DownloadFile] Downloading file: Tavern Games - Mini Games in Skyrim 1.4-68553-1-4.rar
+[18:24:37.5306965] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:24:38.2418059] [DownloadFile] Download complete
+[18:24:38.4312991] [QueueController] Detected new item to add to queue modname TavernAIFix 1.1c MD5 of f00c35225a627529e1eb825535659427
+[18:24:38.4312991] [DownloadFile] Downloading file: TavernAIFix-76623-1-1c-1576937020.7z
+[18:24:38.4312991] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:24:38.5464959] [DownloadFile] Download complete
+[18:24:38.7320001] [QueueController] Detected new item to add to queue modname The Choice is Yours MD5 of 43a8c52c4d6b3977e153c0f673a17cab
+[18:24:38.7320001] [DownloadFile] Downloading file: The Choice is Yours-26359-2-0.zip
+[18:24:38.7320001] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:24:38.9603893] [DownloadFile] Download complete
+[18:24:39.0321974] [QueueController] Detected new item to add to queue modname The Paarthurnax Dilemma 1.2.9 MD5 of 9c274e442c85fa23e0dfad20289d135d
+[18:24:39.0321974] [DownloadFile] Downloading file: The Paarthurnax Dilemma-18465-1-2-9-1557702554.7z
+[18:24:39.0321974] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:24:39.2017439] [DownloadFile] Download complete
+[18:24:39.3323945] [QueueController] Detected new item to add to queue modname Thieves Guild Requirements MD5 of f3294c29e80379a4f222a3b2b275460e
+[18:24:39.3323945] [DownloadFile] Downloading file: Thieves Guild Requirements-14157-3-0.7z
+[18:24:39.3323945] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:24:39.5547998] [DownloadFile] Download complete
+[18:24:39.6325918] [QueueController] Detected new item to add to queue modname Trade and Barter (Hearthfire) MD5 of 4c02925b47b86661cbe6b6e83cc18a7c
+[18:24:39.6325918] [DownloadFile] Downloading file: Trade And Barter - Hearthfire-34612-1-2.zip
+[18:24:39.6325918] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:24:39.7298362] [DownloadFile] Download complete
+[18:24:39.9332923] [QueueController] Detected new item to add to queue modname Trade Routes MD5 of 5a93cde6f7d045d89fda557df67e99f5
+[18:24:39.9332923] [DownloadFile] Downloading file: Trade Routes v2-0-49369-2-0.7z
+[18:24:39.9332923] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:24:40.1317615] [DownloadFile] Download complete
+[18:24:40.2334895] [QueueController] Detected new item to add to queue modname Train and Study MD5 of 10d141c96d64278ff0b451ad4e18c701
+[18:24:40.2334895] [DownloadFile] Downloading file: Train and Study 1.0 - Legendary Version-83432-1-0.rar
+[18:24:40.2334895] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:24:40.3461884] [DownloadFile] Download complete
+[18:24:40.5336868] [QueueController] Detected new item to add to queue modname Traps Make Noise 2.3 MD5 of a09e82620202578bf8391c1b21594a01
+[18:24:40.5336868] [DownloadFile] Downloading file: Traps Make Noise (and are Dangerous)-31799-2-3.zip
+[18:24:40.5336868] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:24:40.6473829] [DownloadFile] Download complete
+[18:24:40.8338840] [QueueController] Detected new item to add to queue modname True Storms - Thunder and Rain Redone v1.5 MD5 of d35c4a16748835551224235bb3cf29d2
+[18:24:40.8338840] [DownloadFile] Downloading file: True Storms - Thunder and Rain Redone-63478-1-5.rar
+[18:24:40.8338840] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:24:44.8895899] [DownloadFile] Download complete
+[18:24:45.0371950] [QueueController] Detected new item to add to queue modname UIExtensions MD5 of 4e8bf26e1f016c180e596e2b56ba05dd
+[18:24:45.0371950] [DownloadFile] Downloading file: UIExtensions v1-2-0-57046-1-2-0.7z
+[18:24:45.0371950] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:24:45.2127258] [DownloadFile] Download complete
+[18:24:45.3374034] [QueueController] Detected new item to add to queue modname Undeath Immersive Lichdom V3.5 MD5 of f98b3f20d73fa5bc7d648419b12cd68a
+[18:24:45.3374034] [DownloadFile] Downloading file: Undeath Immersive Lichdom V3.5-60783-V3-5.7z
+[18:24:45.3374034] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:24:46.6040378] [DownloadFile] Download complete
+[18:24:46.8384112] [QueueController] Detected new item to add to queue modname Undeath MD5 of c1ffc8b31dee05fa035f833743dc26d0
+[18:24:46.8384112] [DownloadFile] Downloading file: Skyrim - Undeath 1-3-40607-1-3.rar
+[18:24:46.8384112] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:25:00.7034605] [DownloadFile] Download complete
+[18:25:00.9507991] [QueueController] Detected new item to add to queue modname Underwater Treasure MD5 of c567246ecc74803b0ecd4a8aaaa2f624
+[18:25:00.9507991] [DownloadFile] Downloading file: Underwater Treasure v4-33994-4.rar
+[18:25:00.9507991] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:25:01.0684844] [DownloadFile] Download complete
+[18:25:01.2509964] [QueueController] Detected new item to add to queue modname Unlimited Bookshelves MD5 of 99b3dbae33bfad76f061b7caed70fc40
+[18:25:01.2509964] [DownloadFile] Downloading file: Unlimited Bookshelves 2.2-10891-2-2.rar
+[18:25:01.2509964] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:25:01.3417539] [DownloadFile] Download complete
+[18:25:01.5511936] [QueueController] Detected new item to add to queue modname Unmasked Faces - no green detailmaps for complexion and necks - MD5 of c2d1038f19850f52d02c508ab99bba37
+[18:25:01.5511936] [DownloadFile] Downloading file: Unmasked Faces-76607-1-1.7z
+[18:25:01.5511936] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:25:01.8110039] [DownloadFile] Download complete
+[18:25:01.8518943] [QueueController] Detected new item to add to queue modname Unofficial Skyrim Legendary Edition Patch 3.0.15 MD5 of 7197dd6355240bdae014cf84db52551d
+[18:25:01.8518943] [DownloadFile] Downloading file: Unofficial Skyrim Legendary Edition Patch-71214-3-0-15-1569437811.7z
+[18:25:01.8518943] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:25:27.6764952] [DownloadFile] Download complete
+[18:25:27.9717052] [QueueController] Detected new item to add to queue modname Vivid Landscapes - Dungeons and Ruins - SMIM Patch MD5 of c33803d3dc09e819d9a168dceaabcb52
+[18:25:27.9717052] [DownloadFile] Downloading file: SMIM Compatibility patch-39874-2-0.7z
+[18:25:27.9717052] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:25:29.5749463] [DownloadFile] Download complete
+[18:25:29.7734154] [QueueController] Detected new item to add to queue modname Vivid Landscapes - Dungeons and Ruins MD5 of f6c9a8b81139d76b0da0764f7b41e957
+[18:25:29.7734154] [DownloadFile] Downloading file: Vivid Landscapes - Dungeons and Ruins - for ENB - 2048-39874-2-6.7z
+[18:25:29.7734154] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:25:56.3246084] [DownloadFile] Download complete
+[18:25:56.5001391] [QueueController] Detected new item to add to queue modname Vivid Landscapes - Rocking Stones and Mountains Parallax (brown) MD5 of 3888ed5e8225e3fabf8c8daf86c7052a
+[18:25:56.5001391] [DownloadFile] Downloading file: Rocking Stones Parallax for ENB - 2k BROWNISH-38004-5-2.7z
+[18:25:56.5001391] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:25:58.2818894] [DownloadFile] Download complete
+[18:25:58.3018360] [QueueController] Detected new item to add to queue modname Vivid Landscapes - Rocking Stones and Mountains Parallax Update MD5 of 0562aa4856165bc8e05db09d2614a49e
+[18:25:58.3018360] [DownloadFile] Downloading file: Rocking Stones Parallax for ENB - Update for all types-38004-5-3.7z
+[18:25:58.3018360] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:25:58.6917934] [DownloadFile] Download complete
+[18:25:58.9022304] [QueueController] Detected new item to add to queue modname Vivid Weathers MD5 of 036e86e893a12e214daa5741bfc39ee2
+[18:25:58.9022304] [DownloadFile] Downloading file: Vivid Weathers-73937-1-56.zip
+[18:25:58.9022304] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:26:55.5231561] [DownloadFile] Download complete
+[18:26:55.6518117] [QueueController] Detected new item to add to queue modname Vlindrel Hall TNF - Hearthfire MD5 of b98bc5243c9602888c7991299bbc6dd8
+[18:26:55.6518117] [DownloadFile] Downloading file: VHTNF1-5-35278-1-5.rar
+[18:26:55.6518117] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:26:55.7694973] [DownloadFile] Download complete
+[18:26:55.9525128] [QueueController] Detected new item to add to queue modname Weapons and Armor Fixes Remade 5.3 MD5 of 81bdd4cd2e9b91ba4d2d371bd5c74a66
+[18:26:55.9525128] [DownloadFile] Downloading file: Weapons and Armor Fixes Remade-34093-5-3.zip
+[18:26:55.9525128] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:27:01.5246465] [DownloadFile] Download complete
+[18:27:01.6572982] [QueueController] Detected new item to add to queue modname Wearable Lanterns MD5 of 5771707ad003f99b4fe35acf769fd54b
+[18:27:01.6572982] [DownloadFile] Downloading file: Wearable Lanterns 4.0.2 Release-17416-4-0-2.zip
+[18:27:01.6572982] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:27:02.1011148] [DownloadFile] Download complete
+[18:27:02.2576965] [QueueController] Detected new item to add to queue modname Werewolf Nighteye Toggle MD5 of 4a546ff040b691a558bedff851f5e4a1
+[18:27:02.2576965] [DownloadFile] Downloading file: Werewolf Nighteye Toggle-37824-1-0.zip
+[18:27:02.2576965] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:27:02.4441974] [DownloadFile] Download complete
+[18:27:02.5578935] [QueueController] Detected new item to add to queue modname Wet and Cold MD5 of 697ea19b83736886bdc4d91e77f8f0ba
+[18:27:02.5578935] [DownloadFile] Downloading file: Wet and Cold v2_02-27563-.7z
+[18:27:02.5578935] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:27:09.2400660] [DownloadFile] Download complete
+[18:27:09.4649692] [QueueController] Detected new item to add to queue modname Windhelm - Legendary Kings MD5 of 76af05c0785d729ffb68e1c8f6b6222f
+[18:27:09.4649692] [DownloadFile] Downloading file: WindhelmLegendaryKings-54314-1-0.7z
+[18:27:09.4649692] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:27:10.0279692] [DownloadFile] Download complete
+[18:27:10.0658682] [QueueController] Detected new item to add to queue modname Windhelm Bridge Overhaul - Minus Guard Area WITH Tents MD5 of 412c684a0f5fbe5df0a7b1331e518505
+[18:27:10.0658682] [DownloadFile] Downloading file: Windhelm Bridge Overhaul v2 - Minus Guard Area WITH Tent Roof-50243-2-0.rar
+[18:27:10.0658682] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:27:10.4234182] [DownloadFile] Download complete
+[18:27:10.6667674] [QueueController] Detected new item to add to queue modname Windhelm Exterior Altered MD5 of 12a595f58b6cb18f2d228ce1b7264408
+[18:27:10.6667674] [DownloadFile] Downloading file: Windhelm Exterior Altered 2.0-50977-2-0.rar
+[18:27:10.6667674] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:27:11.1125752] [DownloadFile] Download complete
+[18:27:11.2671618] [QueueController] Detected new item to add to queue modname Winter Is Coming - Cloaks MD5 of 225329b52444312a3db8f4f54e52d5a0
+[18:27:11.2671618] [DownloadFile] Downloading file: WIC Cloaks NMM 2_4-13486-2-4.7z
+[18:27:11.2671618] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:27:19.8168683] [DownloadFile] Download complete
+[18:27:19.9754442] [QueueController] Detected new item to add to queue modname Wiseman303's Critter Fixes MD5 of c5691c22dfcea614ef562b307f3fd4d7
+[18:27:19.9754442] [DownloadFile] Downloading file: WM Critter Fixes v1_06-54485-1-06.7z
+[18:27:19.9754442] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:27:20.2078340] [DownloadFile] Download complete
+[18:27:20.2756524] [QueueController] Detected new item to add to queue modname Wiseman303's Flora Fixes SMIM Patch MD5 of af20ac72ad52d637294b50d958ceb94d
+[18:27:20.2756524] [DownloadFile] Downloading file: WM Flora Fixes SMIM Patch-70656-2-0.7z
+[18:27:20.2756524] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:27:20.4122872] [DownloadFile] Download complete
+[18:27:20.5758497] [QueueController] Detected new item to add to queue modname Wiseman303's Flora Fixes MD5 of 907e292777870305146648138c7699f9
+[18:27:20.5758497] [DownloadFile] Downloading file: WM Flora Fixes-70656-2-01.7z
+[18:27:20.5758497] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:27:20.9483584] [DownloadFile] Download complete
+[18:27:21.1767477] [QueueController] Detected new item to add to queue modname Wonders of Weather MD5 of aeb589a317b460c6d17de6c868a0076d
+[18:27:21.1767477] [DownloadFile] Downloading file: Wonders of Weather v1_01-64941-1-01.7z
+[18:27:21.1767477] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:27:21.8270089] [DownloadFile] Download complete
+[18:27:22.0773394] [QueueController] Detected new item to add to queue modname Wyrmstooth - Tweaks and Enhancements MD5 of 32d0e8be399edde3086a2e8985237d7b
+[18:27:22.0773394] [DownloadFile] Downloading file: Wyrmstooth - Tweaks and Enhancements-69501-1-6.7z
+[18:27:22.0773394] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:27:29.3095347] [DownloadFile] Download complete
+[18:27:29.5853110] [QueueController] Detected new item to add to queue modname XP32 Maximum Skeleton Extended 4.51 MD5 of c96eb587f595d6a97956b297679c8cb7
+[18:27:29.5853110] [DownloadFile] Downloading file: XP32 Maximum Skeleton Extended-68000-4-51.7z
+[18:27:29.5853110] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:27:29.9967162] [DownloadFile] Download complete
+[18:27:30.1862094] [QueueController] Detected new item to add to queue modname Mod Organizer 2 MD5 of 5f684aeba934f84adc59c28ea7496fec
+[18:27:30.1862094] [DownloadFile] Downloading file: Mod Organizer 2 (Archive)-6194-2-2-1-1564685345.7z
+[18:27:30.1862094] [GenerateModDownloadLinkAsync] GenerateModDownloadLink()
+[18:27:40.6936959] [DownloadFile] Download complete

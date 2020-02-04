@@ -1,0 +1,6 @@
+﻿[23:21:42.0525407] [.ctor] 11/01/2020 23:21:42 Automaton/1.3.5.0 (Microsoft Windows NT 10.0.18362.0; x64) .NET Framework 4.8.4075.0
+[23:21:42.0525407] [.ctor] 11/01/2020 23:21:42 Is admin: False
+[23:21:42.0525407] [.ctor] 11/01/2020 23:21:42 Automaton Start
+[23:21:42.1672339] [.ctor] Long path enabled. Continuing.
+[23:21:42.1782047] [.ctor] LineNumber: 0, FilenName: , MethodName: Callout_FoundName
+   at MS.Internal.Xaml.Parser.GenericTypeNameParser.Callout_FoundName(String prefix, String name) Prefix 'materialDesign' does not map to a namespace.
