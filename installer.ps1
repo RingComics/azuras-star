@@ -1,29 +1,12 @@
 ﻿Using module .\src\PS\AzurasStar.psm1
 Using module .\src\PS\Skyrim.psm1
-
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.IO.Compression.FileSystem #Zip Compression
-
-# Add helpers
 Import-Module .\src\PS\PSUtils.psm1
 
-$azurasStar = New-Object -TypeName AzurasStar
-
+$azurasStar = [AzurasStar]::new()
 $skyrim = [Skyrim]::new([Windows.Forms.MessageBox])
 $skyrim.setInstallationPath()
-
-#Check prerequisites
-#Is 64-Bit Java installed?
-if(Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Where-Object DisplayName -like "Java*") {
-    if(Test-Path "$env:ProgramFiles\Java") {
-        $javaInstalled = $true
-    } else {
-        $javaInstalled = $false
-        [Windows.Forms.MessageBox]::Show("Java 32-bit is installed, but not Java 64-Bit. Please click 'Install Java' to install it and then restart the program.", "Ultimate Skyrim Install", [Windows.Forms.MessageBoxButtons]::OK, [Windows.Forms.MessageBoxIcon]::Error)
-    }
-} else {
-    $javaInstalled = $false
-}
 
 #Is 7-Zip installed?
 if(Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Where-Object DisplayName -like "7-Zip*") {
@@ -37,7 +20,7 @@ if(Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* 
 $configForm = New-Object System.Windows.Forms.Form
 $configForm.Width = 820
 $configForm.Height = 665
-$configForm.Text = "Azura's Star"
+$configForm.Text = [AzurasStar]::Name
 $configForm.MaximizeBox = $false
 $configForm.MinimizeBox = $false
 $configForm.FormBorderStyle = 'Fixed3D'
@@ -63,7 +46,7 @@ $configFormPreReqsLabel.Anchor + "Left,Top"
 $configForm.Controls.Add($configFormPreReqsLabel)
 
 $configFormPreReqsJava = New-Object System.Windows.Forms.Button
-switch($javaInstalled) {
+switch($azurasStar.testJava() -eq $true) {
     $true{
         $configFormPreReqsJava.Text = "Java Installed"
         $configFormPreReqsJava.Enabled = $false
@@ -118,7 +101,7 @@ $configFormPreReqsSkyrim.ADD_CLICK({
     Wait-Process -Name SkyrimLauncher -ErrorAction SilentlyContinue
     Start-Sleep -Seconds 5
     Wait-Process -Name TESV -ErrorAction SilentlyContinue
-    if($javaInstalled -and $7ZipInstalled) {
+    if($azurasStar.testJava() -eq $true -and $7ZipInstalled) {
         $configFormPreReqsPreinstall.Enabled = $true
         output("You may now run the Preinstall")
 
