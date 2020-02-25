@@ -1,6 +1,6 @@
-﻿Using module .\src\PS\AzurasStar.psm1
-Using module .\src\PS\Skyrim.psm1
-Using module .\src\PS\User.psm1
+Using module .\PS\AzurasStar.psm1
+Using module .\PS\Skyrim.psm1
+Using module .\PS\User.psm1
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.IO.Compression.FileSystem #Zip Compression
 Import-Module .\src\PS\PSUtils.psm1

@@ -35,7 +35,7 @@ To speed up development on a secondary run, it is worth making a copy of any fil
 
 - Create an archive called `AzurasStar-[release].zip`
 - Copy `src`, `License.md` and `README.md` into the archive (including the `src` folder)
-- Create a new .exe using [this tool](https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5). Build with: "-noConsole", "-noOutput", "-noError" and "-requireAdmin".
+- Create a new .exe from `AzurasStar.ps1` using [this tool](https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5). Build with: "-noConsole", "-noOutput", "-noError" and "-requireAdmin".
 - Create a release on GitHub
 
 
