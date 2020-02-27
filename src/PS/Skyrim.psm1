@@ -19,15 +19,15 @@ class Skyrim {
         )
     }
 
-    setInstallationPath() {
-        $paths = [Skyrim]::getSkyrimInstalledPaths()
+    setInstallationPath($paths, $autoDetected) {
         # If there are multiple versions of Skyrim in the registry, let the user pick the correct one
         if($paths -eq $null) {
-            $this.MessageBox::Show("Could not automatically detect a Skyrim install, please enter manually", "Azura's Star Install");
-            $this.installPath = $this.enterInstallPathManually()
+            $this.MessageBox::Show("Could not automatically detect a valid Skyrim install, please enter one manually", "Azura's Star Install");
+            $this.setInstallationPath($this.enterInstallPathManually(), $false)
         } elseif($paths -is [string]) {
             $this.installPath = $paths
         } else {
+            $this.multipleInstalls = $true
             $this.installPath = $this.getPathFromList($paths)
         }
 
@@ -35,13 +35,16 @@ class Skyrim {
         if(![Skyrim]::validSkyrimInstall($this.installPath) -and $this.multipleInstalls) {
             $dialogResult = $this.MessageBox::Show("The selected path is not valid, it must contain a TESV.exe and NOT be in Program Files. Select yes to pick again or no to enter manually", "Ultimate Skyrim Install", "YesNo");
             if($dialogResult -eq "Yes") {
-                $this.setInstallationPath()
+                $this.setInstallationPath($paths, $autoDetected)
             } else {
-                $this.enterInstallPathManually()
+                $this.setInstallationPath($this.enterInstallPathManually(), $false)
             }
+        } elseif(![Skyrim]::validSkyrimInstall($this.installPath) -and $autoDetected -eq $true) {
+            $this.MessageBox::Show("Could not automatically detect a valid Skyrim install, please enter one manually", "Azura's Star Install");
+            $this.setInstallationPath($this.enterInstallPathManually(), $false)
         } elseif(![Skyrim]::validSkyrimInstall($this.installPath)) {
             $this.MessageBox::Show("Not a valid Skyrim LE install path, please ensure you select the root skyrim folder that contains a TESV.exe", "Azura's Star Install");
-            $this.enterInstallPathManually()
+            $this.setInstallationPath($this.enterInstallPathManually(), $false)
         }
     }
 
@@ -81,7 +84,6 @@ class Skyrim {
     [String]
     getPathFromList($paths) {
         $localInstallPath = ""
-        $this.multipleInstalls = $true
 
         $Form = New-Object System.Windows.Forms.Form
         $Form.Icon = [AzurasStar]::Icon

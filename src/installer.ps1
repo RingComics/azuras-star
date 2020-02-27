@@ -7,7 +7,7 @@ Import-Module .\src\PS\PSUtils.psm1
 
 $AzurasStar = [AzurasStar]::new()
 $Skyrim = [Skyrim]::new([Windows.Forms.MessageBox])
-$Skyrim.setInstallationPath()
+$Skyrim.setInstallationPath([Skyrim]::getSkyrimInstalledPaths(), $true)
 $CurrentUser = [User]::new()
 
 #Configure and install prereqs
@@ -142,6 +142,7 @@ $configFormPreReqsPreinstall.ADD_CLICK({
     $confirmAPIKey.Left = 97.5
     $confirmAPIKey.ADD_CLICK({
         $global:apiKey = $getAPIKey.Text
+        output("Got Nexus API key")
         $configFormGetAPIKey.Close()
     })
     $configFormGetAPIKey.Controls.Add($confirmAPIKey)
@@ -185,7 +186,7 @@ $configFormPreReqsPreinstall.ADD_CLICK({
 
     if(!(Test-Path "$($Skyrim.installPath)\skse_loader.exe")) {
         output("Installing SKSE...")
-        & "$env:ProgramFiles\7-Zip\7z.exe" "x" "`"$([AzurasStar]::installerDownloads)\SKSE_install.7z`"" "-o`"$([AzurasStar]::installerDownloads)`"" > $null
+        & "$env:ProgramFiles\7-Zip\7z.exe" "x" "`"$([AzurasStar]::installerDownloads)\SKSE_install.7z`"" "-aoa" "-o`"$([AzurasStar]::installerDownloads)`"" > $null
         Get-ChildItem -Path "$([AzurasStar]::installerDownloads)\skse_1_07_03" | Copy-Item -Destination $Skyrim.installPath -Recurse -Container -Force
         output("Installed SKSE")
     } else {
@@ -198,7 +199,7 @@ $configFormPreReqsPreinstall.ADD_CLICK({
         [System.IO.Compression.ZipFile]::ExtractToDirectory($SKSEzip.FullName, $Skyrim.installPath)
         output("Installed SKSE preloader")
     } else {
-        output("SKSE already installed")
+        output("SKSE preloader already installed")
     }
 
     if(!(Test-Path -Path "$([AzurasStar]::installerDownloads)\TES5Edit.7z")) {
@@ -212,7 +213,7 @@ $configFormPreReqsPreinstall.ADD_CLICK({
 
     if(!(Test-Path -Path "$($Skyrim.installPath)\US\Utilities\TES5Edit.exe")) {
         output("Extracting TES5Edit...")
-        & "$env:ProgramFiles\7-Zip\7z.exe" "x" "$([AzurasStar]::installerDownloads)/TES5Edit.7z" "-o$($Skyrim.installPath)\US\Utilities" > $null
+        & "$env:ProgramFiles\7-Zip\7z.exe" "x" "$([AzurasStar]::installerDownloads)/TES5Edit.7z" "-aoa" "-o$($Skyrim.installPath)\US\Utilities" > $null
         Remove-Item "$([AzurasStar]::installerDownloads)\TES5Edit.7z"
         output("Extracted TES5Edit")
     } else {
@@ -242,6 +243,7 @@ $configFormPreReqsPreinstall.ADD_CLICK({
     $VRAM = $gpuInfo.gpuz_dump.card.memsize
     $RAM = (Get-WmiObject -class "Win32_PhysicalMemory" | Measure-Object -Property Capacity -Sum).Sum/1024/1024
     $videoMem = "Video Memory: " + (($RAM + $VRAM) - 2048) + " MB"
+    output($videoMem)
     $configFormVideoMemory.Text = $videoMem
     if($videoMem -le 10240) {
         $recSpec = "Low"; $PresetIndex = 0
@@ -260,10 +262,11 @@ $configFormPreReqsPreinstall.ADD_CLICK({
     if(!(Test-Path -Path "$($Skyrim.installPath)\US\Downloads\US 4.0.6hf2 DynDOLOD.rar")) {
         [Windows.Forms.MessageBox]::Show("Due to the size of DynDOLOD, it must be downloaded manually. You will be directed to the download page. Please drag and drop the file into the downloads folder that will open when you hit OK", "Ultimate Skyrim Install", [Windows.Forms.MessageBoxButtons]::OK, [Windows.Forms.MessageBoxIcon]::Information)
         Start-Process "https://mega.nz/#!SANlQY7R!deorWwQBDDw4GoHYfJ-7NJVOWQ1U-KsoH1HrdG4PFaI"
-        Start-Process "$($Skyrim.installPath)\US\Downloads"
-        output("Downloading DynDOLOD")
+        Invoke-Item "$($Skyrim.installPath)\US\Downloads"
+        output("Waiting for DynDOLOD to be downloaded")
         while(!(Test-Path -Path "$($Skyrim.installPath)\US\Downloads\US 4.0.6hf2 DynDOLOD.rar")) {
         }
+        output("DynDOLOD downloaded")
         [Windows.Forms.MessageBox]::Show("Now you can run Automaton!", "Ultimate Skyrim Install", [Windows.Forms.MessageBoxButtons]::OK, [Windows.Forms.MessageBoxIcon]::Information)
     } else {
         output("DynDOLOD already downloaded")
