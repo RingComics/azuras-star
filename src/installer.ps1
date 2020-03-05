@@ -1,6 +1,7 @@
 ﻿Using module .\PS\AzurasStar.psm1
 Using module .\PS\Skyrim.psm1
 Using module .\PS\User.psm1
+Using module .\PS\enb.psm1
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.IO.Compression.FileSystem #Zip Compression
 Import-Module .\src\PS\PSUtils.psm1
@@ -9,6 +10,7 @@ $AzurasStar = [AzurasStar]::new()
 $Skyrim = [Skyrim]::new([Windows.Forms.MessageBox])
 $Skyrim.setInstallationPath([Skyrim]::getSkyrimInstalledPaths(), $true)
 $CurrentUser = [User]::new()
+$ENB = [ENB]::new([Windows.Forms.MessageBox])
 
 #Configure and install prereqs
 #Root Form window
@@ -148,17 +150,31 @@ $configFormPreReqsPreinstall.ADD_CLICK({
     $configFormGetAPIKey.Controls.Add($confirmAPIKey)
     $configFormGetAPIKey.ShowDialog()
 
+    output("Creating install directories")
+    New-Item -ItemType Directory -Path "$($Skyrim.installPath)\US" -Force
+    New-Item -ItemType Directory -Path "$($Skyrim.installPath)\US\Utilities" -Force
+    New-Item -ItemType Directory -Path "$($Skyrim.installPath)\US\Downloads" -Force
+
     output("Copying ENB files...")
     Copy-Item -Path "$([AzurasStar]::installerSrc)\bin\d3d9.dll" -Destination $Skyrim.installPath -Force
     Copy-Item -Path "$([AzurasStar]::installerSrc)\bin\enbhost.exe" -Destination $Skyrim.installPath -Force
     Copy-Item -Path "$([AzurasStar]::installerSrc)\bin\enblocal.ini" -Destination $Skyrim.installPath -Force
     output("Copied ENB files")
 
-    output("Creating install directories")
-    New-Item -ItemType Directory -Path "$($Skyrim.installPath)\US" -Force
-    New-Item -ItemType Directory -Path "$($Skyrim.installPath)\US\Utilities" -Force
-    New-Item -ItemType Directory -Path "$($Skyrim.installPath)\US\Downloads" -Force
+    output("Getting VideoMemory")
+    $RAM = $ENB.getRAM()
+    $VRAM = $ENB.getVRAM()
+    $videoMemory = $ENB.getVideoMemory($RAM, $VRAM)
+    output("Setting enb preset")
+    output("RAM: $RAM")
+    output("VRAM: $VRAM")
+    output("Video Memory: $videoMemory")
+    $enbPreset = $ENB.detectENBPreset($videoMemory)
+    output("ENB preset: $enbPreset")
+    output("Setting VideoMemory in enblocal.ini")
+    (Get-Content -Path "$([AzurasStar]::installerSrc)\bin\enblocal.ini" -raw) -replace "INSERTRAMHERE", $videoMemory | Set-Content "$($Skyrim.installPath)\enblocal.ini"
 
+    output("Copying Ultimate Skyrim specific files")
     foreach($file in (Get-ChildItem -Path "$([AzurasStar]::installerSrc)\ultsky")) {
         Copy-Item -Path $file.FullName -Destination "$($Skyrim.installPath)\US\Downloads" -Force
     }
@@ -237,29 +253,6 @@ $configFormPreReqsPreinstall.ADD_CLICK({
         output("Wyrmstooth already downloaded")
     }
 
-    output("Getting VideoMemory")
-    Start-Process "$([AzurasStar]::installerPath)\src\bin\gpuz.exe" -ArgumentList "-dump $([AzurasStar]::installerPath)\src\bin\gpuinfo.xml" -Wait
-    [xml]$gpuInfo = Get-Content "$([AzurasStar]::installerPath)\src\bin\gpuinfo.xml"
-    $VRAM = $gpuInfo.gpuz_dump.card.memsize
-    $RAM = (Get-WmiObject -class "Win32_PhysicalMemory" | Measure-Object -Property Capacity -Sum).Sum/1024/1024
-    $videoMem = "Video Memory: " + (($RAM + $VRAM) - 2048) + " MB"
-    output("RAM: $RAM")
-    output("VRAM: $VRAM")
-    output($videoMem)
-    if($videoMem -le 10240) {
-        $recSpec = "Low"; $PresetIndex = 0
-    }
-    if($videoMem -lt 14336 -and $videoMem -gt 10240) {
-        $recSpec = "Medium"; $PresetIndex = 1
-    }
-    if($videoMem -ge 14336) {
-        $recSpec = "High"; $PresetIndex = 2
-    }
-    [Windows.Forms.MessageBox]::Show("Your recommended ENB preset is $recSpec.", "Ultimate Skyrim Install", [Windows.Forms.MessageBoxButtons]::OK, [Windows.Forms.MessageBoxIcon]::Information)
-    output("Setting ENB preset")
-    $configFormENBPreset.SelectedIndex = $PresetIndex
-    output("Setting VideoMemory in enblocal.ini")
-    (Get-Content -Path "$([AzurasStar]::installerSrc)\bin\enblocal.ini" -raw) -replace "INSERTRAMHERE", (($RAM + $VRAM) - 2048) | Set-Content "$($Skyrim.installPath)\enblocal.ini"
     if(!(Test-Path -Path "$($Skyrim.installPath)\US\Downloads\US 4.0.6hf2 DynDOLOD.rar")) {
         [Windows.Forms.MessageBox]::Show("Due to the size of DynDOLOD, it must be downloaded manually. You will be directed to the download page. Please drag and drop the file into the downloads folder that will open when you hit OK", "Ultimate Skyrim Install", [Windows.Forms.MessageBoxButtons]::OK, [Windows.Forms.MessageBoxIcon]::Information)
         Start-Process "https://mega.nz/#!SANlQY7R!deorWwQBDDw4GoHYfJ-7NJVOWQ1U-KsoH1HrdG4PFaI"
@@ -277,21 +270,6 @@ $configFormPreReqsPreinstall.ADD_CLICK({
 })
 $configForm.Controls.Add($configFormPreReqsPreinstall)
 
-$configFormENBLabel = New-Object System.Windows.Forms.Label
-$configFormENBLabel.Text = "ENB Preset"
-$configFormENBLabel.Top = $AzurasStar.calculateNextButtonTopOffset()
-$configFormENBLabel.Left = [AzurasStar]::RightColumn
-$configForm.Controls.Add($configFormENBLabel)
-
-$configFormENBPreset = New-Object System.Windows.Forms.ComboBox
-$configFormENBPreset.Top = $AzurasStar.calculateNextButtonTopOffset()
-$configFormENBPreset.Left = [AzurasStar]::RightColumn
-$configFormENBPreset.Size = New-Object System.Drawing.Size([AzurasStar]::ButtonWidth, [AzurasStar]::ButtonHeight)
-$configFormENBPreset.Items.Add("Low")
-$configFormENBPreset.Items.Add("Medium")
-$configFormENBPreset.Items.Add("High")
-$configForm.Controls.Add($configFormENBPreset)
-
 $startAutomaton = New-Object System.Windows.Forms.Button
 $startAutomaton.Enabled = $false
 $startAutomaton.Text = "Run Automaton"
@@ -307,9 +285,8 @@ $startAutomaton.ADD_CLICK({
         "Yes" {
             output("Configuring ENB")
             $folderName = (Get-ChildItem -Path "$($Skyrim.installPath)\US" | Where-Object Name -like "US*" | Where-Object Attributes -eq "Directory").Name -replace "\\", ""
-            $configFormENBPreset.Enabled = $false
-            Copy-Item -Path "$([AzurasStar]::installerSrc)\ini\$($configFormENBPreset.SelectedIndex)\Skyrim.ini" -Destination "$($Skyrim.installPath)\US\$folderName\profiles\$folderName\Skyrim.ini" -Force
-            Copy-Item -Path "$([AzurasStar]::installerSrc)\ini\$($configFormENBPreset.SelectedIndex)\SkyrimPrefs.ini" -Destination "$($Skyrim.installPath)\US\$folderName\profiles\$folderName\SkyrimPrefs.ini" -Force
+            Copy-Item -Path "$([AzurasStar]::installerSrc)\ini\$($ENB.currentPreset)\Skyrim.ini" -Destination "$($Skyrim.installPath)\US\$folderName\profiles\$folderName\Skyrim.ini" -Force
+            Copy-Item -Path "$([AzurasStar]::installerSrc)\ini\$($ENB.currentPreset)\SkyrimPrefs.ini" -Destination "$($Skyrim.installPath)\US\$folderName\profiles\$folderName\SkyrimPrefs.ini" -Force
             foreach($file in (Get-ChildItem "$([AzurasStar]::installerSrc)\ENB" -Recurse)) {
                 Copy-Item -Path $file.FullName -Destination "$($Skyrim.installPath)" -Force
             }
@@ -344,6 +321,7 @@ $startAutomaton.ADD_CLICK({
             (Get-Content -Path "$($Skyrim.installPath)\US\$folderName\ModOrganizer.ini" -Raw) + "[Settings]`r`nlanguage=en`r`noverwritingLooseFilesColor=@Variant(\0\0\0\x43\x1@@\xff\xff\0\0\0\0\0\0)`r`noverwrittenLooseFilesColor=@Variant(\0\0\0\x43\x1@@\0\0\xff\xff\0\0\0\0)`r`noverwritingArchiveFilesColor=@Variant(\0\0\0\x43\x1@@\xff\xff\0\0\xff\xff\0\0)`r`noverwrittenArchiveFilesColor=@Variant(\0\0\0\x43\x1@@\0\0\xff\xff\xff\xff\0\0)`r`ncontainsPluginColor=@Variant(\0\0\0\x43\x1@@\0\0\0\0\xff\xff\0\0)`r`ncontainedColor=@Variant(\0\0\0\x43\x1@@\0\0\0\0\xff\xff\0\0)`r`ncompact_downloads=false`r`nmeta_downloads=false`r`nuse_prereleases=false`r`ncolorSeparatorScrollbars=true`r`nlog_level=1`r`ncrash_dumps_type=1`r`ncrash_dumps_max=5`r`noffline_mode=false`r`nuse_proxy=false`r`nendorsement_integration=true`r`nhide_api_counter=false`r`nload_mechanism=0`r`nhide_unchecked_plugins=false`r`nforce_enable_core_files=true`r`ndisplay_foreign=true`r`nlock_gui=false`r`narchive_parsing_experimental=false" | Set-Content -Path "$($Skyrim.installPath)\US\$folderName\ModOrganizer.ini"
             $cleanDLCButton.Enabled = $true
             [Windows.Forms.MessageBox]::Show("You can now clean your DLCs", [AzurasStar]::Name, [Windows.Forms.MessageBoxButtons]::OK, [Windows.Forms.MessageBoxIcon]::Information)
+            output("Created inis")
         } "No" {
             [Windows.Forms.MessageBox]::Show("Restart Automaton and try again. If it crashes continuously, seek support in the Discord or on Reddit.", "Ultimate Skyrim Install", [Windows.Forms.MessageBoxButtons]::OK, [Windows.Forms.MessageBoxIcon]::Information)
         }
@@ -369,6 +347,7 @@ $cleanDLCButton.ADD_CLICK({
     $cleanDLCButton.Enabled = $false
     $startFinalize.Enabled = $true
     [Windows.Forms.MessageBox]::Show("All DLCs have been cleaned", [AzurasStar]::Name, [Windows.Forms.MessageBoxButtons]::OK, [Windows.Forms.MessageBoxIcon]::Information)
+    output("All DLCs cleaned")
 })
 $configForm.Controls.Add($cleanDLCButton)
 
