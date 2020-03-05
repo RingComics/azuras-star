@@ -45,47 +45,42 @@ $configFormPreReqsLabel.Left = [AzurasStar]::RightColumn
 $configFormPreReqsLabel.Anchor + "Left,Top"
 $configForm.Controls.Add($configFormPreReqsLabel)
 
-$configFormPreReqsJava = New-Object System.Windows.Forms.Button
 switch($CurrentUser.isJavaInstalled() -eq $true) {
     $true{
-        $configFormPreReqsJava.Text = "Java Installed"
-        $configFormPreReqsJava.Enabled = $false
         output("Java already installed")
     }
     $false{
+        $configFormPreReqsJava = New-Object System.Windows.Forms.Button
+        $configFormPreReqsJava.Top = $AzurasStar.calculateNextButtonTopOffset()
+        $configFormPreReqsJava.Left = [AzurasStar]::RightColumn
+        $configFormPreReqsJava.Size = New-Object System.Drawing.Size([AzurasStar]::ButtonWidth, [AzurasStar]::ButtonHeight)
+        $configFormPreReqsJava.ADD_CLICK({
+            Start-Process "$([AzurasStar]::installerSrc)\bin\jre-8u231-windows-x64.exe"
+            output("Installing Java")
+        })
+        $configForm.Controls.Add($configFormPreReqsJava)
         $configFormPreReqsJava.Text = "Install Java"
     }
 }
-$configFormPreReqsJava.Top = $AzurasStar.calculateNextButtonTopOffset()
-$configFormPreReqsJava.Left = [AzurasStar]::RightColumn
-$configFormPreReqsJava.Size = New-Object System.Drawing.Size([AzurasStar]::ButtonWidth, [AzurasStar]::ButtonHeight)
-$configFormPreReqsJava.ADD_CLICK({
-    Start-Process "$([AzurasStar]::installerSrc)\bin\jre-8u231-windows-x64.exe"
-    output("Installing Java")
-})
-$configForm.Controls.Add($configFormPreReqsJava)
 
-$configFormPreReqs7zip = New-Object System.Windows.Forms.Button
 switch($CurrentUser.is7ZipInstalled() -eq $true) {
-
     $true {
-        $configFormPreReqs7zip.Text = "7zip Installed"
-        $configFormPreReqs7zip.Enabled = $false
         output("7-Zip already Installed")
     }
     $false {
+        $configFormPreReqs7zip = New-Object System.Windows.Forms.Button
+        $configFormPreReqs7zip.Top = $AzurasStar.calculateNextButtonTopOffset()
+        $configFormPreReqs7zip.Left = [AzurasStar]::RightColumn
+        $configFormPreReqs7zip.Size = New-Object System.Drawing.Size([AzurasStar]::ButtonWidth, [AzurasStar]::ButtonHeight)
+        $configFormPreReqs7zip.ADD_CLICK({
+            Start-Process "$([AzurasStar]::installerSrc)\bin\7z1900-x64.exe"
+            output("Installing 7-Zip")
+        })
+        $configForm.Controls.Add($configFormPreReqs7zip)
+
         $configFormPreReqs7zip.Text = "Install 7-Zip"
     }
 }
-$configFormPreReqs7zip.Top = $AzurasStar.calculateNextButtonTopOffset()
-$configFormPreReqs7zip.Left = [AzurasStar]::RightColumn
-$configFormPreReqs7zip.Size = New-Object System.Drawing.Size([AzurasStar]::ButtonWidth, [AzurasStar]::ButtonHeight)
-$configFormPreReqs7zip.ADD_CLICK({
-    Start-Process "$([AzurasStar]::installerSrc)\bin\7z1900-x64.exe"
-    output("Installing 7-Zip")
-})
-$configForm.Controls.Add($configFormPreReqs7zip)
-
 $configFormPreReqsSkyrim = New-Object System.Windows.Forms.Button
 $configFormPreReqsSkyrim.Text = "Run Skyrim once"
 $configFormPreReqsSkyrim.Top = $AzurasStar.calculateNextButtonTopOffset()
