@@ -25,6 +25,18 @@ Only requirement is Windows 10. All other software is downloaded and installed d
 
 Simply download, extract, and run AzurasStar.exe.
 
+The extracted archive **must not** be in a location that contains special characters (',`,@ etc.).  
+**Bad**: C:\\Some\Path@invalid\Azura's Star  
+**Good**: C:\\Some\Path\Azuras Star
+
+## FAQ 
+
+- I see this error, what do I do?
+
+![Invalid install path](/src/img/invalid-path-name.png)
+
+Refer to the [Usage](#usage) section above, ensure your directory naming is valid.
+
 ## Development
 
 PowerShell 5 or greater is required.
