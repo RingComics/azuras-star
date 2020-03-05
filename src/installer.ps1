@@ -1,4 +1,4 @@
-Using module .\PS\AzurasStar.psm1
+﻿Using module .\PS\AzurasStar.psm1
 Using module .\PS\Skyrim.psm1
 Using module .\PS\User.psm1
 Add-Type -AssemblyName System.Windows.Forms
@@ -243,6 +243,8 @@ $configFormPreReqsPreinstall.ADD_CLICK({
     $VRAM = $gpuInfo.gpuz_dump.card.memsize
     $RAM = (Get-WmiObject -class "Win32_PhysicalMemory" | Measure-Object -Property Capacity -Sum).Sum/1024/1024
     $videoMem = "Video Memory: " + (($RAM + $VRAM) - 2048) + " MB"
+    output("RAM: $RAM")
+    output("VRAM: $VRAM")
     output($videoMem)
     $configFormVideoMemory.Text = $videoMem
     if($videoMem -le 10240) {
