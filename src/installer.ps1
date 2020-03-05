@@ -13,8 +13,8 @@ $CurrentUser = [User]::new()
 #Configure and install prereqs
 #Root Form window
 $configForm = New-Object System.Windows.Forms.Form
-$configForm.Width = 820
-$configForm.Height = 665
+$configForm.Width = [AzurasStar]::FormWidth
+$configForm.Height = [AzurasStar]::FormHeight
 $configForm.Text = [AzurasStar]::Name
 $configForm.MaximizeBox = $false
 $configForm.MinimizeBox = $false
@@ -22,9 +22,11 @@ $configForm.FormBorderStyle = 'Fixed3D'
 $configForm.Icon = [AzurasStar]::Icon
 
 $configFormOutput = New-Object System.Windows.Forms.RichTextBox
-$configFormOutput.Top = 100
+$configFormOutput.Top = 0
 $configFormOutput.Left = 10
-$configFormOutput.Size = New-Object System.Drawing.Size(300, 500)
+$formHeight = [AzurasStar]::FormHeight - 50
+$formWidth = [AzurasStar]::FormWidth/2 - [AzurasStar]::ColumnPadding
+$configFormOutput.Size = New-Object System.Drawing.Size($formWidth, $formHeight)
 $configFormOutput.ReadOnly = $true
 $configForm.Controls.Add($configFormOutput)
 
@@ -33,10 +35,13 @@ function output($text) {
     $configFormOutput.ScrollToCaret()
 }
 
+output("Install Path: $($Skyrim.installPath)\US")
+output("Download Path: $($Skyrim.installPath)\US\Downloads")
+
 $configFormPreReqsLabel = New-Object System.Windows.Forms.Label
 $configFormPreReqsLabel.Text = "Prerequisites"
-$configFormPreReqsLabel.Top = "10"
-$configFormPreReqsLabel.Left = "10"
+$configFormPreReqsLabel.Top = $AzurasStar.calculateNextButtonTopOffset()
+$configFormPreReqsLabel.Left = [AzurasStar]::RightColumn
 $configFormPreReqsLabel.Anchor + "Left,Top"
 $configForm.Controls.Add($configFormPreReqsLabel)
 
@@ -51,9 +56,9 @@ switch($CurrentUser.isJavaInstalled() -eq $true) {
         $configFormPreReqsJava.Text = "Install Java"
     }
 }
-$configFormPreReqsJava.Top = 35
-$configFormPreReqsJava.Left = 10
-$configFormPreReqsJava.Size = New-Object System.Drawing.Size(100, 25)
+$configFormPreReqsJava.Top = $AzurasStar.calculateNextButtonTopOffset()
+$configFormPreReqsJava.Left = [AzurasStar]::RightColumn
+$configFormPreReqsJava.Size = New-Object System.Drawing.Size([AzurasStar]::ButtonWidth, [AzurasStar]::ButtonHeight)
 $configFormPreReqsJava.ADD_CLICK({
     Start-Process "$([AzurasStar]::installerSrc)\bin\jre-8u231-windows-x64.exe"
     output("Installing Java")
@@ -72,9 +77,9 @@ switch($CurrentUser.is7ZipInstalled() -eq $true) {
         $configFormPreReqs7zip.Text = "Install 7-Zip"
     }
 }
-$configFormPreReqs7zip.Top = 35
-$configFormPreReqs7zip.Left = 110
-$configFormPreReqs7zip.Size = New-Object System.Drawing.Size(100, 25)
+$configFormPreReqs7zip.Top = $AzurasStar.calculateNextButtonTopOffset()
+$configFormPreReqs7zip.Left = [AzurasStar]::RightColumn
+$configFormPreReqs7zip.Size = New-Object System.Drawing.Size([AzurasStar]::ButtonWidth, [AzurasStar]::ButtonHeight)
 $configFormPreReqs7zip.ADD_CLICK({
     Start-Process "$([AzurasStar]::installerSrc)\bin\7z1900-x64.exe"
     output("Installing 7-Zip")
@@ -83,9 +88,9 @@ $configForm.Controls.Add($configFormPreReqs7zip)
 
 $configFormPreReqsSkyrim = New-Object System.Windows.Forms.Button
 $configFormPreReqsSkyrim.Text = "Run Skyrim once"
-$configFormPreReqsSkyrim.Top = 35
-$configFormPreReqsSkyrim.Left = 210
-$configFormPreReqsSkyrim.Size = New-Object System.Drawing.Size(100, 25)
+$configFormPreReqsSkyrim.Top = $AzurasStar.calculateNextButtonTopOffset()
+$configFormPreReqsSkyrim.Left = [AzurasStar]::RightColumn
+$configFormPreReqsSkyrim.Size = New-Object System.Drawing.Size([AzurasStar]::ButtonWidth, [AzurasStar]::ButtonHeight)
 $configFormPreReqsSkyrim.ADD_CLICK({
     [Windows.Forms.MessageBox]::Show("When Skyrim launches, let it automatically detect your settings, then launch to the main menu. Then you can exit Skyrim and come back here to run the Preinstall.", "Ultimate Skyrim Install", [Windows.Forms.MessageBoxButtons]::OK, [Windows.Forms.MessageBoxIcon]::Information)
     output("Launching Skyrim for first time set up")
@@ -110,9 +115,9 @@ $configForm.Controls.Add($configFormPreReqsSkyrim)
 $configFormPreReqsPreinstall = New-Object System.Windows.Forms.Button
 $configFormPreReqsPreinstall.Enabled = $false
 $configFormPreReqsPreinstall.Text = "Run Preinstall"
-$configFormPreReqsPreinstall.Top = 65
-$configFormPreReqsPreinstall.Left = 210
-$configFormPreReqsPreinstall.Size = New-Object System.Drawing.Size(100, 25)
+$configFormPreReqsPreinstall.Top = $AzurasStar.calculateNextButtonTopOffset()
+$configFormPreReqsPreinstall.Left = [AzurasStar]::RightColumn
+$configFormPreReqsPreinstall.Size = New-Object System.Drawing.Size([AzurasStar]::ButtonWidth, [AzurasStar]::ButtonHeight)
 $configFormPreReqsPreinstall.ADD_CLICK({
 
     output("Getting Nexus API key")
@@ -246,7 +251,6 @@ $configFormPreReqsPreinstall.ADD_CLICK({
     output("RAM: $RAM")
     output("VRAM: $VRAM")
     output($videoMem)
-    $configFormVideoMemory.Text = $videoMem
     if($videoMem -le 10240) {
         $recSpec = "Low"; $PresetIndex = 0
     }
@@ -278,50 +282,27 @@ $configFormPreReqsPreinstall.ADD_CLICK({
 })
 $configForm.Controls.Add($configFormPreReqsPreinstall)
 
+$configFormENBLabel = New-Object System.Windows.Forms.Label
+$configFormENBLabel.Text = "ENB Preset"
+$configFormENBLabel.Top = $AzurasStar.calculateNextButtonTopOffset()
+$configFormENBLabel.Left = [AzurasStar]::RightColumn
+$configForm.Controls.Add($configFormENBLabel)
+
 $configFormENBPreset = New-Object System.Windows.Forms.ComboBox
-$configFormENBPreset.Top = 35
-$configFormENBPreset.Left = 320
-$configFormENBPreset.Size = New-Object System.Drawing.Size(100, 25)
+$configFormENBPreset.Top = $AzurasStar.calculateNextButtonTopOffset()
+$configFormENBPreset.Left = [AzurasStar]::RightColumn
+$configFormENBPreset.Size = New-Object System.Drawing.Size([AzurasStar]::ButtonWidth, [AzurasStar]::ButtonHeight)
 $configFormENBPreset.Items.Add("Low")
 $configFormENBPreset.Items.Add("Medium")
 $configFormENBPreset.Items.Add("High")
 $configForm.Controls.Add($configFormENBPreset)
 
-$configFormVideoMemory = New-Object System.Windows.Forms.Label
-$configFormVideoMemory.Text = "Video Memory: "
-$configFormVideoMemory.Top = 60
-$configFormVideoMemory.Left = 320
-$configFormVideoMemory.Size = New-Object System.Drawing.Size(150, 25)
-$configForm.Controls.Add($configFormVideoMemory)
-
-$configFormENBLabel = New-Object System.Windows.Forms.Label
-$configFormENBLabel.Text = "ENB Preset"
-$configFormENBLabel.Top = 10
-$configFormENBLabel.Left = 320
-$configForm.Controls.Add($configFormENBLabel)
-
-$configFormInstallPathLabel = New-Object System.Windows.Forms.TextBox
-$configFormInstallPathLabel.Text = "Install Path: $($Skyrim.installPath)\US"
-$configFormInstallPathLabel.Top = 100
-$configFormInstallPathLabel.Left = 320
-$configFormInstallPathLabel.Size = New-Object System.Drawing.Size(400, 25)
-$configFormInstallPathLabel.ReadOnly = $true
-$configForm.Controls.Add($configFormInstallPathLabel)
-
-$configFormDownloadPathLabel = New-Object System.Windows.Forms.TextBox
-$configFormDownloadPathLabel.Text = "Download Path: $($Skyrim.installPath)\US\Downloads"
-$configFormDownloadPathLabel.Top = 135
-$configFormDownloadPathLabel.Left = 320
-$configFormDownloadPathLabel.Size = New-Object System.Drawing.Size(400, 25)
-$configFormDownloadPathLabel.ReadOnly = $true
-$configForm.Controls.Add($configFormDownloadPathLabel)
-
 $startAutomaton = New-Object System.Windows.Forms.Button
 $startAutomaton.Enabled = $false
 $startAutomaton.Text = "Run Automaton"
-$startAutomaton.Top = 170
-$startAutomaton.Left = 320
-$startAutomaton.Size = New-Object System.Drawing.Size(400, 25)
+$startAutomaton.Top = $AzurasStar.calculateNextButtonTopOffset()
+$startAutomaton.Left = [AzurasStar]::RightColumn
+$startAutomaton.Size = New-Object System.Drawing.Size([AzurasStar]::ButtonWidth, [AzurasStar]::ButtonHeight)
 $startAutomaton.ADD_CLICK({
     output("Running Automaton")
     [Windows.Forms.MessageBox]::Show("When Automaton launches, select either Keyboard or Gamepad from $($Skyrim.installPath)\US and then copy the install and download paths into their respective fields.`r`nAllow Automaton to access your Nexus account and handle NXM links (required). If you are a Nexus premium member, Automaton can download each mod for you automatically by clicking on the switch at the top.`r`nOtherwise, click on the box with the arrow inside next to each mod to go to the download page. You can hover over the mod's name in Automaton to see which specific file needs to be downloaded.`r`nAfter all of the mods have been downloaded, click on 'Install modpack.' After Automaton finishes installing the mods, close it to continue the install process.", "Ultimate Skyrim Install", [Windows.Forms.MessageBoxButtons]::OK, [Windows.Forms.MessageBoxIcon]::Information)
@@ -378,9 +359,9 @@ $configForm.Controls.Add($startAutomaton)
 $cleanDLCButton = New-Object System.Windows.Forms.Button
 $cleanDLCButton.Enabled = $false
 $cleanDLCButton.Text = "Clean DLCs"
-$cleanDLCButton.Top = 200
-$cleanDLCButton.Left = 320
-$cleanDLCButton.Size = New-Object System.Drawing.Size(400, 25)
+$cleanDLCButton.Top = $AzurasStar.calculateNextButtonTopOffset()
+$cleanDLCButton.Left = [AzurasStar]::RightColumn
+$cleanDLCButton.Size = New-Object System.Drawing.Size([AzurasStar]::ButtonWidth, [AzurasStar]::ButtonHeight)
 $cleanDLCButton.ADD_CLICK({
     $folderName = (Get-ChildItem -Path "$($Skyrim.installPath)\US" | Where-Object Name -like "US*" | Where-Object Attributes -eq "Directory").Name -replace "\\", ""
     [Windows.Forms.MessageBox]::Show("Dismiss developer pop-ups if they come up and are preventing TES5Edit from running. Consider supporting the TES5Edit project!", [AzurasStar]::Name, [Windows.Forms.MessageBoxButtons]::OK, [Windows.Forms.MessageBoxIcon]::Information)
@@ -400,9 +381,9 @@ $configForm.Controls.Add($cleanDLCButton)
 $startFinalize = New-Object System.Windows.Forms.Button
 $startFinalize.Enabled = $false
 $startFinalize.Text = "Finalize Installation"
-$startFinalize.Top = 320
-$startFinalize.Left = 320
-$startFinalize.Size = New-Object System.Drawing.Size(400, 25)
+$startFinalize.Top = $AzurasStar.calculateNextButtonTopOffset()
+$startFinalize.Left = [AzurasStar]::RightColumn
+$startFinalize.Size = New-Object System.Drawing.Size([AzurasStar]::ButtonWidth, [AzurasStar]::ButtonHeight)
 $startFinalize.ADD_CLICK({
     if($folderName -like "*Gamepad*") {
         Remove-Item "$($Skyrim.installPath)\ControlMap_Custom.txt" -Force
