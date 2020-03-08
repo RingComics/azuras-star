@@ -5,11 +5,13 @@ class Skyrim {
     static [Array] $DLC
 
     $MessageBox
+    $AzurasStar
     [String] $installPath
     [bool] $multipleInstalls
 
-    Skyrim($messageBox) {
+    Skyrim($messageBox, $AzurasStar) {
         $this.MessageBox = $messageBox
+        $this.AzurasStar = $AzurasStar
 
         [Skyrim]::DLC = @(
         "Update",
@@ -22,7 +24,7 @@ class Skyrim {
     setInstallationPath($paths, $autoDetected) {
         # If there are multiple versions of Skyrim in the registry, let the user pick the correct one
         if($paths -eq $null) {
-            $this.MessageBox::Show("Could not automatically detect a valid Skyrim install, please enter one manually", "Azura's Star Install");
+            $this.MessageBox::Show("Could not automatically detect a valid Skyrim install, please enter one manually", [AzurasStar]::Name);
             $this.setInstallationPath($this.enterInstallPathManually(), $false)
         } elseif($paths -is [string]) {
             $this.installPath = $paths
@@ -40,10 +42,10 @@ class Skyrim {
                 $this.setInstallationPath($this.enterInstallPathManually(), $false)
             }
         } elseif(![Skyrim]::validSkyrimInstall($this.installPath) -and $autoDetected -eq $true) {
-            $this.MessageBox::Show("Could not automatically detect a valid Skyrim install, please enter one manually", "Azura's Star Install");
+            $this.MessageBox::Show("Could not automatically detect a valid Skyrim install, please enter one manually", [AzurasStar]::Name);
             $this.setInstallationPath($this.enterInstallPathManually(), $false)
         } elseif(![Skyrim]::validSkyrimInstall($this.installPath)) {
-            $this.MessageBox::Show("Not a valid Skyrim LE install path, please ensure you select the root skyrim folder that contains a TESV.exe", "Azura's Star Install");
+            $this.MessageBox::Show("Not a valid Skyrim LE install path, please ensure you select the root skyrim folder that contains a TESV.exe", [AzurasStar]::Name);
             $this.setInstallationPath($this.enterInstallPathManually(), $false)
         }
     }
@@ -145,5 +147,17 @@ class Skyrim {
     [PSObject]
     getSkyrimInstalledPaths() {
         return Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Where-Object DisplayName -eq "The Elder Scrolls V: Skyrim" | Select-Object -ExpandProperty InstallLocation
+    }
+
+    cleanDLC() {
+        $folderName = (Get-ChildItem -Path "$($this.installPath)\US" | Where-Object Name -like "US*" | Where-Object Attributes -eq "Directory").Name -replace "\\", ""
+        $this.MessageBox::Show("Dismiss developer pop-ups if they come up and are preventing TES5Edit from running. Consider supporting the TES5Edit project!", [AzurasStar]::Name)
+        foreach($dlc in [Skyrim]::DLC) {
+            $this.AzurasStar.writeDebugMessage("Cleaning $dlc.esm")
+            $cleaning = Start-Process "$($this.installPath)\US\$folderName\ModOrganizer.exe" -ArgumentList "-p `"$folderName`" `"moshortcut://:Clean $dlc`"" -PassThru
+            Wait-Process -Id $cleaning.Id
+            Wait-Process TES5Edit
+        }
+        $this.AzurasStar.writeDebugMessage("All DLCs cleaned")
     }
 }
