@@ -3,13 +3,16 @@ Using module .\AzurasStar.psm1
 class ENB {
 
     $MessageBox
+    $AzurasStar
+    $Skyrim
     static $presets
     [string] $currentPreset
 
-    ENB($messageBox) {
+    ENB($messageBox, $AzurasStar, $Skyrim) {
 
         $this.MessageBox = $messageBox
-
+        $this.AzurasStar = $AzurasStar
+        $this.Skyrim = $Skyrim
 
         [ENB]::presets = @(
         "low",
@@ -100,5 +103,20 @@ class ENB {
         [void] $Form.ShowDialog()
 
         return $enbPreset
+    }
+
+    configureENB() {
+        $this.AzurasStar.writeDebugMessage("Configuring ENB from preset")
+        $modInstallPath = [AzurasStar]::getModInstallPath($this.Skyrim.installPath)
+        Copy-Item -Path "$([AzurasStar]::installerSrc)\ini\$($this.currentPreset)\Skyrim.ini" -Destination "$($this.Skyrim.installPath)\US\$modInstallPath\profiles\$modInstallPath\Skyrim.ini" -Force
+        Copy-Item -Path "$([AzurasStar]::installerSrc)\ini\$($this.currentPreset)\SkyrimPrefs.ini" -Destination "$($this.Skyrim.installPath)\US\$modInstallPath\profiles\$modInstallPath\SkyrimPrefs.ini" -Force
+        foreach($file in (Get-ChildItem "$([AzurasStar]::installerSrc)\ENB" -Recurse)) {
+            Copy-Item -Path $file.FullName -Destination "$($this.Skyrim.installPath)" -Force
+        }
+        Remove-Item -Path "$($this.Skyrim.installPath)\US\$modInstallPath\mods\Snowfall Weathers\ENB Files - empty into Skyrim Directory\enblocal.ini" -ErrorAction SilentlyContinue
+        foreach($file in (Get-ChildItem "$($this.Skyrim.installPath)\US\$modInstallPath\mods\Snowfall Weathers\ENB Files - empty into Skyrim Directory")) {
+            Copy-Item -Path $file.FullName -Destination "$($this.Skyrim.installPath)" -Force -Recurse -Container
+        }
+        $this.AzurasStar.writeDebugMessage("Finished configuring ENB")
     }
 }

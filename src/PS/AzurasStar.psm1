@@ -46,12 +46,18 @@ class AzurasStar {
         return $this.CurrentTopOffset
     }
 
-    setMessageConsole($console) {
+    setDebugConsole($console) {
         $this.debugConsole = $console
     }
 
     writeDebugMessage($text) {
         $this.debugConsole.AppendText("$text `r`n")
         $this.debugConsole.ScrollToCaret()
+    }
+
+    static
+    [string]
+    getModInstallPath($skyrimInstallPath) {
+        return (Get-ChildItem -Path "$skyrimInstallPath\US" | Where-Object Name -like "US*" | Where-Object Attributes -eq "Directory").Name -replace "\\", ""
     }
 }

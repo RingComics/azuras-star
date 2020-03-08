@@ -150,11 +150,40 @@ class Skyrim {
     }
 
     cleanDLC() {
-        $folderName = (Get-ChildItem -Path "$($this.installPath)\US" | Where-Object Name -like "US*" | Where-Object Attributes -eq "Directory").Name -replace "\\", ""
-        $this.MessageBox::Show("Dismiss developer pop-ups if they come up and are preventing TES5Edit from running. Consider supporting the TES5Edit project!", [AzurasStar]::Name)
+        $modInstallPath = [AzurasStar]::getModInstallPath($this.installPath)
+
+        $this.AzurasStar.writeDebugMessage("Starting ModOrganizer to create ini")
+        $this.MessageBox::Show("ModOrganizer will launch and then close multiple times while cleaning DLCs.`r`nDismiss developer pop-ups if they come up and are preventing TES5Edit from running, otherwise do not touch your mouse or keyboard.`r`nConsider supporting the TES5Edit project!", [AzurasStar]::Name)
+        Start-Process "$($this.installPath)\US\$modInstallPath\ModOrganizer.exe"
+        Start-Sleep -Seconds 5
+        Stop-Process -Name ModOrganizer
+        $modOrganizerIni = (Get-Content -Path "$($this.installPath)\US\$modInstallPath\ModOrganizer.ini")
+        $numberOfEXE = ""
+        foreach($line in $modOrganizerIni) {
+            if($line -like "size=*") {
+                $temp = [int]($line -replace "size=", "")
+                if($temp -gt 0) {
+                    $numberOfEXE = $temp
+                }
+            }
+        }
+
+        $newEXEs = ""
+        $i = $numberOfEXE + 1
+        $DLCPATH = $this.installPath -replace '\\', "/"
+        foreach($DLC in [Skyrim]::DLC) {
+            $newEXEs = $newEXEs + "$i\title=Clean $DLC`r`n$i\toolbar=false`r`n$i\ownicon=true`r`n$i\binary=$DLCPATH/US/Utilities/TES5Edit.exe`r`n$i\arguments=`"-autoexit -quickautoclean -autoload $DLC.esm`"`r`n$i\workingDirectory=`r`n$i\steamAppID=`r`n"
+            $i++
+        }
+        $newEXEs = $newEXEs + "size=$($i - 1)"
+        (Get-Content -Path "$($this.installPath)\US\$modInstallPath\ModOrganizer.ini" -Raw) -replace "size=$numberOfEXE", $newEXEs | Set-Content -Path "$($this.installPath)\US\$modInstallPath\ModOrganizer.ini"
+        (Get-Content -Path "$($this.installPath)\US\$modInstallPath\ModOrganizer.ini" -Raw) + "[Settings]`r`nlanguage=en`r`noverwritingLooseFilesColor=@Variant(\0\0\0\x43\x1@@\xff\xff\0\0\0\0\0\0)`r`noverwrittenLooseFilesColor=@Variant(\0\0\0\x43\x1@@\0\0\xff\xff\0\0\0\0)`r`noverwritingArchiveFilesColor=@Variant(\0\0\0\x43\x1@@\xff\xff\0\0\xff\xff\0\0)`r`noverwrittenArchiveFilesColor=@Variant(\0\0\0\x43\x1@@\0\0\xff\xff\xff\xff\0\0)`r`ncontainsPluginColor=@Variant(\0\0\0\x43\x1@@\0\0\0\0\xff\xff\0\0)`r`ncontainedColor=@Variant(\0\0\0\x43\x1@@\0\0\0\0\xff\xff\0\0)`r`ncompact_downloads=false`r`nmeta_downloads=false`r`nuse_prereleases=false`r`ncolorSeparatorScrollbars=true`r`nlog_level=1`r`ncrash_dumps_type=1`r`ncrash_dumps_max=5`r`noffline_mode=false`r`nuse_proxy=false`r`nendorsement_integration=true`r`nhide_api_counter=false`r`nload_mechanism=0`r`nhide_unchecked_plugins=false`r`nforce_enable_core_files=true`r`ndisplay_foreign=true`r`nlock_gui=false`r`narchive_parsing_experimental=false" | Set-Content -Path "$($this.installPath)\US\$modInstallPath\ModOrganizer.ini"
+        $this.AzurasStar.writeDebugMessage("Created mod organiser inis")
+
+        $this.AzurasStar.writeDebugMessage("Cleaning DLCs")
         foreach($dlc in [Skyrim]::DLC) {
             $this.AzurasStar.writeDebugMessage("Cleaning $dlc.esm")
-            $cleaning = Start-Process "$($this.installPath)\US\$folderName\ModOrganizer.exe" -ArgumentList "-p `"$folderName`" `"moshortcut://:Clean $dlc`"" -PassThru
+            $cleaning = Start-Process "$($this.installPath)\US\$modInstallPath\ModOrganizer.exe" -ArgumentList "-p `"$modInstallPath`" `"moshortcut://:Clean $dlc`"" -PassThru
             Wait-Process -Id $cleaning.Id
             Wait-Process TES5Edit
         }
