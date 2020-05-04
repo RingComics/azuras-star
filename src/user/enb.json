@@ -1,10 +1,6 @@
 {
-    "Snowfall Weathers" : 
-    {
-        "default-enblocal" : "",
-        "empty-into-root" :
-        {
-
-        } 
-    }
+  "Snowfall Weathers": {
+    "default-enblocal": "",
+    "empty-into-root": {}
+  }
 }

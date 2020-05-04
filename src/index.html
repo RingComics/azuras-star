@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html>
-
   <head>
     <!--Header info-->
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Azura's Star</title>
 
     <!--Require modules-->
     <script>
-      const fs = require('fs');
-      const nodePS = require('node-powershell');
-        //init powershell console
-        const ps = new nodePS ({
-          executionPolicy: 'Bypass',
-          noProfile: true
-        })
-      const shell = require('electron').shell;
+      const fs = require("fs");
+      const nodePS = require("node-powershell");
+      //init powershell console
+      const ps = new nodePS({
+        executionPolicy: "Bypass",
+        noProfile: true,
+      });
+      const shell = require("electron").shell;
     </script>
-    
+
     <!--Load Scripts-->
-    <script src='./JS/checkPrereqs.js'></script>
+    <script src="./JS/checkPrereqs.js"></script>
 
     <!--Style-->
-    <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
     <style>
       * {
         padding: 5px;
@@ -30,125 +33,145 @@
       body {
         background-color: dimgray;
       }
-      button 
-      {
+      button {
         border-radius: 12px;
         background-color: orangered;
         color: white;
         margin-right: 5px;
       }
-      p 
-      {
+      p {
         color: white;
       }
-      .links
-      {
-        cursor: pointer; 
-        color:red;      
+      .links {
+        cursor: pointer;
+        color: red;
       }
-      .links:hover
-      {
-        color:darkgoldenrod;
+      .links:hover {
+        color: darkgoldenrod;
       }
     </style>
   </head>
   <body>
-    <h1 id='page-title'>Azura's Star</h1>
+    <h1 id="page-title">Azura's Star</h1>
     <p id="load-install-info">Loading app info...</p>
     <div id="install-info" style="display: none;">
-      <p style="float:left;" id='check-java'></p>
-      <span style="float:left;margin-right:3px;">|</span>
-      <p id='check-7Zip'></p>
-      <p id='check-le'></p>
-      <p id='check-se'></p>
+      <p style="float: left;" id="check-java"></p>
+      <span style="float: left; margin-right: 3px;">|</span>
+      <p id="check-7Zip"></p>
+      <p id="check-le"></p>
+      <p id="check-se"></p>
     </div>
     <!--Tool buttons-->
-    <div id='buttons'>
+    <div id="buttons">
       <div>
-        <button id='install-modpack-button' class='utility-button'>Install Modpack</button>
-        <p id='install-modpack-description' class='button-description'>Install a modpack from a .auto file (powered by<a href="#" class='links' onclick='shell.openExternal("https://github.com/metherul/Automaton")'>Automaton</a>)</p>
+        <button id="install-modpack-button" class="utility-button">
+          Install Modpack
+        </button>
+        <p id="install-modpack-description" class="button-description">
+          Install a modpack from a .auto file (powered by<a
+            href="#"
+            class="links"
+            onclick='shell.openExternal("https://github.com/metherul/Automaton")'
+            >Automaton</a
+          >)
+        </p>
       </div>
 
       <div>
-        <select id='select-modpack' style=float:left>
+        <select id="select-modpack" style="float: left;">
           <!--Modpacks will fill this area-->
         </select>
-        <button id='play-modpack' style=float:left>Play</button>
-        <button id='edit-modpack-button' class='utility-button' style=float:left>Edit</button>
-        <button id='new-modpack'>Add</button>
-        <p id='edit-modpack-description' class='button-description'>Play, edit, or add an existing modpack</p>
+        <button id="play-modpack" style="float: left;">Play</button>
+        <button
+          id="edit-modpack-button"
+          class="utility-button"
+          style="float: left;"
+        >
+          Edit
+        </button>
+        <button id="new-modpack">Add</button>
+        <p id="edit-modpack-description" class="button-description">
+          Play, edit, or add an existing modpack
+        </p>
       </div>
-      
+
       <div>
         <h6>Utilities</h6>
-        <button id='' onclick='shell.openExternal("https://loadorderlibrary.com/")'>Load Order Library</button>
-        <p class='button-description'>Load Order Library is a web only alternative to modwat.ch that includes more features such as multiple load orders, comparing, and downloads.</p>
+        <button
+          id=""
+          onclick='shell.openExternal("https://loadorderlibrary.com/")'
+        >
+          Load Order Library
+        </button>
+        <p class="button-description">
+          Load Order Library is a web only alternative to modwat.ch that
+          includes more features such as multiple load orders, comparing, and
+          downloads.
+        </p>
       </div>
     </div>
   </body>
   <!--Onload script-->
   <script>
     //Check if Java / 7-Zip is installed
-    Promise.resolve(getProgramDetailsFromPS('Java')).then((value) => 
-    {
-      if(value.DisplayName)
-      {
-        if(value.DisplayName.indexOf("64-bit") != -1)
-        {
-          document.getElementById('check-java').innerText = "Java Version: " + value.DisplayVersion;
+    Promise.resolve(getProgramDetailsFromPS("Java")).then((value) => {
+      if (value.DisplayName) {
+        if (value.DisplayName.indexOf("64-bit") != -1) {
+          document.getElementById("check-java").innerText =
+            "Java Version: " + value.DisplayVersion;
+        } else {
+          document.getElementById("check-java").innerHTML =
+            'Java 64-Bit is required. <a href="" onclick="shell.openExternal(\'https://www.java.com/en/download/windows-64bit.jsp\')">Install Here.</a>';
         }
-        else
-        {
-          document.getElementById('check-java').innerHTML = 'Java 64-Bit is required. <a href="" onclick="shell.openExternal(\'https://www.java.com/en/download/windows-64bit.jsp\')">Install Here.</a>';
-        }
+      } else {
+        document.getElementById("check-java").innerHTML =
+          'Java 64-Bit is required. <a href="" onclick="shell.openExternal(\'https://www.java.com/en/download/windows-64bit.jsp\')">Install Here.</a>';
       }
-      else
-      {
-        document.getElementById('check-java').innerHTML = 'Java 64-Bit is required. <a href="" onclick="shell.openExternal(\'https://www.java.com/en/download/windows-64bit.jsp\')">Install Here.</a>';
-      }
-      Promise.resolve(getProgramDetailsFromPS('7-Zip')).then((value) => 
-      {
-        if(value.DisplayName)
-        {
-          document.getElementById('check-7Zip').innerText = "7-Zip Version: " + value.DisplayVersion;
+      Promise.resolve(getProgramDetailsFromPS("7-Zip")).then((value) => {
+        if (value.DisplayName) {
+          document.getElementById("check-7Zip").innerText =
+            "7-Zip Version: " + value.DisplayVersion;
+        } else {
+          document.getElementById("check-7Zip").innerHTML =
+            '7-Zip is required. <a href="" onclick="shell.openExternal(\'https://www.7-zip.org\')">Install Here.</a>';
         }
-        else
-        {
-          document.getElementById('check-7Zip').innerHTML = '7-Zip is required. <a href="" onclick="shell.openExternal(\'https://www.7-zip.org\')">Install Here.</a>';
-        }
-        Promise.resolve(getProgramDetailsFromPS('The Elder Scrolls V: Skyrim')).then((value) => 
-        {
-          if(value.DisplayName)
-          {
-            document.getElementById('check-le').innerHTML = "Skyrim LE installed at:" + value.installLocation + "<button>Change</button>";
+        Promise.resolve(
+          getProgramDetailsFromPS("The Elder Scrolls V: Skyrim")
+        ).then((value) => {
+          if (value.DisplayName) {
+            document.getElementById("check-le").innerHTML =
+              "Skyrim LE installed at:" +
+              value.installLocation +
+              "<button>Change</button>";
+          } else {
+            document.getElementById("check-le").innerHTML =
+              "Skyrim LE not found. <button onclick=\"shell.openExternal('steam://install/72850')\">Install through Steam.</button><button onclick=\"shell.openExternal('steam://install/72850')\">Enter Path</button>";
           }
-          else
-          {
-            document.getElementById('check-le').innerHTML = 'Skyrim LE not found. <button onclick="shell.openExternal(\'steam://install/72850\')">Install through Steam.</button><button onclick="shell.openExternal(\'steam://install/72850\')">Enter Path</button>';
-          }
-          Promise.resolve(getProgramDetailsFromPS('The Elder Scrolls V: Skyrim')).then((value) => 
-          {
-            if(value.DisplayName)
-            {
-              document.getElementById('check-se').innerHTML = "Skyrim SE installed at:" + value.installLocation + "<button>Change</button>";
+          Promise.resolve(
+            getProgramDetailsFromPS("The Elder Scrolls V: Skyrim")
+          ).then((value) => {
+            if (value.DisplayName) {
+              document.getElementById("check-se").innerHTML =
+                "Skyrim SE installed at:" +
+                value.installLocation +
+                "<button>Change</button>";
+            } else {
+              document.getElementById("check-se").innerHTML =
+                "Skyrim SE not found. <button onclick=\"shell.openExternal('steam://install/489830')\">Install through Steam.</button><button onclick=\"shell.openExternal('steam://install/72850')\">Enter Path</button>";
             }
-            else
-            {
-              document.getElementById('check-se').innerHTML = 'Skyrim SE not found. <button onclick="shell.openExternal(\'steam://install/489830\')">Install through Steam.</button><button onclick="shell.openExternal(\'steam://install/72850\')">Enter Path</button>';
-            }
-            document.getElementById("install-info").style = "display:block;"
-            document.getElementById("load-install-info").style = "display:none;"
+            document.getElementById("install-info").style = "display:block;";
+            document.getElementById("load-install-info").style =
+              "display:none;";
           });
         });
       });
     });
-    
+
     //Load installed modpacks
-    let modpackInfo = require('./user/modpacks.json');
-    const modpackList = document.getElementById('select-modpack');
-    for(let modpack in modpackInfo)
-    {
-      let opt = document.createElement('option');
+    let modpackInfo = require("./user/modpacks.json");
+    const modpackList = document.getElementById("select-modpack");
+    for (let modpack in modpackInfo) {
+      let opt = document.createElement("option");
       opt.value = modpack;
       opt.innerHTML = modpack;
       modpackList.appendChild(opt);

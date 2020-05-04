@@ -1,38 +1,33 @@
 {
-    "Vanilla (Legendary Edition)" :
-    {
-        "ENB" : "None",
-        "SKSE" : true,
-        "path" : ""
-    },
-    "Vanilla (Special Edition)" :
-    {
-        "ENB" : "None",
-        "SKSE" : true,
-        "path" : ""
-    },
-    "Ultimate Skyrim" :
-    {
-        "version" : "4.0.9",
-        "author" : "Dylan Perry",
-        "website" : "www.ultimateskyrim.com",
-        "game" : "LE",
-        "auto-file" : ""
-    },
-    "Pathetic Skyrim" :
-    {
-        "version" : "0",
-        "author" : "RingComics",
-        "website" : "",
-        "game" : "LE",
-        "auto-file" : ""
-    },
-    "Lexy's LOTD" :
-    {
-        "version" : "2.1",
-        "author" : "Lexy",
-        "website" : "www.lexylotd.com",
-        "game" : "SE",
-        "auto-file" : ""
-    }
+  "Vanilla (Legendary Edition)": {
+    "ENB": "None",
+    "SKSE": true,
+    "path": ""
+  },
+  "Vanilla (Special Edition)": {
+    "ENB": "None",
+    "SKSE": true,
+    "path": ""
+  },
+  "Ultimate Skyrim": {
+    "version": "4.0.9",
+    "author": "Dylan Perry",
+    "website": "www.ultimateskyrim.com",
+    "game": "LE",
+    "auto-file": ""
+  },
+  "Pathetic Skyrim": {
+    "version": "0",
+    "author": "RingComics",
+    "website": "",
+    "game": "LE",
+    "auto-file": ""
+  },
+  "Lexy's LOTD": {
+    "version": "2.1",
+    "author": "Lexy",
+    "website": "www.lexylotd.com",
+    "game": "SE",
+    "auto-file": ""
+  }
 }
