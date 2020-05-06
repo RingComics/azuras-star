@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Header info-->
+    <meta charset="utf-8" />
+    <title>Azura's Star</title>
+
+    <!--Load Scripts-->
+    <script src='../JS/changeData.js'></script>
+    <script src='../renderer.js'></script>
+    <script src='./updateUserSettings.js'></script>
+
+    <script>
+        function updatePath(elementID) {
+            let folder = pickFolder();
+            if(folder != undefined)
+            {
+                document.getElementById(elementID).value = folder;
+            }
+        }
+    </script>
+
+    <!--Style-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <style>
+      * {
+        padding: 5px;
+      }
+      body {
+        background-color: dimgray;
+      }
+      button {
+        border-radius: 12px;
+        background-color: orangered;
+        color: white;
+        margin-right: 5px;
+      }
+      p {
+        color: white;
+      }
+      .links {
+        cursor: pointer;
+        color: red;
+      }
+      .links:hover {
+        color: darkgoldenrod;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="page-title">Azura's Star: User Settings</h1>
+    <a href=../index.html class='links'>Go back</a><br>
+
+    <label for='fDownloadPath'>Mod Download Path</label>
+    <input type="text" id='fDownloadPath' name='fDownloadPath' required>
+    <button onclick="updatePath('fDownloadPath')">Browse</button><br>
+
+    <label for='fInstallPath'>Modpack install Path</label>
+    <input type="text" id='fInstallPath' name='fInstallPath' required>
+    <button onclick="updatePath('fInstallPath')">Browse</button><br>
+
+    <label for='fAPIKey'>API Key</label>
+    <input type='password' id='fAPIKey' name='fAPIKey' required>
+    <button onclick="validateUserAPIKey()">Validate Key</button><span>    </span>
+    <a class='links' href='#' onclick='shell.openExternal("https://www.nexusmods.com/users/myaccount?tab=api%20access")'>Get your personal API key here</a><br>
+
+    <label>Username: </label><span id='username'></span><br>
+    <label>Nexus Premium: </label><span id='isPremium'></span><br>
+    <label>APIKey: </label><span id='userAPIKey' style='display: none;'></span><button id='apiToggle' onclick="showAPIKey()">Show</button><br>
+
+    <button onclick="confirmSettings()">Save</button>
+  </body>
+  <script>
+      let settingsJSON = require('./settings.json');
+      if(!settingsJSON.firstRun){
+        document.getElementById('fDownloadPath').value = settingsJSON.downloadPath
+        document.getElementById('fInstallPath').value = settingsJSON.defaultInstallPath
+        document.getElementById('fAPIKey').value = settingsJSON.nexusAPIKey
+        validateUserAPIKey()
+      }
+  </script>
+</html>

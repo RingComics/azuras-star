@@ -8,6 +8,11 @@ for (let modpack in modpackInfo) {
     modpackList.appendChild(opt);
 }
 
+const userInfo = require('./user/settings.json')
+if(userInfo.firstRun) {window.location.href = './user/settings.html'} else {
+    document.getElementById('welcomeUsername').innerText = "Welcome, " + userInfo.username;
+}
+
 //Check if Java / 7-Zip is installed
 Promise.resolve(getProgramDetailsFromPS("Java")).then((value) => {
     if (value.DisplayName) {

@@ -3,7 +3,6 @@ function updateModpackListJson(mp,key,value) {
   modpackListJson[mp][key] = value;
   fs.writeFile(modpackListJsonLocation, JSON.stringify(modpackListJson), function writeJSON(err) {
     if (err) return console.log(err);
-    console.log(JSON.stringify(modpackListJson, null, 2));
   });
 }
 
