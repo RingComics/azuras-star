@@ -6,9 +6,10 @@
     <title>Azura's Star</title>
 
     <!--Load Scripts-->
+    <script src='./renderer.js'></script>
     <script src="./JS/checkPrereqs.js"></script>
     <script src="./Js/changeData.js"></script>
-    <script src='./renderer.js'></script>
+    <script src='./js/initialize.js'></script>
 
     <!--Style-->
     <link
@@ -53,8 +54,13 @@
       <p id="check-le"></p>
       <p id="check-se"></p>
     </div>
+
+    <!--Initialize AS-->
+    <button id='init-button' onclick='initializeAS()'>Initialize Azura's Star</button>
+    <p id='init-desc'>You must initialize AS before you can use it.</p>
+
     <!--Tool buttons-->
-    <div id="buttons">
+    <div id="modpack-buttons"'>
       <div>
         <select id="select-modpack" style="float: left;">
           <!--Modpacks will fill this area-->

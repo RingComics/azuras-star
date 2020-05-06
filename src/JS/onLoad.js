@@ -1,5 +1,4 @@
 //Load installed modpacks
-let modpackInfo = require("./user/modpacks.json");
 const modpackList = document.getElementById("select-modpack");
 for (let modpack in modpackInfo) {
     let opt = document.createElement("option");
@@ -8,9 +7,18 @@ for (let modpack in modpackInfo) {
     modpackList.appendChild(opt);
 }
 
-const userInfo = require('./user/settings.json')
 if(userInfo.firstRun) {window.location.href = './user/settings.html'} else {
     document.getElementById('welcomeUsername').innerText = "Welcome, " + userInfo.username;
+}
+
+if(userInfo.initialized) {
+    document.getElementById('init-button').style.display = 'none';
+    document.getElementById('init-desc').style.display = 'none';
+    document.getElementById('modpack-buttons').style.display = 'block';
+} else {
+    document.getElementById('modpack-buttons').style.display = 'none';
+    document.getElementById('init-desc').style.display = 'block'
+    document.getElementById('init-button').style.display = 'block';
 }
 
 //Check if Java / 7-Zip is installed

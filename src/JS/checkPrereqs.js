@@ -24,4 +24,3 @@ const getProgramDetailsFromPS = async (program) => {
   );
   return parsePSObjectString(await ps.invoke());
 };
-p;
