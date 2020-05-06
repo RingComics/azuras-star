@@ -1,9 +1,9 @@
 {
-  "name": "azuras-star-js",
-  "productName": "azuras-star-js",
-  "version": "1.0.0",
+  "name": "azuras-star",
+  "productName": "azuras-star",
+  "version": "2.0.0",
   "description": "A modding tool for TESV",
-  "main": "src/index.js",
+  "main": "src/main.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",

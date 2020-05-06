@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <title>Azura's Star</title>
 
+<<<<<<< Updated upstream
     <!--Require modules-->
     <script>
       const fs = require("fs");
@@ -19,6 +20,12 @@
 
     <!--Load Scripts-->
     <script src="./JS/checkPrereqs.js"></script>
+=======
+    <!--Load Scripts-->
+    <script src="./JS/checkPrereqs.js"></script>
+    <script src="./Js/changeData.js"></script>
+    <script src='./renderer.js'></script>
+>>>>>>> Stashed changes
 
     <!--Style-->
     <link
@@ -64,20 +71,6 @@
     <!--Tool buttons-->
     <div id="buttons">
       <div>
-        <button id="install-modpack-button" class="utility-button">
-          Install Modpack
-        </button>
-        <p id="install-modpack-description" class="button-description">
-          Install a modpack from a .auto file (powered by<a
-            href="#"
-            class="links"
-            onclick='shell.openExternal("https://github.com/metherul/Automaton")'
-            >Automaton</a
-          >)
-        </p>
-      </div>
-
-      <div>
         <select id="select-modpack" style="float: left;">
           <!--Modpacks will fill this area-->
         </select>
@@ -89,9 +82,23 @@
         >
           Edit
         </button>
-        <button id="new-modpack">Add</button>
+        <button id="new-modpack" onclick="">Add</button>
         <p id="edit-modpack-description" class="button-description">
           Play, edit, or add an existing modpack
+        </p>
+      </div>
+
+      <div>
+        <button id="install-modpack-button" class="utility-button">
+          Install Modpack
+        </button>
+        <p id="install-modpack-description" class="button-description">
+          Install a modpack from a .auto file (powered by<a
+            href="#"
+            class="links"
+            onclick='shell.openExternal("https://github.com/metherul/Automaton")'
+            >Automaton</a
+          >)
         </p>
       </div>
 
@@ -112,6 +119,7 @@
     </div>
   </body>
   <!--Onload script-->
+<<<<<<< Updated upstream
   <script>
     //Check if Java / 7-Zip is installed
     Promise.resolve(getProgramDetailsFromPS("Java")).then((value) => {
@@ -177,4 +185,7 @@
       modpackList.appendChild(opt);
     }
   </script>
+=======
+  <script src='./JS/onLoad.js'></script>
+>>>>>>> Stashed changes
 </html>

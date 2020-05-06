@@ -1,4 +1,10 @@
+<<<<<<< Updated upstream:src/index.js
 import { app, BrowserWindow } from "electron";
+=======
+/* eslint-disable prefer-template */
+/* eslint-disable no-path-concat */
+import { app, ipcMain, dialog, BrowserWindow } from 'electron';
+>>>>>>> Stashed changes:src/main.js
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -39,7 +45,11 @@ const createWindow = () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
+<<<<<<< Updated upstream:src/index.js
 app.on("ready", createWindow);
+=======
+app.on('ready',createWindow);
+>>>>>>> Stashed changes:src/main.js
 
 // Quit when all windows are closed.
 app.on("window-all-closed", () => {
@@ -59,5 +69,9 @@ app.on("activate", () => {
 });
 
 // In this file you can include the rest of your app's specific main process
+<<<<<<< Updated upstream:src/index.js
 // code. You can also put them in separate files and import them here.
 const fs = require("fs");
+=======
+// code. You can also put them in separate files and import them here.
+>>>>>>> Stashed changes:src/main.js
