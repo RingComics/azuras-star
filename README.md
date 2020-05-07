@@ -5,52 +5,12 @@
 Are you sick and tired of manually installing your favorite mod packs when your PC could be doing all the work?  
 Introducing the Azura's Star Modding Tool!
 
-## Requirements
-
-Only requirement is Windows 10. All other software is downloaded and installed during the modding process.
-
-## Features
-
-* Any step requiring human input gives you simple, detailed instructions on how to accomplish them
-* Cleaning DLCs
-* Installing and configuring ENB / ini files
-* Downloading non-MO mods
-* Installing SKSE
-* Creates a desktop shortcut for your modlist. ModOrganizer never needs to be launched manually again!
-* Recommends ENB presets based on your PCs specs.
-* Template save now working
-* Support for any Automaton modpack (COMING SOON)
-
-## Usage
-
-Simply download, extract, and run AzurasStar.exe.
-
-The extracted archive **must not** be in a location that contains special characters (',`,@ etc.).  
-**Bad**: C:\\Some\Path@invalid\Azura's Star  
-**Good**: C:\\Some\Path\Azuras Star
-
-## FAQ 
-
-- I see this error, what do I do?
-
-![Invalid install path](/src/img/invalid-path-name.png)
-
-Refer to the [Usage](#usage) section above, ensure your directory naming is valid.
-
-## Development
-
-PowerShell 5 or greater is required.
-
-To speed up development on a secondary run, it is worth making a copy of any files downloaded, especially large ones.
-
-#### Creating a release 
-
-- Create an archive called `AzurasStar-[release].zip`
-- Copy `src`, `License.md` and `README.md` into the archive (including the `src` folder)
-- Create a new .exe from `AzurasStar.ps1` using [this tool](https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5). Build with: "-noConsole", "-noOutput", "-noError" and "-requireAdmin".
-- Create a release on GitHub
-
-
-## DISCLAIMER
-
-Right now, this software **_ONLY_** works with the [Ultimate Skyrim Modpack](https://ultimateskyrim.squarespace.com/) and comes prepackaged with the required files for it. Support for any Automaton modpack is in the works. All software, files, and other intellectual property used in this package is used either with explicit permission of the author or within the allowances of their license agreement.
+## CURRENTLY IN DEVELOPMENT. OLD TOOL IS LOCATED IN THE POWERSHELL BRANCH. OLD TOOL NEEDS TO BE UPDATED TO REFLECT NEWEST ULTIMATE SKYRIM PATCH. I WILL DO THAT. EVENTUALLY
+New tool will support all Automaton packs on release, creating your own modpacks, and editing existing MO2 mod instances. This tool isn't just for those who want to install a modpack, it is also invaluable to those who mod their own games.
+## New Features
+- SSE support.
+- Modpack launcher.
+- Create your own modpacks by patching Automaton .auto files to work with Azura's Star
+- Import existing mod installs through MO2.
+- Much more!
+New tool will also include all features from the old tool.
