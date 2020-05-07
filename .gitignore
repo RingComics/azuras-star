@@ -1,4 +1,5 @@
 /node_modules/
-.idea
 /out/
+/src/bin/enb/
 src/user/settings.json
+src/user/modpacks.json
