@@ -1,12 +1,1 @@
-{
-    "Vanilla (Legendary Edition)": {
-        "ENB": "None",
-        "SKSE": true,
-        "path": ""
-    },
-    "Vanilla (Special Edition)": {
-        "ENB": "None",
-        "SKSE": true,
-        "path": ""
-    }
-}
+{}

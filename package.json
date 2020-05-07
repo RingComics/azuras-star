@@ -27,7 +27,8 @@
     "electron-compile": "^6.4.4",
     "electron-squirrel-startup": "^1.0.0",
     "node": "^14.0.0",
-    "node-powershell": "^4.0.0"
+    "node-powershell": "^4.0.0",
+    "xml-js": "^1.6.11"
   },
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",
