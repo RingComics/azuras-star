@@ -1,5 +1,4 @@
 /node_modules/
 /out/
-/src/bin/enb/
 src/user/settings.json
 src/user/modpacks.json
