@@ -1,5 +1,5 @@
 <template>
-  <b-card no-body class="mb-1" v-if="this.$props.selectedGame == this.$props.game || this.$props.selectedGame == null">
+  <b-card no-body class="mb-1" v-if="(this.$props.selectedGame == this.$props.game || this.$props.selectedGame == null) & (this.$props.name.toLowerCase().includes(this.$props.search.toLowerCase()) || this.$props.search == '')">
     <b-card-header header-tag="header" class="p-1" role="tab">
       <b-button block v-b-toggle="'accordion-'+this.$props.index">{{ this.$props.name }}</b-button>
     </b-card-header>
@@ -28,6 +28,7 @@ export default {
     game: String,
     index: Number,
     profiles: Array,
+    search: String,
     selectedProfile: String,
     selectedGame: String
   }

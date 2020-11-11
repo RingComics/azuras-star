@@ -24,7 +24,8 @@ export default {
         { name: 'Patreon', href: 'https://www.patreon.com/ringcomics', img: require('../assets/patreon-icon.png') },
         { name: 'Discord', href: 'https://discord.gg/6wusMF6', img: require('../assets/discord-icon.png') },
         { name: 'YouTube', href: 'https://www.youtube.com/channel/UCif_YWnOGA1HLlkH_4rvIwA', img: require('../assets/youtube-icon.png') },
-        { name: 'Twitch', href: 'https://www.twitch.tv/ringcomics', img: require('../assets/twitch-icon.png') }
+        { name: 'Twitch', href: 'https://www.twitch.tv/ringcomics', img: require('../assets/twitch-icon.png') },
+        { name: 'GitHub', href: 'https://ringcomics.github.io/azuras-star/', img: require('../assets/github.png') }
       ]
     }
   },

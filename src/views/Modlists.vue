@@ -4,6 +4,7 @@
       <h2>Modlists</h2>
       <label class="float-left" for="gameFilter"><b-button @click="showModal('add-modlist-modal')">Add new Modlist</b-button></label>
       <b-form-select id='gameFilter' v-model="selectedGame" :options="gamesList"/>
+      <b-form-input placeholder="Search for a list..." v-model="search" />
       <br />
       <div class="accordian" role="tablist">
         <ModlistProfile
@@ -16,6 +17,7 @@
           :profiles="profile.profiles[0]"
           :selectedProfile="profile.selectedProfile"
           :selectedGame="selectedGame"
+          :search="search"
           :index="index"
           @change-modlist="editModlist($event)"
           @change-profile="this.profiles[$event[0]].selectedProfile = $event[1]"
@@ -80,9 +82,10 @@ export default {
       selectedGame: null,
       currentList: null,
       currentConfig: '',
+      search: '',
       error: 'Something went wrong, but we aren\'t sure what',
       gamesList: [
-        { value: null, text: 'Choose game' },
+        { value: null, text: 'Filter by game' },
         { value: 'SkyrimLE', text: 'The Elder Scrolls V: Skyrim Legendary Edition' },
         { value: 'SkyrimSE', text: 'The Elder Scrolls V: Skyrim Special Edition' },
         { value: 'SkyrimVR', text: 'The Elder Scrolls V: Skyrim VR' },
