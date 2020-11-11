@@ -1,3 +1,3 @@
-# UltSkyLauncher
+# Azura's Star
 
-A launcher for Ultimate Skyrim.
+A modding tool for managing modlists
