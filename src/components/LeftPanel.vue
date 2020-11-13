@@ -1,16 +1,20 @@
 <template>
   <b-container fluid>
-    <b-button class=navbutton :pressed="this.currentMenu === 'modlists'" @click="changeMenu('modlists')">Modlists</b-button><br/>
-    <b-button class=navbutton :pressed="this.currentMenu === 'options'" @click="changeMenu('options')">Options</b-button><br/>
-    <b-button class=navbutton v-b-toggle.linksNav>Links</b-button>
-    <b-collapse id=linksNav>
-      <b-card>
-        <b-link class='links' v-b-toggle.linksNav v-for="link in links" :key="link.name" @click="followLink(link.href)">
-          <b-img :src="link.img" height="15"/>
-          {{ link.name }}<br>
-        </b-link>
-      </b-card>
-    </b-collapse>
+    <b-button v-b-toggle.menu>Menu ≡</b-button>
+    <b-sidebar id="menu" :backdrop-variant="'dark'" backdrop shadow no-header>
+      <h2 v-b-popover.hover.bottom="'Version 2.0.0'" class="text-center">Azura's Star</h2>
+      <b-button class=navbutton :pressed="this.currentMenu === 'modlists'" @click="changeMenu('modlists')">Modlists</b-button><br/>
+      <b-button class=navbutton :pressed="this.currentMenu === 'options'" @click="changeMenu('options')">Options</b-button><br/>
+      <b-button class=navbutton v-b-toggle.linksNav>Links</b-button>
+      <b-collapse id=linksNav>
+        <b-card>
+          <b-link class='links' v-b-toggle.linksNav v-for="link in links" :key="link.name" @click="followLink(link.href)">
+            <b-img :src="link.img" height="15"/>
+            {{ link.name }}<br>
+          </b-link>
+        </b-card>
+      </b-collapse>
+    </b-sidebar>
   </b-container>
 </template>
 

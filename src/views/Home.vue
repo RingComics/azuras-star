@@ -1,7 +1,7 @@
 <template>
   <b-container fluid>
     <b-row no-gutters>
-      <b-col cols="3">
+      <b-col cols="1.5">
         <LeftPanel />
       </b-col>
       <b-col>
@@ -25,11 +25,5 @@ export default {
 </script>
 
 <style lang="scss">
-  * {
-    color: #0c1c24;
-    background-color: transparent;
-  }
-  template {
-    background-color: #8aa491;
-  }
+
 </style>

@@ -19,6 +19,7 @@
           :selectedGame="selectedGame"
           :search="search"
           :index="index"
+          :advancedOptions="currentConfig.Options.advancedOptions"
           @change-modlist="editModlist($event)"
           @change-profile="this.profiles[$event[0]].selectedProfile = $event[1]"
           @configure="openModlistProfile($event)"
@@ -32,8 +33,13 @@
       <b-form @submit="createModlistProfile">
         <p>Find your Modlist's folder (where Mod Organizer.exe is) and Azura's Star will fill in the modlist info.</p>
         <b-form-input required placeholder="Enter Modlist name" v-model="addModal.name" />
-        <b-form-input required placeholder="Enter Modlist folder" v-model="addModal.path" /><b-button @click="addModlistPath">Browse</b-button>
-        <b-button type="submit" variant="primary">OK</b-button>
+        <b-input-group>
+          <b-form-input required placeholder="Enter Modlist folder" v-model="addModal.path" />
+          <b-input-group-append>
+            <b-button @click="addModlistPath">Browse</b-button>
+          </b-input-group-append>
+        </b-input-group><br />
+        <b-button class="float-right" type="submit" variant="primary">Add Modlist</b-button>
       </b-form>
     </b-modal>
 
@@ -192,7 +198,7 @@ export default {
     launchGame (list) {
       this.currentList = list
       const game = this.profiles[this.profiles.findIndex(x => x.name === list)].game
-      if (this.currentConfig.Options[game + 'Directory'] === '') {
+      if (this.currentConfig.Options.gameDirectories.find(x => x.game === game).path === '') {
         this.error = 'Your game directory for ' + game + ' could not be found. Please make sure it is set in the options menu and try again (Error code 201)'
         this.showModal('error-message')
         return
@@ -218,13 +224,21 @@ export default {
         this.profiles[Object.keys(this.currentConfig.Modlists).indexOf(key[1].name)].profiles.push([...this.currentConfig.Modlists[key[1].name].profiles])
       })
     })
+    window.ipcRenderer.on('error', (event, args) => {
+      switch (args[0]) {
+        case '204':
+          this.error = 'There was an issue launching the game (Error 204): ' + args[1]
+          break
+        default:
+          this.error = 'An error occured, but we aren\'t sure what (Error 000). Please report this to the developer. Error message:\n' + args[1]
+          break
+      }
+      this.showModal('error-message')
+    })
   }
 }
 </script>
 
 <style lang="scss">
-* {
-    color: #0c1c24;
-    background-color: transparent;
-  }
+
 </style>

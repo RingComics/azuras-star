@@ -7,6 +7,7 @@ import childProcess from 'child_process'
 import ncp from 'ncp'
 import os from 'os'
 import ini from 'iniparser'
+import http from 'https'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -45,21 +46,13 @@ function createWindow () {
     win.loadURL(path.join(__dirname, 'index.html'))
   }
 
+  // Remove context menu
   win.removeMenu()
 
   win.on('closed', () => {
     win = null
   })
 }
-
-// Quit when all windows are closed.
-app.on('window-all-closed', () => {
-  // On macOS it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
 
 app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
@@ -69,12 +62,12 @@ app.on('activate', () => {
   }
 })
 
-// Define default configuration settings
+// Define default configuration settings and configuration directory
 const homedir = path.join(os.homedir(),'Azura\'s Star')
 if(!fs.existsSync(homedir, err => {throw err})) {
   fs.mkdir(homedir, err => {throw err})
 }
-const defaultConfig = JSON.parse('{"Options":{"SkyrimSEDirectory":"","SkyrimLEDirectory":"","FalloutNVDirectory":""},"Modlists":{}}')
+const defaultConfig = JSON.parse('{"Options":{"gameDirectories": [{"game": "Morrowind", "path": ""},{"game": "Oblivion", "path": ""},{"game": "SkyrimLE", "path": ""},{"game": "SkyrimSE", "path": ""},{"game": "SkyrimVR", "path": ""},{"game": "Fallout3", "path": ""},{"game": "FalloutNV", "path": ""},{"game": "Fallout4", "path": ""},{"game": "FalloutVR", "path": ""}],"wabbajackDirectory": "","advancedOptions": false},"Modlists":{}}')
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -128,13 +121,19 @@ if (isDevelopment) {
   }
 }
 
-ipcMain.on('follow-link', (_event, args) => {
+
+// IpcRenderer handling
+ipcMain.on('follow-link', (_event, args) => { // Open hyperlinks in the default browser
   shell.openExternal(args)
-}).on('open-modlist-profile', (_event, args) => {
+}).on('open-modlist-profile', (_event, args) => { // Open path to modlist folder
   shell.openPath(args)
 })
 
-ipcMain.handle('create-modlist-profile', async (_event, modlistInfo) => {
+ipcMain.handle('create-modlist-profile', async (_event, modlistInfo) => { // Add a new modlist profile
+  if (!fs.existsSync(path.join(modlistInfo.path, 'ModOrganizer.exe'))) { //Check if path contains Mod Organizer
+    win.webContents.send(['203', modlistInfo.path + ' does not contain ModOrganizer.exe'])
+    return 'Error'
+  }
   const MO2ini = ini.parseSync(path.join(modlistInfo.path, 'ModOrganizer.ini'))
   switch (MO2ini.General.gameName) {
     case "Oblivion":
@@ -182,14 +181,12 @@ ipcMain.handle('create-modlist-profile', async (_event, modlistInfo) => {
   modlistInfo.profiles = []
   files.forEach(file => {
     modlistInfo.profiles.push(file)
-    console.log(file)
   })
   console.log(modlistInfo)
   modlistInfo.selectedProfile = modlistInfo.profiles[0]
 
   let options = JSON.parse(fs.readFileSync(path.join(homedir, 'options.json')))
   options.Modlists[modlistInfo.name] = modlistInfo
-  console.log(options)
   fs.writeFileSync(path.join(homedir, '/options.json'), JSON.stringify(options, null, 2))
   return {
     name: modlistInfo.name,
@@ -214,6 +211,7 @@ ipcMain.handle('get-config', async (_event, args) => {
   return result
 })
 
+
 ipcMain.handle('get-profiles', async (_event, args) => {
   let options = fs.readFileSync(path.join(homedir, 'options.json'), { encoding:'utf8' })
   return JSON.parse(options).Modlists[args].profiles
@@ -233,30 +231,25 @@ ipcMain.handle('launch-game', async (_event, args) => {
   const exe = currentConfig.Modlists[args].exe
   const profile = currentConfig.Modlists[args].selectedProfile
   const game = currentConfig.Modlists[args].game
-  const gamePath = currentConfig.Options[game + 'Directory']
+  const gamePath = currentConfig.Options.gameDirectories.find(x => x.game === game).path
 
   ncp.ncp(path.join(modlistPath, 'Game Folder Files'), gamePath)
 
-  const execPath = path.join(modlistPath, '\\ModOrganizer.exe -p "' + profile + '" ' + exe)
-  childProcess.exec(execPath)
+  const execCMD = 'ModOrganizer.exe -p "' + profile + '" ' + exe
+  childProcess.exec(execCMD, { cwd: modlistPath }, (error) => {
+    if (error) return win.webContents.send(['204', error])
+  })
   win.minimize()
 
   let isGameRunning = setInterval(checkProcess, 1000)
   function checkProcess () {
     isRunning('ModOrganizer.exe', (status) => {
       if (!status) {
-        console.log('Game closed!')
         clearInterval(isGameRunning)
         fs.readdir(path.join(modlistPath, 'Game Folder Files'), (err,files) => {
           files.forEach(file => {
-            fs.unlink(path.join(gamePath, file), (err) => {
-              console.log(err)
-            })
-            fs.rmdir(path.join(gamePath, file), { recursive: true }, (err) => {
-              if (err) {
-                  throw err;
-              }
-            })
+            fs.unlink(path.join(gamePath, file), (err) => {})
+            fs.rmdir(path.join(gamePath, file), { recursive: true }, (err) => {})
           })
           win.show()
           win.webContents.send('game-closed')
@@ -274,4 +267,19 @@ ipcMain.handle('launch-mo2', async (_event, args) => {
   const currentConfig = JSON.parse(fs.readFileSync(path.join(homedir, 'options.json')))
   const moPath = path.join(currentConfig.Options.ModDirectory, '\\ModOrganizer.exe')
   childProcess.exec(moPath)
+})
+
+ipcMain.handle('download-wabbajack', (_event, args) => {
+  console.log('yuh')
+  http.get('https://api.github.com/repos/wabbajack-tools/wabbajack/releases', { headers: {'User-Agent': 'azuras-star'} }, response => {
+    let body = ''
+    response.on('data', chunk => {
+      body += chunk
+    })
+    response.on('end', () => {
+      body = JSON.parse(body)
+      const downloadURL = body[0].assets[1].browser_download_url.toString()
+      shell.openExternal(downloadURL)
+    })
+  })
 })
