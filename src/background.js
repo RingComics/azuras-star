@@ -67,7 +67,10 @@ const homedir = path.join(os.homedir(),'Azura\'s Star')
 if(!fs.existsSync(homedir, err => {throw err})) {
   fs.mkdir(homedir, err => {throw err})
 }
-const defaultConfig = JSON.parse('{"Options":{"gameDirectories": [{"game": "Morrowind", "path": ""},{"game": "Oblivion", "path": ""},{"game": "SkyrimLE", "path": ""},{"game": "SkyrimSE", "path": ""},{"game": "SkyrimVR", "path": ""},{"game": "Fallout3", "path": ""},{"game": "FalloutNV", "path": ""},{"game": "Fallout4", "path": ""},{"game": "FalloutVR", "path": ""}],"wabbajackDirectory": "","advancedOptions": false},"Modlists":{}}')
+const appPath = process.argv[0].replace(/\\/gi,'\\\\')
+console.log(appPath)
+
+const defaultConfig = JSON.parse('{"Options":{"gameDirectories": [{"game": "Morrowind", "path": ""},{"game": "Oblivion", "path": ""},{"game": "SkyrimLE", "path": ""},{"game": "SkyrimSE", "path": ""},{"game": "SkyrimVR", "path": ""},{"game": "Fallout3", "path": ""},{"game": "FalloutNV", "path": ""},{"game": "Fallout4", "path": ""},{"game": "FalloutVR", "path": ""}],"wabbajackDirectory": "","advancedOptions": false, "ASPath": "' + appPath + '"},"Modlists":{}}')
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -91,6 +94,8 @@ app.on('ready', async () => {
     fs.mkdirSync(path.join(homedir, 'Modlists'))
   }
 })
+
+console.log(process.env.PORTABLE_EXECUTABLE_DIR)
 
 const isRunning = (query, cb) => {
   let platform = process.platform;
@@ -120,6 +125,8 @@ if (isDevelopment) {
     })
   }
 }
+
+// Handle commandline arguments
 
 
 // IpcRenderer handling
@@ -282,4 +289,15 @@ ipcMain.handle('download-wabbajack', (_event, args) => {
       shell.openExternal(downloadURL)
     })
   })
+})
+
+ipcMain.handle('create-shortcut', (_event, args) => {
+  console.log(args)
+  const currentConfig = JSON.parse(fs.readFileSync(path.join(homedir, 'options.json')))
+  shell.writeShortcutLink(path.join(os.homedir(), '/Desktop/', args+'.lnk'), 'create', { target: currentConfig.Options.ASPath, args: '"'+args+'"' })
+})
+
+// Keep this method at the bottom of the file for ease of access
+ipcMain.handle('debug', (_event, args) => {
+  return process.argv
 })

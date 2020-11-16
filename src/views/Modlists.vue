@@ -25,6 +25,7 @@
           @configure="openModlistProfile($event)"
           @delete="confirmDeleteModlistProfile($event)"
           @play="launchGame($event)"
+          @shortcut="createShortcut($event)"
         />
       </div>
     </b-overlay>
@@ -211,6 +212,9 @@ export default {
     },
     forceQuit () {
       window.ipcRenderer.invoke('force-quit')
+    },
+    createShortcut (name) {
+      window.ipcRenderer.invoke('create-shortcut', name)
     }
   },
   beforeMount () {

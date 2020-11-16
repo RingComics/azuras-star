@@ -27,8 +27,13 @@
 
       <b-checkbox v-model="advancedOptions"><span v-b-popover.hover.top="'Enables extra options for modlists'">Advanced Modlist Options</span></b-checkbox><br />
 
+      <!--<b-button @click="debug()">Debug</b-button><br />-->
+
       <b-button type="submit" variant="primary">Apply</b-button>
     </b-form>
+    <b-modal ref="debugModal">
+      <p>{{ this.debugResult }}</p>
+    </b-modal>
   </div>
 </template>
 
@@ -42,6 +47,7 @@ export default {
       WabbajackDirectory: '',
       advancedOptions: '',
       currentConfig: '',
+      debugResult: '',
       downloading: false
     }
   },
@@ -75,6 +81,12 @@ export default {
     },
     downloadWabbajack () {
       window.ipcRenderer.invoke('download-wabbajack')
+    },
+    debug () {
+      window.ipcRenderer.invoke('debug').then(result => {
+        this.debugResult = result
+        this.$refs.debugModal.show()
+      })
     }
   },
   beforeMount () {
