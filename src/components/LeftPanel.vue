@@ -2,7 +2,7 @@
   <b-container fluid>
     <b-button v-b-toggle.menu>Menu ≡</b-button>
     <b-sidebar id="menu" :backdrop-variant="'dark'" backdrop shadow no-header>
-      <h2 v-b-popover.hover.bottom="'Version 2.0.0'" class="text-center">Azura's Star</h2>
+      <h2 v-b-popover.hover.bottom="'Version 2.0.1'" class="text-center">Azura's Star</h2>
       <b-button class=navbutton :pressed="this.currentMenu === 'modlists'" @click="changeMenu('modlists')">Modlists</b-button><br/>
       <b-button class=navbutton :pressed="this.currentMenu === 'options'" @click="changeMenu('options')">Options</b-button><br/>
       <b-button class=navbutton v-b-toggle.linksNav>Links</b-button>
