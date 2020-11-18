@@ -233,6 +233,9 @@ export default {
         case '204':
           this.error = 'There was an issue launching the game (Error 204): ' + args[1]
           break
+        case '002':
+          this.error = 'There was an issue moving Game Folder Files over (Error 002): ' + args[1]
+          break
         default:
           this.error = 'An error occured, but we aren\'t sure what (Error 000). Please report this to the developer. Error message:\n' + args[1]
           break

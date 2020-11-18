@@ -240,30 +240,38 @@ ipcMain.handle('launch-game', async (_event, args) => {
   const game = currentConfig.Modlists[args].game
   const gamePath = currentConfig.Options.gameDirectories.find(x => x.game === game).path
 
-  ncp.ncp(path.join(modlistPath, 'Game Folder Files'), gamePath)
-
-  const execCMD = 'ModOrganizer.exe -p "' + profile + '" ' + exe
-  childProcess.exec(execCMD, { cwd: modlistPath }, (error) => {
-    if (error) return win.webContents.send(['204', error])
+  ncp.ncp(path.join(modlistPath, 'Game Folder Files'), gamePath, err => {
+    if (err) {
+      win.webContents.send('game-closed')
+      return win.webContents.send('error', ['002', err])
+    }
   })
-  win.minimize()
-
-  let isGameRunning = setInterval(checkProcess, 1000)
-  function checkProcess () {
-    isRunning('ModOrganizer.exe', (status) => {
-      if (!status) {
-        clearInterval(isGameRunning)
-        fs.readdir(path.join(modlistPath, 'Game Folder Files'), (err,files) => {
-          files.forEach(file => {
-            fs.unlink(path.join(gamePath, file), (err) => {})
-            fs.rmdir(path.join(gamePath, file), { recursive: true }, (err) => {})
-          })
-          win.show()
-          win.webContents.send('game-closed')
-        })  
+    const execCMD = '"' + modlistPath + '\\ModOrganizer.exe" -p "' + profile + '" "moshortcut://:' + exe + '"'
+    childProcess.exec(execCMD, (error) => {
+      console.log(error)
+      if (error) {
+        win.webContents.send('game-closed')
+        return win.webContents.send(['204', error])
       }
     })
-  }
+    win.minimize()
+
+    let isGameRunning = setInterval(checkProcess, 1000)
+    function checkProcess () {
+      isRunning('ModOrganizer.exe', (status) => {
+        if (!status) {
+          clearInterval(isGameRunning)
+          fs.readdir(path.join(modlistPath, 'Game Folder Files'), (err,files) => {
+            files.forEach(file => {
+             fs.unlink(path.join(gamePath, file), (err) => {})
+             fs.rmdir(path.join(gamePath, file), { recursive: true }, (err) => {})
+            })
+            win.show()
+            win.webContents.send('game-closed')
+          })  
+        }
+      })
+    }
 })
 
 ipcMain.handle('force-quit', async (_event, args) => {
