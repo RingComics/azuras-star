@@ -26,6 +26,7 @@
           @delete="confirmDeleteModlistProfile($event)"
           @play="launchGame($event)"
           @shortcut="createShortcut($event)"
+          @launch-mo2="launchMO2($event)"
         />
       </div>
     </b-overlay>
@@ -76,7 +77,7 @@
 </template>
 
 <script>
-import ModlistProfile from '../components/ENB/ModlistProfile.vue'
+import ModlistProfile from '../components/ModlistProfile.vue'
 
 export default {
   name: 'Modlists',
@@ -215,6 +216,9 @@ export default {
     },
     createShortcut (name) {
       window.ipcRenderer.invoke('create-shortcut', name)
+    },
+    launchMO2 (list) {
+      window.ipcRenderer.invoke('launch-mo2', list)
     }
   },
   beforeMount () {

@@ -17,7 +17,7 @@
             <p v-if="this.$props.advancedOptions" class="text-left">Game: {{ this.$props.game }} <b-button v-b-popover.hover.top="'Change game the modlist is for'" v-if="this.$props.advancedOptions" variant="primary" @click="$emit('change-modlist', [ name, 'game'])" class="float-right">Change</b-button></p>
             <p v-if="this.$props.advancedOptions" class="text-left">Executable: {{ this.$props.exe }} <b-button v-b-popover.hover.top="'Change which Mod Organizer executable is used when launching the game'" v-if="this.$props.advancedOptions" variant="primary" @click="$emit('change-modlist', [ name, 'exe'])" class="float-right">Change</b-button></p>
             <b-button v-b-popover.hover.top="'Delete this modlist'" class="float-right" variant="danger" @click="$emit('delete', name)">Delete</b-button><br /><br />
-            <b-button v-b-popover.hover.top="'Open the Mod Organizer instance for this modlist'" v-if="this.$props.advancedOptions" variant="primary" @click="$emit('launch-mo2'), name">Launch Mod Organizer</b-button>
+            <b-button v-b-popover.hover.top="'Open the Mod Organizer instance for this modlist'" v-if="this.$props.advancedOptions" variant="primary" @click="$emit('launch-mo2', name)">Launch Mod Organizer</b-button>
             <b-button v-b-popover.hover.top="'Open modlist folder'" v-if="this.$props.advancedOptions" variant="primary" @click="$emit('configure', name)">Open Folder</b-button>
           </b-tab>
         </b-tabs>

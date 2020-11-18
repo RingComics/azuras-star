@@ -280,8 +280,8 @@ ipcMain.handle('force-quit', async (_event, args) => {
 
 ipcMain.handle('launch-mo2', async (_event, args) => {
   const currentConfig = JSON.parse(fs.readFileSync(path.join(homedir, 'options.json')))
-  const moPath = path.join(currentConfig.Options.ModDirectory, '\\ModOrganizer.exe')
-  childProcess.exec(moPath)
+  const moPath = path.join(currentConfig.Modlists[args].path, '\\ModOrganizer.exe')
+  childProcess.exec('"'+moPath+'"')
 })
 
 ipcMain.handle('download-wabbajack', (_event, args) => {
