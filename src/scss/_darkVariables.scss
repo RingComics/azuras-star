@@ -1,0 +1,154 @@
+﻿
+// Variable overrides for Bootstrap
+// When compiling Sass, this should be loaded before Bootstrap's Sass
+
+
+// Colors
+$white: #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: darken($gray-800, 3) !default;
+$black: #000 !default;
+
+$primary: #007acc !default;
+$secondary: darken(#868e96, 15) !default;
+$success: darken(#5cb85c, 10) !default;
+$warning: #d5702c !default;
+$danger: #dc3b36 !default;
+$light: $gray-100 !default;
+$dark: $gray-900 !default;
+
+// Body
+$body-bg: $gray-800 !default;
+$body-color: #F1F1F1 !default;
+
+
+$link-color: lighten($primary, 10) !default;
+
+// Tables
+$table-border-color: $gray-700 !default;
+
+$table-dark-bg: $gray-900 !default;
+$table-dark-color: $gray-300 !default;
+
+$table-bg-level: 0 !default;
+$table-border-level: -2 !default;
+
+// Forms
+$input-bg: darken($gray-800, 2) !default;
+$input-disabled-bg: $body-bg !default;
+
+$input-color: $body-color !default;
+$input-border-color: $gray-700 !default;
+
+$input-placeholder-color: darken($gray-600, 5) !default;
+
+$input-group-addon-bg: $gray-900 !default;
+
+$custom-select-indicator-color: $input-color !default;
+
+$custom-range-track-bg: $gray-500 !default;
+
+
+// Navs
+$nav-tabs-border-color: $gray-700 !default;
+$nav-tabs-link-hover-color: $body-color !default;
+$nav-tabs-link-hover-border-color: transparent transparent $nav-tabs-border-color !default;
+$nav-tabs-link-active-color: $gray-300 !default;
+$nav-tabs-link-active-bg: $body-bg !default;
+$nav-tabs-link-active-border-color: $gray-700 $gray-700 $nav-tabs-link-active-bg !default;
+
+// Navbar
+
+// Pagination
+$pagination-color: $body-color !default;
+$pagination-bg: $dark !default;
+$pagination-border-color: $pagination-bg !default;
+
+$pagination-hover-color: lighten($pagination-color, 5) !default;
+$pagination-hover-bg: lighten($pagination-bg, 5) !default;
+$pagination-hover-border-color: $pagination-hover-bg !default;
+
+// Jumbotron
+$jumbotron-bg: $gray-900 !default;
+
+// Cards
+$card-border-color: darken($gray-700, 10) !default;
+$card-bg: $gray-900 !default;
+
+
+// Tooltips
+
+
+// Popovers
+$popover-bg: $gray-900 !default;
+$popover-border-color: $table-border-color !default;
+
+$popover-header-bg: lighten($popover-bg, 3%) !default;
+
+
+// Modals
+$modal-content-bg: $body-bg !default;
+$modal-header-border-color: darken($gray-700, 5) !default;
+
+// Pagination
+$pagination-disabled-color: $gray-600 !default;
+$pagination-disabled-bg: $gray-700 !default;
+$pagination-disabled-border-color: $gray-700 !default;
+
+// Progress bars
+$progress-bg: $gray-900 !default;
+
+// List group
+$list-group-bg: $gray-900 !default;
+$list-group-border-color: darken($gray-700, 10) !default;
+
+$list-group-hover-bg: lighten($gray-900, 5) !default;
+
+$list-group-action-color: $body-color !default;
+$list-group-action-hover-color: $white !default;
+
+// Dropdowns
+$dropdown-color: $body-color !default;
+$dropdown-bg: $gray-900 !default;
+$dropdown-border-color: $input-border-color !default;
+$dropdown-divider-bg: $input-border-color !default;
+
+$dropdown-link-color: $body-color !default;
+$dropdown-link-hover-color: lighten($body-color, 5) !default;
+$dropdown-link-hover-bg: darken($body-bg,3) !default;
+
+$dropdown-link-active-color: $white !default;
+$dropdown-link-active-bg: $primary !default;
+
+
+// Breadcrumbs
+$breadcrumb-bg: $gray-900 !default;
+
+// Close
+$close-color: $white !default;
+$close-text-shadow: 0 1px 0 $black !default;
+
+// Code
+
+$kbd-bg: darken($gray-800, 10) !default;
+
+$pre-color: $body-color !default;
+
+
+// Alerts
+$alert-bg-level: 0 !default;
+$alert-border-level: -1 !default;
+$alert-color-level: -12 !default;
+
+
+// Toasts
+
+$toast-background-color: darken($body-bg, 3) !default;
+$toast-header-background-color: lighten($body-bg, 3) !default;

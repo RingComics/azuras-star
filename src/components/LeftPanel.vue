@@ -1,12 +1,12 @@
 <template>
   <b-container fluid>
-    <b-button v-b-toggle.menu>Menu ≡</b-button>
-    <b-sidebar id="menu" :backdrop-variant="'dark'" backdrop shadow no-header>
+    <b-button v-b-toggle.menu style="position:fixed;">Menu ≡</b-button>
+    <b-sidebar id="menu" bg-variant="dark" text-variant="light" :backdrop-variant="'dark'" backdrop shadow no-header>
       <h2 v-b-popover.hover.bottom="'Version 2.1.0'" class="text-center">Azura's Star</h2>
       <!--<b-button v-if="this.advancedOptions" class=navbutton :pressed="this.currentMenu === 'dev'" @click="changeMenu('dev')">Modlist Development</b-button><br/>-->
-      <b-button class=navbutton :pressed="this.currentMenu === 'modlists'" @click="changeMenu('modlists')">Modlists</b-button><br/>
-      <b-button class=navbutton :pressed="this.currentMenu === 'options'" @click="changeMenu('options')">Options</b-button><br/>
-      <b-button class=navbutton v-b-toggle.linksNav>Links</b-button>
+      <b-button style="border-radius:0;" class=navbutton :pressed="this.currentMenu === 'modlists'" @click="changeMenu('modlists')">Modlists</b-button><br/>
+      <b-button style="border-radius:0;" class=navbutton :pressed="this.currentMenu === 'options'" @click="changeMenu('options')">Options</b-button><br/>
+      <b-button style="border-radius:0;" class=navbutton v-b-toggle.linksNav>Links</b-button>
       <b-collapse id=linksNav>
         <b-card>
           <b-link class='links' v-b-toggle.linksNav v-for="link in links" :key="link.name" @click="followLink(link.href)">
@@ -69,7 +69,8 @@ export default {
 
 <style lang="scss">
   .navbutton {
-    width: 100%
+    width: 100%;
+    border-radius: 0;
   }
   .links {
     color: red;

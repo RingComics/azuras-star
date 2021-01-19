@@ -1,7 +1,7 @@
 <template>
   <b-container fluid class="text-center" key="profiles">
     <b-overlay :show="loading">
-      <h2>Modlists</h2>
+      <h2 style="float:left;">Modlists</h2><br/><br/>
       <label class="float-left" for="gameFilter"><b-button @click="showModal('add-modlist-modal')">Add new Modlist</b-button></label>
       <b-form-select id='gameFilter' v-model="selectedGame" :options="gamesList"/>
       <b-form-input placeholder="Search for a list..." v-model="search" />

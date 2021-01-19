@@ -27,7 +27,6 @@ function createWindow () {
     height: 600,
     title: "Azura's Star",
     icon: path.join(__static, 'azura.png'),
-    darkTheme: true,
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
