@@ -2,6 +2,8 @@
 
 A modding tool for managing modlists
 
+[Nexus](https://www.nexusmods.com/skyrimspecialedition/mods/42528)
+
 [Discord](https://www.discord.gg/6wusMF6)
 
 [Youtube](https://www.youtube.com/channel/UCif_YWnOGA1HLlkH_4rvIwA)
