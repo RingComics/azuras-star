@@ -2,7 +2,8 @@
   <b-container fluid>
     <b-button v-b-toggle.menu>Menu ≡</b-button>
     <b-sidebar id="menu" :backdrop-variant="'dark'" backdrop shadow no-header>
-      <h2 v-b-popover.hover.bottom="'Version 2.0.1'" class="text-center">Azura's Star</h2>
+      <h2 v-b-popover.hover.bottom="'Version 2.1.0'" class="text-center">Azura's Star</h2>
+      <!--<b-button v-if="this.advancedOptions" class=navbutton :pressed="this.currentMenu === 'dev'" @click="changeMenu('dev')">Modlist Development</b-button><br/>-->
       <b-button class=navbutton :pressed="this.currentMenu === 'modlists'" @click="changeMenu('modlists')">Modlists</b-button><br/>
       <b-button class=navbutton :pressed="this.currentMenu === 'options'" @click="changeMenu('options')">Options</b-button><br/>
       <b-button class=navbutton v-b-toggle.linksNav>Links</b-button>
@@ -24,6 +25,7 @@ export default {
   data () {
     return {
       currentMenu: '',
+      advancedOptions: false,
       links: [
         { name: 'Patreon', href: 'https://www.patreon.com/ringcomics', img: require('../assets/patreon-icon.png') },
         { name: 'Discord', href: 'https://discord.gg/6wusMF6', img: require('../assets/discord-icon.png') },
@@ -56,6 +58,11 @@ export default {
         if (result !== undefined) { this.ModDirectory = result[0] }
       })
     }
+  },
+  mounted () {
+    window.ipcRenderer.invoke('get-config').then(result => {
+      this.advancedOptions = result.Options.advancedOptions
+    })
   }
 }
 </script>

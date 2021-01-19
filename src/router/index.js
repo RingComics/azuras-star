@@ -5,6 +5,7 @@ import Home from '../views/Home.vue'
 import Welcome from '../views/Welcome.vue'
 import Modlists from '../views/Modlists.vue'
 import Options from '../views/Options.vue'
+import Dev from '../views/Dev.vue'
 
 Vue.use(VueRouter)
 
@@ -26,6 +27,10 @@ const routes = [
       {
         path: 'options',
         component: Options
+      },
+      {
+        path: 'dev',
+        component: Dev
       }
     ]
   }

@@ -31,6 +31,7 @@ function createWindow () {
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
+      webviewTag: true,
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
       preload: path.join(__dirname, 'preload.js')
     }
@@ -240,38 +241,45 @@ ipcMain.handle('launch-game', async (_event, args) => {
   const game = currentConfig.Modlists[args].game
   const gamePath = currentConfig.Options.gameDirectories.find(x => x.game === game).path
 
-  ncp.ncp(path.join(modlistPath, 'Game Folder Files'), gamePath, err => {
-    if (err) {
-      win.webContents.send('game-closed')
-      return win.webContents.send('error', ['002', err])
-    }
-  })
-    const execCMD = '"' + modlistPath + '\\ModOrganizer.exe" -p "' + profile + '" "moshortcut://:' + exe + '"'
-    childProcess.exec(execCMD, (error) => {
-      console.log(error)
-      if (error) {
+  if (game != 'Morrowind') {
+    ncp.ncp(path.join(modlistPath, 'Game Folder Files'), gamePath, err => {
+      if (err) {
         win.webContents.send('game-closed')
-        return win.webContents.send(['204', error])
+        return win.webContents.send('error', ['002', err])
       }
     })
-    win.minimize()
+  }
+  const execCMD = '"' + modlistPath + '\\ModOrganizer.exe" -p "' + profile + '" "moshortcut://:' + exe + '"'
+  childProcess.exec(execCMD, (error) => {
+    console.log(error)
+    if (error) {
+      win.webContents.send('game-closed')
+      return win.webContents.send(['204', error])
+    }
+  })
+  win.minimize()
 
-    let isGameRunning = setInterval(checkProcess, 1000)
-    function checkProcess () {
-      isRunning('ModOrganizer.exe', (status) => {
-        if (!status) {
-          clearInterval(isGameRunning)
+  let isGameRunning = setInterval(checkProcess, 1000)
+  function checkProcess () {
+    isRunning('ModOrganizer.exe', (status) => {
+      if (!status) {
+        clearInterval(isGameRunning)
+        if (game != 'Morrowind') {
           fs.readdir(path.join(modlistPath, 'Game Folder Files'), (err,files) => {
             files.forEach(file => {
-             fs.unlink(path.join(gamePath, file), (err) => {})
-             fs.rmdir(path.join(gamePath, file), { recursive: true }, (err) => {})
+              fs.unlink(path.join(gamePath, file), (err) => {})
+              fs.rmdir(path.join(gamePath, file), { recursive: true }, (err) => {})
             })
             win.show()
             win.webContents.send('game-closed')
-          })  
+          })
+        } else {
+          win.show()
+          win.webContents.send('game-closed')
         }
-      })
-    }
+      }
+    })
+  }
 })
 
 ipcMain.handle('force-quit', async (_event, args) => {

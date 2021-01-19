@@ -45,6 +45,10 @@
       </b-form>
     </b-modal>
 
+    <b-modal ref="morrowind-warning" title="WARNING" ok-only>
+      <p>Your Morrowind modlist has been added, however, Azura's Star cannot manage the game folder files for Morrowind modlists. You will still need to manually move and configure the game folder files according to the modlists readme if you installed via Wabbajack, or make the configurations yourself if this is a custom modlist.</p>
+    </b-modal>
+
     <b-modal ref="delete-modlist-modal" title="Delete Your Profile" hide-footer>
       <b-form @submit="deleteModlistProfile">
         <p class="text-center">
@@ -142,7 +146,7 @@ export default {
         if (result === 'ERROR 202') return
         this.profiles.push(result)
         this.loading = false
-        location.reload()
+        if (result.game === 'Morrowind') { this.$refs['morrowind-warning'].show() } else { location.reload() }
       })
     },
     openModlistProfile (name) {
