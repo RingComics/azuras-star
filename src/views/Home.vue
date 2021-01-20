@@ -1,8 +1,15 @@
 <template>
-  <b-container fluid>
-    <b-row no-gutters>
-      <b-col cols="1.5" style="width:10%">
-        <LeftPanel />
+  <b-container
+    fluid
+  >
+    <b-row
+      no-gutters
+    >
+      <b-col
+        cols="1.5"
+        style="width:10%"
+      >
+        <LeftPanel/>
       </b-col>
       <b-col>
         <CenterPanel />

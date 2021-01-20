@@ -290,29 +290,3 @@ ipcMain.handle('launch-mo2', async (_event, args) => {
   const moPath = path.join(currentConfig.Modlists[args].path, '\\ModOrganizer.exe')
   childProcess.exec('"'+moPath+'"')
 })
-
-ipcMain.handle('download-wabbajack', (_event, args) => {
-  console.log('yuh')
-  http.get('https://api.github.com/repos/wabbajack-tools/wabbajack/releases', { headers: {'User-Agent': 'azuras-star'} }, response => {
-    let body = ''
-    response.on('data', chunk => {
-      body += chunk
-    })
-    response.on('end', () => {
-      body = JSON.parse(body)
-      const downloadURL = body[0].assets[1].browser_download_url.toString()
-      shell.openExternal(downloadURL)
-    })
-  })
-})
-
-ipcMain.handle('create-shortcut', (_event, args) => {
-  console.log(args)
-  const currentConfig = JSON.parse(fs.readFileSync(path.join(homedir, 'options.json')))
-  shell.writeShortcutLink(path.join(os.homedir(), '/Desktop/', args+'.lnk'), 'create', { target: currentConfig.Options.ASPath, args: '"'+args+'"' })
-})
-
-// Keep this method at the bottom of the file for ease of access
-ipcMain.handle('debug', (_event, args) => {
-  return process.argv
-})

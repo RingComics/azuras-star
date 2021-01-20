@@ -1,12 +1,42 @@
 <template>
-  <b-container fluid class="text-center" key="profiles">
-    <b-overlay :show="loading">
-      <h2 style="float:left;">Modlists</h2><br/><br/>
-      <label class="float-left" for="gameFilter"><b-button @click="showModal('add-modlist-modal')">Add new Modlist</b-button></label>
-      <b-form-select id='gameFilter' v-model="selectedGame" :options="gamesList"/>
-      <b-form-input placeholder="Search for a list..." v-model="search" />
-      <br />
-      <div class="accordian" role="tablist">
+  <b-container
+    fluid class="text-center"
+    key="profiles"
+  >
+    <b-overlay
+      :show="loading"
+    >
+      <h2
+        style="float:left;"
+      >
+        Modlists
+      </h2>
+      <br/>
+      <br/>
+      <label
+        class="float-left"
+        for="gameFilter"
+      >
+        <b-button
+          @click="showModal('add-modlist-modal')"
+        >
+          Add new Modlist
+        </b-button>
+      </label>
+      <b-form-select
+        id='gameFilter'
+        v-model="selectedGame"
+        :options="gamesList"
+      />
+      <b-form-input
+        placeholder="Search for a list..."
+        v-model="search"
+      />
+      <br/>
+      <div
+        class="accordian"
+        role="tablist"
+      >
         <ModlistProfile
           v-for="(profile, index) in profiles"
           :key="profile.id"
@@ -31,50 +61,140 @@
       </div>
     </b-overlay>
 
-    <b-modal ref="add-modlist-modal" title="Name Your Profile" hide-footer>
-      <b-form @submit="createModlistProfile">
-        <p>Find your Modlist's folder (where Mod Organizer.exe is) and Azura's Star will fill in the modlist info.</p>
-        <b-form-input required placeholder="Enter Modlist name" v-model="addModal.name" />
+    <b-modal
+      ref="add-modlist-modal"
+      title="Name Your Profile"
+      hide-footer
+    >
+      <b-form
+        @submit="createModlistProfile"
+      >
+        <p>
+          Find your Modlist's folder (where Mod Organizer.exe is) and Azura's
+          Star will fill in the modlist info.
+        </p>
+        <b-form-input
+          required placeholder="Enter Modlist name"
+          v-model="addModal.name"
+        />
         <b-input-group>
-          <b-form-input required placeholder="Enter Modlist folder" v-model="addModal.path" />
+          <b-form-input
+            required placeholder="Enter Modlist folder"
+            v-model="addModal.path"
+          />
           <b-input-group-append>
-            <b-button @click="addModlistPath">Browse</b-button>
+            <b-button
+              @click="addModlistPath"
+            >
+              Browse
+            </b-button>
           </b-input-group-append>
-        </b-input-group><br />
-        <b-button class="float-right" type="submit" variant="primary">Add Modlist</b-button>
+        </b-input-group>
+        <br/>
+        <b-button
+          class="float-right"
+          type="submit"
+          variant="primary"
+        >
+          Add Modlist
+        </b-button>
       </b-form>
     </b-modal>
 
-    <b-modal ref="morrowind-warning" title="WARNING" ok-only>
-      <p>Your Morrowind modlist has been added, however, Azura's Star cannot manage the game folder files for Morrowind modlists. You will still need to manually move and configure the game folder files according to the modlists readme if you installed via Wabbajack, or make the configurations yourself if this is a custom modlist.</p>
+    <b-modal
+      ref="morrowind-warning"
+      title="WARNING"
+      ok-only
+    >
+      <p>
+        Your Morrowind modlist has been added, however, Azura's Star cannot
+        manage the game folder files for Morrowind modlists. You will still need
+        to manually move and configure the game folder files according to the
+        modlists readme if you installed via Wabbajack, or make the
+        configurations yourself if this is a custom modlist.
+      </p>
     </b-modal>
 
-    <b-modal ref="delete-modlist-modal" title="Delete Your Profile" hide-footer>
-      <b-form @submit="deleteModlistProfile">
-        <p class="text-center">
+    <b-modal
+      ref="delete-modlist-modal"
+      title="Delete Your Profile"
+      hide-footer
+    >
+      <b-form
+        @submit="deleteModlistProfile"
+      >
+        <p
+          class="text-center"
+        >
           Are you sure you want to delete {{ this.deleteModal.name }}?
         </p>
-        <b-button type="submit" variant="danger">Delete</b-button>
+        <b-button
+          type="submit"
+          variant="danger"
+        >
+          Delete
+        </b-button>
       </b-form>
     </b-modal>
 
-    <b-modal ref="edit-modlist-modal" :title="'Edit Profile ' + this.editModal.property" hide-footer>
-      <b-form @submit="changeModlist">
-        <b-form-input v-if="editModal.property != 'game' & editModal.property != 'selectedProfile'" v-model="editModal.value" :value="editModal.value" />
-        <b-form-select v-if="editModal.property == 'game'" v-model="editModal.value" :options="gamesList"/>
-        <b-select v-if="editModal.property == 'selectedProfile'" v-model="editModal.value" :options="editModal.profiles" />
-        <b-button @click="getPath('this.editModal.value')" v-if="editModal.property == 'path'">Browse</b-button>
-        <b-button type="submit">Change {{ this.editModal.property }}</b-button>
+    <b-modal
+      ref="edit-modlist-modal"
+      :title="'Edit Profile ' + this.editModal.property"
+      hide-footer
+    >
+      <b-form
+        @submit="changeModlist"
+      >
+        <b-form-input
+          v-if="editModal.property != 'game' & editModal.property != 'selectedProfile'"
+          v-model="editModal.value" :value="editModal.value"
+        />
+        <b-form-select
+          v-if="editModal.property == 'game'"
+          v-model="editModal.value"
+          :options="gamesList"
+        />
+        <b-select
+          v-if="editModal.property == 'selectedProfile'"
+          v-model="editModal.value"
+          :options="editModal.profiles"
+        />
+        <b-button
+          @click="getPath('this.editModal.value')"
+          v-if="editModal.property == 'path'"
+        >
+          Browse
+        </b-button>
+        <b-button
+          type="submit"
+        >
+          Change {{ this.editModal.property }}
+        </b-button>
       </b-form>
     </b-modal>
 
-    <b-modal ref="game-running" :title="'Currently running ' + this.currentList" hide-footer hide-header-close no-close-on-backdrop no-close-on-esc >
+    <b-modal
+      ref="game-running"
+      :title="'Currently running ' + this.currentList"
+      hide-footer
+      hide-header-close
+      no-close-on-backdrop
+      no-close-on-esc
+    >
       <h2>Application locked while game is running</h2>
       <p>DO NOT EXIT AZURA'S STAR WHILE THE GAME IS RUNNING.</p>
-      <b-button @click="forceQuit()">Force quit {{ this.currentList }}</b-button>
+      <b-button
+        @click="forceQuit()"
+      >
+        Force quit {{ this.currentList }}
+      </b-button>
     </b-modal>
 
-    <b-modal ref="error-message" title="An error occured" ok-only>
+    <b-modal
+      ref="error-message"
+      title="An error occured"
+      ok-only
+    >
       <p> {{ this.error }} </p>
     </b-modal>
   </b-container>
@@ -134,7 +254,10 @@ export default {
       this.loading = true
       this.$refs['add-modlist-modal'].hide()
 
-      const modlistInfo = { name: this.addModal.name, path: this.addModal.path }
+      const modlistInfo = {
+        name: this.addModal.name,
+        path: this.addModal.path
+      }
 
       window.ipcRenderer.once('unknown-game', (event, args) => {
         this.error = args + ' is not supported by Azura\'s Star (Error code 202)'
@@ -146,7 +269,11 @@ export default {
         if (result === 'ERROR 202') return
         this.profiles.push(result)
         this.loading = false
-        if (result.game === 'Morrowind') { this.$refs['morrowind-warning'].show() } else { location.reload() }
+        if (result.game === 'Morrowind') {
+          this.$refs['morrowind-warning'].show()
+        } else {
+          location.reload()
+        }
       })
     },
     openModlistProfile (name) {
@@ -172,14 +299,20 @@ export default {
       this.editModal.list = args[0]
       this.editModal.property = args[1]
       if (args[1] === 'selectedProfile') {
-        this.profiles.find(x => x.name === args[0]).profiles[0].forEach(x => this.editModal.profiles.push(x))
+        this.profiles.find(
+          x => x.name === args[0]
+        ).profiles[0].forEach(
+          x => this.editModal.profiles.push(x)
+        )
       }
       this.showModal('edit-modlist-modal')
     },
     changeModlist () {
       this.loading = true
       window.ipcRenderer.invoke('get-config').then(result => {
-        const listIndex = this.profiles.findIndex(obj => obj.name === result.Modlists[this.editModal.list].name)
+        const listIndex = this.profiles.findIndex(
+          obj => obj.name === result.Modlists[this.editModal.list].name
+        )
         result.Modlists[this.editModal.list][this.editModal.property] = this.editModal.value
         const newProfile = result.Modlists[this.editModal.list]
         this.profiles[listIndex] = newProfile
@@ -193,12 +326,16 @@ export default {
     },
     getPath () {
       window.ipcRenderer.invoke('get-directory').then(result => {
-        if (result !== undefined) { this.editModal.value = result[0] }
+        if (result !== undefined) {
+          this.editModal.value = result[0]
+        }
       })
     },
     addModlistPath () {
       window.ipcRenderer.invoke('get-directory').then(result => {
-        if (result !== undefined) { this.addModal.path = result[0] }
+        if (result !== undefined) {
+          this.addModal.path = result[0]
+        }
       })
     },
     launchGame (list) {
@@ -232,8 +369,19 @@ export default {
     window.ipcRenderer.invoke('get-config').then((result) => {
       this.currentConfig = result
       Object.entries(this.currentConfig.Modlists).forEach(key => {
-        this.profiles.push({ name: key[1].name, path: key[1].path, exe: key[1].exe, game: key[1].game, profiles: [], selectedProfile: key[1].selectedProfile })
-        this.profiles[Object.keys(this.currentConfig.Modlists).indexOf(key[1].name)].profiles.push([...this.currentConfig.Modlists[key[1].name].profiles])
+        this.profiles.push({
+          name: key[1].name,
+          path: key[1].path,
+          exe: key[1].exe,
+          game: key[1].game,
+          profiles: [],
+          selectedProfile: key[1].selectedProfile
+        })
+        this.profiles[Object.keys(this.currentConfig.Modlists).indexOf(
+          key[1].name
+        )].profiles.push(
+          [...this.currentConfig.Modlists[key[1].name].profiles]
+        )
       })
     })
     window.ipcRenderer.on('error', (event, args) => {

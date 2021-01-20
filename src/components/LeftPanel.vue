@@ -1,17 +1,79 @@
 <template>
-  <b-container fluid>
-    <b-button v-b-toggle.menu style="position:fixed;">Menu ≡</b-button>
-    <b-sidebar id="menu" bg-variant="dark" text-variant="light" :backdrop-variant="'dark'" backdrop shadow no-header>
-      <h2 v-b-popover.hover.bottom="'Version 2.1.0'" class="text-center">Azura's Star</h2>
-      <!--<b-button v-if="this.advancedOptions" class=navbutton :pressed="this.currentMenu === 'dev'" @click="changeMenu('dev')">Modlist Development</b-button><br/>-->
-      <b-button style="border-radius:0;" class=navbutton :pressed="this.currentMenu === 'modlists'" @click="changeMenu('modlists')">Modlists</b-button><br/>
-      <b-button style="border-radius:0;" class=navbutton :pressed="this.currentMenu === 'options'" @click="changeMenu('options')">Options</b-button><br/>
-      <b-button style="border-radius:0;" class=navbutton v-b-toggle.linksNav>Links</b-button>
-      <b-collapse id=linksNav>
+  <b-container
+    fluid
+  >
+    <b-button
+      v-b-toggle.menu
+      style="position:fixed;"
+    >
+      Menu ≡
+    </b-button>
+    <b-sidebar
+      id="menu"
+      bg-variant="dark"
+      text-variant="light"
+      :backdrop-variant="'dark'"
+      backdrop
+      shadow
+      no-header
+    >
+      <h2
+        v-b-popover.hover.bottom="'Version 2.1.0'"
+        class="text-center"
+      >
+        Azura's Star
+      </h2>
+      <b-button
+        style="border-radius:0;"
+        class=navbutton
+        :pressed="this.currentMenu === 'modlists'"
+        @click="changeMenu('modlists')"
+      >
+        Modlists
+      </b-button>
+      <br/>
+      <!--<b-button
+        v-if="this.advancedOptions"
+        class=navbutton
+        :pressed="this.currentMenu === 'dev'"
+        @click="changeMenu('dev')"
+      >
+        Modlist Development
+      </b-button>
+      <br/>-->
+      <b-button
+        style="border-radius:0;"
+        class=navbutton
+        :pressed="this.currentMenu === 'options'"
+        @click="changeMenu('options')"
+      >
+        Settings
+      </b-button>
+      <br/>
+      <b-button
+        style="border-radius:0;"
+        class=navbutton
+        v-b-toggle.linksNav
+      >
+        Links
+      </b-button>
+      <b-collapse
+        id=linksNav
+      >
         <b-card>
-          <b-link class='links' v-b-toggle.linksNav v-for="link in links" :key="link.name" @click="followLink(link.href)">
-            <b-img :src="link.img" height="15"/>
-            {{ link.name }}<br>
+          <b-link
+            class='links'
+            v-b-toggle.linksNav
+            v-for="link in links"
+            :key="link.name"
+            @click="followLink(link.href)"
+          >
+            <b-img
+              :src="link.img"
+              height="15"
+            />
+            {{ link.name }}
+            <br>
           </b-link>
         </b-card>
       </b-collapse>
@@ -26,12 +88,38 @@ export default {
     return {
       currentMenu: '',
       advancedOptions: false,
+      currentList: '',
       links: [
-        { name: 'Patreon', href: 'https://www.patreon.com/ringcomics', img: require('../assets/patreon-icon.png') },
-        { name: 'Discord', href: 'https://discord.gg/6wusMF6', img: require('../assets/discord-icon.png') },
-        { name: 'YouTube', href: 'https://www.youtube.com/channel/UCif_YWnOGA1HLlkH_4rvIwA', img: require('../assets/youtube-icon.png') },
-        { name: 'Twitch', href: 'https://www.twitch.tv/ringcomics', img: require('../assets/twitch-icon.png') },
-        { name: 'GitHub', href: 'https://ringcomics.github.io/azuras-star/', img: require('../assets/github.png') }
+        {
+          name: 'Patreon',
+          href: 'https://www.patreon.com/ringcomics',
+          img: require('../assets/img/patreon-icon.png')
+        },
+        {
+          name: 'Discord',
+          href: 'https://discord.gg/6wusMF6',
+          img: require('../assets/img/discord-icon.png')
+        },
+        {
+          name: 'YouTube',
+          href: 'https://www.youtube.com/channel/UCif_YWnOGA1HLlkH_4rvIwA',
+          img: require('../assets/img/youtube-icon.png')
+        },
+        {
+          name: 'Twitch',
+          href: 'https://www.twitch.tv/ringcomics',
+          img: require('../assets/img/twitch-icon.png')
+        },
+        {
+          name: 'GitHub',
+          href: 'https://ringcomics.github.io/azuras-star/',
+          img: require('../assets/img/github.png')
+        },
+        {
+          name: 'NexusMods',
+          href: 'https://www.nexusmods.com/skyrimspecialedition/mods/42528',
+          img: require('../assets/img/nexus-logo.png')
+        }
       ]
     }
   },
@@ -62,6 +150,13 @@ export default {
   mounted () {
     window.ipcRenderer.invoke('get-config').then(result => {
       this.advancedOptions = result.Options.advancedOptions
+    })
+    window.ipcRenderer.on('cmd-launch', (event, args) => {
+      window.ipcRenderer.once('game-closed', (event, args) => {
+        this.gameRunning = false
+      })
+      this.currentList = args
+      this.gameRunning = true
     })
   }
 }

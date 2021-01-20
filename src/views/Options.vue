@@ -1,37 +1,93 @@
 <template>
   <div>
     <h2>Launcher Settings</h2>
-    <b-form @submit="saveConfig()">
-      <b-card-header header-tag="header" class="p-1" role="tab">
-        <b-button block v-b-toggle.directories>Game directories</b-button>
+    <b-form
+      @submit="saveConfig()"
+    >
+      <b-card-header
+        header-tag="header"
+        class="p-1"
+        role="tab"
+      >
+        <b-button
+          block
+          v-b-toggle.directories
+        >
+          Game directories
+        </b-button>
       </b-card-header>
-      <b-collapse id="directories">
-        <div v-for="(gameDirectory, index) in gameDirectories" :key="index">
+      <b-collapse
+        id="directories"
+      >
+        <div
+          v-for="(gameDirectory, index) in gameDirectories"
+          :key="index"
+        >
           <b-input-group>
-            <b-input-group-prepend is-text>{{ gameDirectory.game }} Directory</b-input-group-prepend>
-            <b-form-input v-model="gameDirectory.path" disabled></b-form-input>
+            <b-input-group-prepend
+              is-text
+            >
+              {{ gameDirectory.game }} Directory
+            </b-input-group-prepend>
+            <b-form-input
+              v-model="gameDirectory.path"
+              disabled
+            />
             <b-input-group-append>
-              <b-button v-b-popover.hover.top="'Change '+gameDirectory.game+' Directory'" class="float-right" @click="getDirectory(gameDirectory.game)">Browse</b-button>
+              <b-button
+                v-b-popover.hover.top="'Change ' + gameDirectory.game + ' Directory'"
+                class="float-right"
+                @click="getDirectory(gameDirectory.game)"
+              >
+                Browse
+              </b-button>
             </b-input-group-append>
           </b-input-group>
         </div>
-      </b-collapse><br />
+      </b-collapse>
+      <br/>
 
       <b-input-group>
-        <b-input-group-prepend is-text>Wabbajack Directory</b-input-group-prepend>
-        <b-form-input v-model="WabbajackDirectory" disabled></b-form-input>
+        <b-input-group-prepend
+          is-text
+        >
+          Wabbajack Directory
+        </b-input-group-prepend>
+        <b-form-input
+          v-model="WabbajackDirectory"
+          disabled
+        />
         <b-input-group-append>
-          <b-button v-b-popover.hover.top="'Change Wabbajack Directory'" class="float-right" @click="getDirectory('WabbajackDirectory')">Browse</b-button>
+          <b-button
+            v-b-popover.hover.top="'Change Wabbajack Directory'"
+            class="float-right"
+            @click="getDirectory('WabbajackDirectory')"
+          >
+            Browse
+          </b-button>
         </b-input-group-append>
       </b-input-group>
 
-      <b-checkbox v-model="advancedOptions"><span v-b-popover.hover.top="'Enables extra options for modlists'">Advanced Modlist Options</span></b-checkbox><br />
-
-      <!--<b-button @click="debug()">Debug</b-button><br />-->
-
-      <b-button type="submit" variant="primary">Apply</b-button>
+      <b-checkbox
+        v-model="advancedOptions"
+      >
+        <span
+          v-b-popover.hover.top="'Enables extra options for modlists'"
+        >
+          Advanced Modlist Options
+        </span>
+      </b-checkbox>
+      <br/>
+      <b-button
+        type="submit"
+        variant="primary"
+      >
+        Apply
+      </b-button>
     </b-form>
-    <b-modal ref="debugModal">
+    <b-modal
+      ref="debugModal"
+    >
       <p>{{ this.debugResult }}</p>
     </b-modal>
   </div>
