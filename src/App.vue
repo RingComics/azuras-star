@@ -44,8 +44,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import 'scss/custom.scss';
-@import '../node_modules/bootstrap/scss/bootstrap.scss';
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
 }
