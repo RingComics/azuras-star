@@ -256,7 +256,6 @@ ipcMain.handle('launch-game', async (_event, args) => {
       return win.webContents.send(['204', error])
     }
   })
-  win.minimize()
 
   let isGameRunning = setInterval(checkProcess, 1000)
   function checkProcess () {
