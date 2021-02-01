@@ -290,3 +290,7 @@ ipcMain.handle('launch-mo2', async (_event, args) => {
   const moPath = path.join(currentConfig.Modlists[args].path, '\\ModOrganizer.exe')
   childProcess.exec('"'+moPath+'"')
 })
+
+ipcMain.on('open-dev-tools', (_event, args) => {
+  win.webContents.openDevTools()
+})

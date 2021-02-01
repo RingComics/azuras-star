@@ -67,7 +67,7 @@
           </b-button>
         </b-input-group-append>
       </b-input-group>
-
+      <br />
       <b-checkbox
         v-model="advancedOptions"
       >
@@ -77,7 +77,14 @@
           Advanced Modlist Options
         </span>
       </b-checkbox>
-      <br/>
+      <b-button
+        v-if="this.advancedOptions == true"
+        @click="openConsole()"
+      >
+        Open Developer Console
+      </b-button>
+      <br />
+      <br />
       <b-button
         type="submit"
         variant="primary"
@@ -138,11 +145,8 @@ export default {
     downloadWabbajack () {
       window.ipcRenderer.invoke('download-wabbajack')
     },
-    debug () {
-      window.ipcRenderer.invoke('debug').then(result => {
-        this.debugResult = result
-        this.$refs.debugModal.show()
-      })
+    openConsole () {
+      window.ipcRenderer.send('open-dev-tools')
     }
   },
   beforeMount () {
