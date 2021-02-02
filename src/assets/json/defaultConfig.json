@@ -1,0 +1,48 @@
+{
+    "Options": {
+        "gameDirectories": [
+            {
+                "game": "Morrowind",
+                "path": ""
+            },
+            {
+                "game": "Oblivion",
+                "path": ""
+            },
+            {
+                "game": "Skyrim",
+                "path": ""
+            },
+            {
+                "game": "Skyrim Special Edition",
+                "path": ""
+            },
+            {
+                "game": "Skyrim VR",
+                "path": ""
+            },
+            {
+                "game": "Fallout 3",
+                "path": ""
+            },
+            {
+                "game": "New Vegas",
+                "path": ""
+            },
+            {
+                "game": "Fallout 4",
+                "path": ""
+            },
+            {
+                "game": "Fallout 4 VR",
+                "path": ""
+            }
+        ],
+        "wabbajackDirectory": "",
+        "advancedOptions": false,
+        "ASPath": ""
+    },
+    "Modlists": {
+
+    }
+}

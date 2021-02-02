@@ -22,6 +22,11 @@
         >
           Add new Modlist
         </b-button>
+        <b-button
+          @click="refreshModlists()"
+        >
+          Refresh
+        </b-button>
       </label>
       <b-form-select
         id='gameFilter'
@@ -42,6 +47,7 @@
           :key="profile.id"
           :name="profile.name"
           :path="profile.path"
+          :executables="profile.executables"
           :exe="profile.exe"
           :game="profile.game"
           :profiles="profile.profiles[0]"
@@ -146,7 +152,7 @@
         @submit="changeModlist"
       >
         <b-form-input
-          v-if="editModal.property != 'game' & editModal.property != 'selectedProfile'"
+          v-if="editModal.property != 'game' & editModal.property != 'selectedProfile' & editModal.property != 'exe'"
           v-model="editModal.value" :value="editModal.value"
         />
         <b-form-select
@@ -158,6 +164,11 @@
           v-if="editModal.property == 'selectedProfile'"
           v-model="editModal.value"
           :options="editModal.profiles"
+        />
+        <b-select
+          v-if="editModal.property == 'exe'"
+          v-model="editModal.value"
+          :options="editModal.executables"
         />
         <b-button
           @click="getPath('this.editModal.value')"
@@ -242,7 +253,8 @@ export default {
         list: '',
         property: '',
         value: '',
-        profiles: []
+        profiles: [],
+        executables: []
       }
     }
   },
@@ -305,6 +317,13 @@ export default {
           x => this.editModal.profiles.push(x)
         )
       }
+      if (args[1] === 'exe') {
+        this.profiles.find(
+          x => x.name === args[0]
+        ).executables.forEach(
+          x => this.editModal.executables.push(x)
+        )
+      }
       this.showModal('edit-modlist-modal')
     },
     changeModlist () {
@@ -360,28 +379,39 @@ export default {
     },
     launchMO2 (list) {
       window.ipcRenderer.invoke('launch-mo2', list)
+    },
+    refreshModlists () {
+      this.loading = true
+      window.ipcRenderer.invoke('refresh-modlists').then(result => {
+        console.log(result)
+        location.reload()
+      })
     }
   },
   beforeMount () {
 
   },
   mounted () {
-    window.ipcRenderer.invoke('get-config').then((result) => {
-      this.currentConfig = result
-      Object.entries(this.currentConfig.Modlists).forEach(key => {
-        this.profiles.push({
-          name: key[1].name,
-          path: key[1].path,
-          exe: key[1].exe,
-          game: key[1].game,
-          profiles: [],
-          selectedProfile: key[1].selectedProfile
+    window.ipcRenderer.invoke('refresh-modlists').then(result => {
+      window.ipcRenderer.invoke('get-config').then((result) => {
+        this.currentConfig = result
+        Object.entries(this.currentConfig.Modlists).forEach(key => {
+          this.profiles.push({
+            name: key[1].name,
+            path: key[1].path,
+            executables: key[1].executables,
+            exe: key[1].exe,
+            game: key[1].game,
+            profiles: [],
+            selectedProfile: key[1].selectedProfile
+          })
+          this.profiles[Object.keys(this.currentConfig.Modlists).indexOf(
+            key[1].name
+          )].profiles.push(
+            [...this.currentConfig.Modlists[key[1].name].profiles]
+          )
         })
-        this.profiles[Object.keys(this.currentConfig.Modlists).indexOf(
-          key[1].name
-        )].profiles.push(
-          [...this.currentConfig.Modlists[key[1].name].profiles]
-        )
+        console.log(result)
       })
     })
     window.ipcRenderer.on('error', (event, args) => {

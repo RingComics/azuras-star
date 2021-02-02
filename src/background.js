@@ -6,7 +6,7 @@ import fs from 'fs'
 import childProcess from 'child_process'
 import ncp from 'ncp'
 import os from 'os'
-import ini from 'iniparser'
+import ini from 'ini'
 import http from 'https'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -70,7 +70,8 @@ if(!fs.existsSync(homedir, err => {throw err})) {
 const appPath = process.argv[0].replace(/\\/gi,'\\\\')
 console.log(appPath)
 
-const defaultConfig = JSON.parse('{"Options":{"gameDirectories": [{"game": "Morrowind", "path": ""},{"game": "Oblivion", "path": ""},{"game": "SkyrimLE", "path": ""},{"game": "SkyrimSE", "path": ""},{"game": "SkyrimVR", "path": ""},{"game": "Fallout3", "path": ""},{"game": "FalloutNV", "path": ""},{"game": "Fallout4", "path": ""},{"game": "FalloutVR", "path": ""}],"wabbajackDirectory": "","advancedOptions": false, "ASPath": "' + appPath + '"},"Modlists":{}}')
+let defaultConfig = require('./assets/json/defaultConfig.json')
+defaultConfig.Options.ASPath = appPath
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -141,55 +142,22 @@ ipcMain.handle('create-modlist-profile', async (_event, modlistInfo) => { // Add
     win.webContents.send(['203', modlistInfo.path + ' does not contain ModOrganizer.exe'])
     return 'Error'
   }
-  const MO2ini = ini.parseSync(path.join(modlistInfo.path, 'ModOrganizer.ini'))
-  switch (MO2ini.General.gameName) {
-    case "Oblivion":
-      modlistInfo.game = "Oblivion"
-      modlistInfo.exe = "Oblivion"
-      break
-    case "Morrowind":
-      modlistInfo.game = "Morrowind"
-      modlistInfo.exe = "Morrowind"
-      break
-    case "Skyrim":
-      modlistInfo.game = "SkyrimLE"
-      modlistInfo.exe = "SKSE"
-      break
-    case "Skyrim Special Edition":
-      modlistInfo.game = "SkyrimSE"
-      modlistInfo.exe = "SKSE"
-      break;
-    case "Skyrim VR":
-      modlistInfo.game = "SkyrimVR"
-      modlistInfo.exe = "SKSE"
-      break
-    case "New Vegas":
-      modlistInfo.game = "FalloutNV"
-      modlistInfo.exe = "NVSE"
-      break;
-    case "Fallout 3":
-      modlistInfo.game = "Fallout3"
-      modlistInfo.exe = "FOSE"
-      break;
-    case "Fallout 4":
-      modlistInfo.game = "Fallout4"
-      modlistInfo.exe = "F4SE"
-      break;
-    case "Fallout 4 VR":
-      modlistInfo.game = "FalloutVR"
-      modlistInfo.exe = "FOSEVR"
-      break;
-    default:
-      win.webContents.send('unknown-game', MO2ini.General.gameName)
-      return 'ERROR 202'
-  }
-
+  const MO2ini = ini.parse(fs.readFileSync(path.join(modlistInfo.path, 'ModOrganizer.ini'), 'utf-8'))
+  modlistInfo.game = MO2ini.General.gameName
+  modlistInfo.executables = []
+  Object.keys(MO2ini.customExecutables).forEach(entry => {
+    if (entry.includes('title') && MO2ini.customExecutables[entry] != undefined) {
+      modlistInfo.executables.push(MO2ini.customExecutables[entry])
+    }
+    if (entry.toString().includes(MO2ini.General.selected_executable.toString()) && entry.toString().includes('title')) {
+      modlistInfo.exe = MO2ini.customExecutables[entry]
+    }
+  })
   const files = fs.readdirSync(path.join(modlistInfo.path, 'profiles'))
   modlistInfo.profiles = []
   files.forEach(file => {
     modlistInfo.profiles.push(file)
   })
-  console.log(modlistInfo)
   modlistInfo.selectedProfile = modlistInfo.profiles[0]
 
   let options = JSON.parse(fs.readFileSync(path.join(homedir, 'options.json')))
@@ -199,10 +167,44 @@ ipcMain.handle('create-modlist-profile', async (_event, modlistInfo) => { // Add
     name: modlistInfo.name,
     path: modlistInfo.path,
     game: modlistInfo.game,
+    executables: modlistInfo.executables,
     exe: modlistInfo.exe,
     selectedProfile: modlistInfo.selectedProfile,
     profiles: modlistInfo.profiles
   }
+})
+
+ipcMain.handle('refresh-modlists', async (_event, args) => {
+  let config = JSON.parse(fs.readFileSync(path.join(homedir, 'options.json'), { encoding:'utf8' }))
+  Object.keys(config.Modlists).forEach(list =>{
+    const MO2ini = ini.parse(fs.readFileSync(path.join(config.Modlists[list].path, 'ModOrganizer.ini'), 'utf-8'))
+    let modlistInfo = {
+      name: list,
+      path: config.Modlists[list].path,
+      game: MO2ini.General.gameName,
+      executables: [],
+      exe: config.Modlists[list].exe,
+      profiles: [],
+      selectedProfile: config.Modlists[list].selectedProfile
+    }
+    Object.keys(MO2ini.customExecutables).forEach(entry => {
+      if (entry.includes('title') && MO2ini.customExecutables[entry] != undefined) {
+        modlistInfo.executables.push(MO2ini.customExecutables[entry])
+      }
+      if (MO2ini.customExecutables[entry] != modlistInfo.exe && entry.toString().includes(MO2ini.General.selected_executable.toString()) && entry.toString().includes('title')) {
+        modlistInfo.exe = MO2ini.customExecutables[entry]
+      }
+    })
+    const files = fs.readdirSync(path.join(modlistInfo.path, 'profiles'))
+    files.forEach(file => {
+      modlistInfo.profiles.push(file)
+    })
+    modlistInfo.selectedProfile = modlistInfo.profiles[0]
+    console.log(modlistInfo)
+    config.Modlists[list] = modlistInfo
+  })
+  fs.writeFileSync(path.join(homedir, '/options.json'), JSON.stringify(config, null, 2))
+  return true
 })
 
 // Update configuration file
