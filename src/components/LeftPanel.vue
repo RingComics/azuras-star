@@ -18,7 +18,7 @@
       no-header
     >
       <h2
-        v-b-popover.hover.bottom="'Version 2.1.0'"
+        v-b-popover.hover.bottom="'Version 2.2.0'"
         class="text-center"
         @click="changeMenu('changelog')"
         style="cursor:pointer;"
