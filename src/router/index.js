@@ -6,6 +6,7 @@ import Welcome from '../views/Welcome.vue'
 import Modlists from '../views/Modlists.vue'
 import Options from '../views/Options.vue'
 import Dev from '../views/Dev.vue'
+import Changelog from '../views/Changelog.vue'
 
 Vue.use(VueRouter)
 
@@ -17,7 +18,7 @@ const routes = [
     mode: 'hash',
     children: [
       {
-        path: '',
+        path: '/',
         component: Welcome
       },
       {
@@ -31,6 +32,10 @@ const routes = [
       {
         path: 'dev',
         component: Dev
+      },
+      {
+        path: 'changelog',
+        component: Changelog
       }
     ]
   }

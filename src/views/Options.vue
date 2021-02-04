@@ -19,57 +19,38 @@
       <b-collapse
         id="directories"
       >
+      <b-form-group>
+        <br />
         <div
           v-for="(gameDirectory, index) in gameDirectories"
           :key="index"
         >
-          <b-input-group>
-            <b-input-group-prepend
-              is-text
-            >
-              {{ gameDirectory.game }} Directory
-            </b-input-group-prepend>
-            <b-form-input
-              v-model="gameDirectory.path"
-              disabled
-            />
-            <b-input-group-append>
-              <b-button
-                v-b-popover.hover.top="'Change ' + gameDirectory.game + ' Directory'"
-                class="float-right"
-                @click="getDirectory(gameDirectory.game)"
-              >
-                Browse
-              </b-button>
-            </b-input-group-append>
-          </b-input-group>
+              <span>
+                    {{ gameDirectory.game }} Directory
+              </span><br />
+              <b-input-group>
+                <b-form-input
+                  v-model="gameDirectory.path"
+                  disabled
+                  @change="saveConfig()"
+                />
+                <b-input-group-append>
+                  <b-button
+                    v-b-popover.hover.top="'Change ' + gameDirectory.game + ' Directory'"
+                    @click="getDirectory(gameDirectory.game)"
+                  >
+                    Browse
+                  </b-button>
+                </b-input-group-append>
+              </b-input-group>
+              <br />
         </div>
+      </b-form-group>
       </b-collapse>
       <br/>
-
-      <b-input-group>
-        <b-input-group-prepend
-          is-text
-        >
-          Wabbajack Directory
-        </b-input-group-prepend>
-        <b-form-input
-          v-model="WabbajackDirectory"
-          disabled
-        />
-        <b-input-group-append>
-          <b-button
-            v-b-popover.hover.top="'Change Wabbajack Directory'"
-            class="float-right"
-            @click="getDirectory('WabbajackDirectory')"
-          >
-            Browse
-          </b-button>
-        </b-input-group-append>
-      </b-input-group>
-      <br />
       <b-checkbox
         v-model="advancedOptions"
+        @change="saveConfig()"
       >
         <span
           v-b-popover.hover.top="'Enables extra options for modlists'"
@@ -83,20 +64,7 @@
       >
         Open Developer Console
       </b-button>
-      <br />
-      <br />
-      <b-button
-        type="submit"
-        variant="primary"
-      >
-        Apply
-      </b-button>
     </b-form>
-    <b-modal
-      ref="debugModal"
-    >
-      <p>{{ this.debugResult }}</p>
-    </b-modal>
   </div>
 </template>
 
@@ -107,17 +75,13 @@ export default {
   data () {
     return {
       gameDirectories: [],
-      WabbajackDirectory: '',
       advancedOptions: '',
-      currentConfig: '',
-      debugResult: '',
-      downloading: false
+      currentConfig: ''
     }
   },
   methods: {
     loadConfig () {
       window.ipcRenderer.invoke('get-config').then((result) => {
-        console.log(result)
         this.gameDirectories = result.Options.gameDirectories
         this.WabbajackDirectory = result.Options.WabbajackDirectory
         this.advancedOptions = result.Options.advancedOptions
@@ -141,9 +105,6 @@ export default {
           this.saveConfig()
         }
       })
-    },
-    downloadWabbajack () {
-      window.ipcRenderer.invoke('download-wabbajack')
     },
     openConsole () {
       window.ipcRenderer.send('open-dev-tools')

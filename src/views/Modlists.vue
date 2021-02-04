@@ -337,8 +337,9 @@ export default {
         this.profiles[listIndex] = newProfile
         delete result.Modlists[this.editModal.list]
         result.Modlists[newProfile.name] = newProfile
-        window.ipcRenderer.invoke('update-config', result)
-        location.reload()
+        window.ipcRenderer.invoke('update-config', result).then(() => {
+          location.reload()
+        })
       })
 
       this.$refs['edit-modlist-modal'].hide()
@@ -383,7 +384,6 @@ export default {
     refreshModlists () {
       this.loading = true
       window.ipcRenderer.invoke('refresh-modlists').then(result => {
-        console.log(result)
         location.reload()
       })
     }
@@ -411,7 +411,6 @@ export default {
             [...this.currentConfig.Modlists[key[1].name].profiles]
           )
         })
-        console.log(result)
       })
     })
     window.ipcRenderer.on('error', (event, args) => {

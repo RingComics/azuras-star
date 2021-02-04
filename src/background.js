@@ -67,8 +67,7 @@ const homedir = path.join(os.homedir(),'Azura\'s Star')
 if(!fs.existsSync(homedir, err => {throw err})) {
   fs.mkdir(homedir, err => {throw err})
 }
-const appPath = process.argv[0].replace(/\\/gi,'\\\\')
-console.log(appPath)
+const appPath = process.argv[0]
 
 let defaultConfig = require('./assets/json/defaultConfig.json')
 defaultConfig.Options.ASPath = appPath
@@ -88,15 +87,29 @@ app.on('ready', async () => {
   createWindow()
 
   // Check if configuration file exists, if not, create a default one
+  let oldConfig = {}
   if (!fs.existsSync(path.join(homedir, '/options.json'))) {
     fs.writeFileSync(path.join(homedir, 'options.json'), JSON.stringify(defaultConfig, null, 2))
+    oldConfig = defaultConfig
+  } else { // Store current configuration
+    oldConfig = JSON.parse(fs.readFileSync(path.join(homedir, '/options.json'), 'utf-8'))
   }
-  if (!fs.existsSync(path.join(homedir, 'Modlists'))) {
-    fs.mkdirSync(path.join(homedir, 'Modlists'))
+  // If current config is using < 2.2.0 format, change it to current
+  if (oldConfig.version == undefined) {
+    oldConfig.Options.gameDirectories.forEach((entry, index) => {
+      oldConfig.Options.gameDirectories[index].game = defaultConfig.Options.gameDirectories[index].game
+    })
+    oldConfig.version = defaultConfig.version
+    fs.writeFileSync(path.join(homedir, 'options.json'), JSON.stringify(oldConfig, null, 2))
+  } else if (oldConfig.version != defaultConfig.version) {
+    oldConfig.version = defaultConfig.version
+    fs.writeFileSync(path.join(homedir, 'options.json'), JSON.stringify(oldConfig, null, 2))
+  }
+  // If deprecated Modlists folder exists, delete it
+  if (fs.existsSync(path.join(homedir, 'Modlists'))) {
+    fs.rmdirSync(path.join(homedir, 'Modlists'))
   }
 })
-
-console.log(process.env.PORTABLE_EXECUTABLE_DIR)
 
 const isRunning = (query, cb) => {
   let platform = process.platform;
@@ -149,9 +162,6 @@ ipcMain.handle('create-modlist-profile', async (_event, modlistInfo) => { // Add
     if (entry.includes('title') && MO2ini.customExecutables[entry] != undefined) {
       modlistInfo.executables.push(MO2ini.customExecutables[entry])
     }
-    if (entry.toString().includes(MO2ini.General.selected_executable.toString()) && entry.toString().includes('title')) {
-      modlistInfo.exe = MO2ini.customExecutables[entry]
-    }
   })
   const files = fs.readdirSync(path.join(modlistInfo.path, 'profiles'))
   modlistInfo.profiles = []
@@ -200,7 +210,6 @@ ipcMain.handle('refresh-modlists', async (_event, args) => {
       modlistInfo.profiles.push(file)
     })
     modlistInfo.selectedProfile = modlistInfo.profiles[0]
-    console.log(modlistInfo)
     config.Modlists[list] = modlistInfo
   })
   fs.writeFileSync(path.join(homedir, '/options.json'), JSON.stringify(config, null, 2))
@@ -252,7 +261,6 @@ ipcMain.handle('launch-game', async (_event, args) => {
   }
   const execCMD = '"' + modlistPath + '\\ModOrganizer.exe" -p "' + profile + '" "moshortcut://:' + exe + '"'
   childProcess.exec(execCMD, (error) => {
-    console.log(error)
     if (error) {
       win.webContents.send('game-closed')
       return win.webContents.send(['204', error])

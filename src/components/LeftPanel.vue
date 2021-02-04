@@ -20,6 +20,8 @@
       <h2
         v-b-popover.hover.bottom="'Version 2.1.0'"
         class="text-center"
+        @click="changeMenu('changelog')"
+        style="cursor:pointer;"
       >
         Azura's Star
       </h2>
@@ -166,8 +168,5 @@ export default {
   .navbutton {
     width: 100%;
     border-radius: 0;
-  }
-  .links {
-    color: red;
   }
 </style>
