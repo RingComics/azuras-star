@@ -2,6 +2,47 @@
   <b-container>
     <h1>Changelog</h1>
     <b-card>
+        <h2><b-link @click="followLink('https://github.com/RingComics/azuras-star/releases/tag/v2.2.0')">2.2.0</b-link></h2>
+        <h6>Released on Feb 3, 2021</h6>
+        <h4>Changes</h4>
+        <ul>
+            <li>Added Nexus Mods to links</li>
+            <li>Improved code formatting</li>
+            <li>Added a button to open the console (only visible when Advanced
+                Options is ticked)</li>
+            <li>App no longer minimizes on game launch</li>
+            <li>Rearranged package structure</li>
+            <li>Modlists refresh values when the modlist page loads or when the
+                new Refresh button is pressed</li>
+            <li>Executables now change on a dropdown similar to profiles. These
+                values are derived from MO2's configuration file</li>
+            <li>Game names in options.json config file and the settings menu now
+                exactly match MO2's naming scheme</li>
+            <li>Property "version" added to default configuration file</li>
+            <li>Initialization script now recognizes the old config format and
+                updates it accordingly</li>
+            <li>Links are now blue</li>
+            <li>Changelog page added, accessed by clicking "Azura's Star" in the
+                sidebar (Hey that's this thing!)</li>
+            <li>Launcher settings now update the config automatically when changed</li>
+            <li>WJ directory setting removed</li>
+            <li>App module dependencies updated</li>
+        </ul>
+        <h4>Bug Fixes</h4>
+        <p>None</p>
+        <h4>Known Issues</h4>
+        <ul>
+            <li>The default executable used by Azura's Star on modlist creation
+                is the same as MO2's selected executable. MO2 sometimes fails
+                to change the value, resulting in a random executable being
+                chosen instead.</li>
+            <li>Modlists have a tendency to break if the selected executable is
+                deleted from MO2. This can easily be fixed by changing it in the
+                advanced Modlist options.</li>
+        </ul>
+    </b-card>
+
+    <b-card>
         <h2><b-link @click="followLink('https://github.com/RingComics/azuras-star/releases/tag/v2.1.0')">2.1.0</b-link></h2>
         <h6>Released on Jan 18, 2021</h6>
         <h4>Changes</h4>
