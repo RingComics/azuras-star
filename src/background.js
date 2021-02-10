@@ -157,6 +157,35 @@ ipcMain.handle('create-modlist-profile', async (_event, modlistInfo) => { // Add
   }
   const MO2ini = ini.parse(fs.readFileSync(path.join(modlistInfo.path, 'ModOrganizer.ini'), 'utf-8'))
   modlistInfo.game = MO2ini.General.gameName
+  switch (modlistInfo.game) {
+    case 'Skyrim':
+      modlistInfo.exe = 'SKSE'
+      break;
+    case 'Skyrim Special Edition':
+      modlistInfo.exe = 'SKSE'
+      break;
+    case 'Morrowind':
+      modlistInfo.exe = 'Morrowind'
+      break;
+    case 'Oblivion':
+      modlistInfo.exe = 'OBSE'
+      break;
+    case 'Skyrim VR':
+      modlistInfo.exe = 'SKSE'
+      break;
+    case 'Fallout 3':
+      modlistInfo.exe = 'FOSE'
+      break;
+    case 'New Vegas':
+      modlistInfo.exe = 'NVSE'
+      break;
+    case 'Fallout 4':
+      modlistInfo.exe = 'F4SE'
+      break;
+    case 'Fallout 4 VR':
+      modlistInfo.exe = 'F4SE'
+      break;
+  }
   modlistInfo.executables = []
   Object.keys(MO2ini.customExecutables).forEach(entry => {
     if (entry.includes('title') && MO2ini.customExecutables[entry] != undefined) {
@@ -200,9 +229,6 @@ ipcMain.handle('refresh-modlists', async (_event, args) => {
     Object.keys(MO2ini.customExecutables).forEach(entry => {
       if (entry.includes('title') && MO2ini.customExecutables[entry] != undefined) {
         modlistInfo.executables.push(MO2ini.customExecutables[entry])
-      }
-      if (MO2ini.customExecutables[entry] != modlistInfo.exe && entry.toString().includes(MO2ini.General.selected_executable.toString()) && entry.toString().includes('title')) {
-        modlistInfo.exe = MO2ini.customExecutables[entry]
       }
     })
     const files = fs.readdirSync(path.join(modlistInfo.path, 'profiles'))
