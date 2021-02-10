@@ -235,7 +235,6 @@ ipcMain.handle('refresh-modlists', async (_event, args) => {
     files.forEach(file => {
       modlistInfo.profiles.push(file)
     })
-    modlistInfo.selectedProfile = modlistInfo.profiles[0]
     config.Modlists[list] = modlistInfo
   })
   fs.writeFileSync(path.join(homedir, '/options.json'), JSON.stringify(config, null, 2))

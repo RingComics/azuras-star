@@ -10,6 +10,7 @@
         <ul>
             <li>Modlists no longer sync up with MO2's last executable</li>
             <li>Modlists use script extenders as default executable on Modlist creation</li>
+            <li>Selected profile no longer updates to the first profile alphabetically</li>
         </ul>
         <h4>Known Issues</h4>
         <p>Modlists have a tendency to break if the selected executable is
