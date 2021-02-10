@@ -8,6 +8,7 @@ import ncp from 'ncp'
 import os from 'os'
 import ini from 'ini'
 import http from 'https'
+import { ModalPlugin } from 'bootstrap-vue'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -65,12 +66,42 @@ app.on('activate', () => {
 // Define default configuration settings and configuration directory
 const homedir = path.join(os.homedir(),'Azura\'s Star')
 if(!fs.existsSync(homedir, err => {throw err})) {
-  fs.mkdir(homedir, err => {throw err})
+  toLog('Home Directory does not exist! Creating directory at ' + homedir)
+  fs.mkdir(homedir, err => { throw err })
+  fs.mkdir(path.join(homedir, 'logs'), err => {throw err})
+}
+if(!fs.existsSync(path.join(homedir, 'logs'), err => {throw err})) {
+  fs.mkdir(path.join(homedir, 'logs'), err => {throw err})
 }
 const appPath = process.argv[0]
 
 let defaultConfig = require('./assets/json/defaultConfig.json')
 defaultConfig.Options.ASPath = appPath
+
+// Create new log file
+function getCurrentTime () {
+  let date = new Date
+  let time = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
+  return time.toString()
+}
+
+function getCurrentDate () {
+  let date = new Date
+  let time = getCurrentTime()
+  let output = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + '-' + time.replace(/:/g,'-')
+  return output
+}
+
+let logName = getCurrentDate() + '.txt'
+const currentLogPath = path.join(homedir, '/logs/', logName)
+fs.writeFileSync(currentLogPath, "LOG BEGIN")
+
+function toLog (log) {
+  fs.appendFileSync(currentLogPath, '\n' + getCurrentTime() + '  -  ' + log)
+}
+
+toLog('Azura\'s Star version ' + defaultConfig.version)
+toLog('Home Directory path: ' + homedir)
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -84,31 +115,44 @@ app.on('ready', async () => {
       console.error('Vue Devtools failed to install:', e.toString())
     }
   }
+  toLog('Creating window.')
   createWindow()
 
   // Check if configuration file exists, if not, create a default one
+  toLog('Checking for configuration file')
   let oldConfig = {}
   if (!fs.existsSync(path.join(homedir, '/options.json'))) {
+    toLog('  File not found! Creating configuration file at ' + path.join(homedir, 'options.json'))
     fs.writeFileSync(path.join(homedir, 'options.json'), JSON.stringify(defaultConfig, null, 2))
     oldConfig = defaultConfig
   } else { // Store current configuration
+    toLog('  Configuration file found at ' + path.join(homedir, 'options.json'))
     oldConfig = JSON.parse(fs.readFileSync(path.join(homedir, '/options.json'), 'utf-8'))
   }
   // If current config is using < 2.2.0 format, change it to current
   if (oldConfig.version == undefined) {
+    toLog('  Configuration file is < v2.1.0, applying configuration changes.')
     oldConfig.Options.gameDirectories.forEach((entry, index) => {
       oldConfig.Options.gameDirectories[index].game = defaultConfig.Options.gameDirectories[index].game
     })
     oldConfig.version = defaultConfig.version
     fs.writeFileSync(path.join(homedir, 'options.json'), JSON.stringify(oldConfig, null, 2))
+    toLog('  Configuration:\n' + JSON.stringify(oldConfig, null, 2))
   } else if (oldConfig.version != defaultConfig.version) {
+    toLog('Updating config version from ' + oldConfig.version + ' to ' + defaultConfig.version)
     oldConfig.version = defaultConfig.version
     fs.writeFileSync(path.join(homedir, 'options.json'), JSON.stringify(oldConfig, null, 2))
+    toLog('  Configuration:\n' + JSON.stringify(oldConfig, null, 2))
   }
   // If deprecated Modlists folder exists, delete it
   if (fs.existsSync(path.join(homedir, 'Modlists'))) {
+    toLog('Deprecated "Modlists" folder detected, deleting...')
     fs.rmdirSync(path.join(homedir, 'Modlists'))
   }
+})
+
+app.on('quit', () => {
+  toLog('EXITING AZURA\'S STAR')
 })
 
 const isRunning = (query, cb) => {
@@ -140,23 +184,163 @@ if (isDevelopment) {
   }
 }
 
-// Handle commandline arguments
+// Functions
+function getConfig () {
+  toLog('  Reading config')
+  return JSON.parse(fs.readFileSync(path.join(homedir, 'options.json')))
+}
 
+function saveConfig (newConfig) {
+  // newConfig is a JSON object with the new configuration in it
+  toLog('  Saving config')
+  toLog('  New Configuration:\n' + JSON.stringify(newConfig, null, 2))
+  fs.writeFileSync(path.join(homedir, '/options.json'), JSON.stringify(newConfig, null, 2))
+}
 
-// IpcRenderer handling
-ipcMain.on('follow-link', (_event, args) => { // Open hyperlinks in the default browser
-  shell.openExternal(args)
-}).on('open-modlist-profile', (_event, args) => { // Open path to modlist folder
-  shell.openPath(args)
-})
+function launchGame (list) {
+  // list is a string with the modlist name as it appears in the config (config.Modlists[modlistName].name)
+  toLog('Launching game')
+  toLog('==========================================')
+  toLog('  Launching: ' + list)
+  const currentConfig = getConfig()
+  const modlistPath = currentConfig.Modlists[list].path
+  toLog('    Path: ' + modlistPath)
+  const exe = currentConfig.Modlists[list].exe
+  toLog('    Executable: ' + exe)
+  const profile = currentConfig.Modlists[list].selectedProfile
+  toLog('    MO2 Profile: ' + profile)
+  const game = currentConfig.Modlists[list].game
+  toLog('    Game: ' + game)
+  const gamePath = currentConfig.Options.gameDirectories.find(x => x.game === game).path
+  toLog('    Game Path: ' + gamePath)
 
-ipcMain.handle('create-modlist-profile', async (_event, modlistInfo) => { // Add a new modlist profile
+  if (game != 'Morrowind') {
+    toLog('  Moving Game Folder Files')
+    ncp.ncp(path.join(modlistPath, 'Game Folder Files'), gamePath, err => {
+      if (err) {
+        toLog('ERROR WHILE MOVING GAME FOLDER FILES:')
+        toLog(err)
+        toLog('==========================================')
+        win.webContents.send('game-closed')
+        return win.webContents.send('error', ['002', err])
+      }
+    })
+  }
+  toLog('  Starting MO2')
+  const execCMD = '"' + modlistPath + '\\ModOrganizer.exe" -p "' + profile + '" "moshortcut://:' + exe + '"'
+  childProcess.exec(execCMD, (error) => {
+    if (error) {
+      toLog('ERROR WHILE EXECUTING MOD ORGANIZER:')
+      toLog(error)
+      toLog('==========================================')
+      win.webContents.send('game-closed')
+      return win.webContents.send(['204', error])
+    }
+  })
+
+  let isGameRunning = setInterval(checkProcess, 1000)
+  function checkProcess () {
+    isRunning('ModOrganizer.exe', (status) => {
+      if (!status) {
+        toLog('  GAME CLOSED')
+        clearInterval(isGameRunning)
+        if (game != 'Morrowind') {
+          toLog('    Removing Game Folder Files')
+          fs.readdir(path.join(modlistPath, 'Game Folder Files'), (err,files) => {
+            files.forEach(file => {
+              toLog('      Removing ' + file)
+              fs.unlink(path.join(gamePath, file), (err) => {})
+              fs.rmdir(path.join(gamePath, file), { recursive: true }, (err) => {})
+            })
+            win.show()
+            win.webContents.send('game-closed')
+            toLog('==========================================')
+          })
+        } else {
+          win.show()
+          win.webContents.send('game-closed')
+          toLog('==========================================')
+        }
+      }
+    })
+  }
+}
+
+function refreshModlists () {
+  toLog('Refreshing modlists')
+  toLog('==========================================')
+  // Get current configuration
+  let config = getConfig()
+
+  // Update each list in configuration
+  Object.keys(config.Modlists).forEach(list =>{
+    // Get current MO2 configuration
+    toLog('  Getting Modlist MO2 info for ' + list)
+    const MO2ini = ini.parse(fs.readFileSync(path.join(config.Modlists[list].path, 'ModOrganizer.ini'), 'utf-8'))
+    let modlistInfo = {
+      name: list,
+      path: config.Modlists[list].path,
+      game: MO2ini.General.gameName,
+      executables: [],
+      exe: config.Modlists[list].exe,
+      profiles: [],
+      selectedProfile: config.Modlists[list].selectedProfile
+    }
+
+    // Update executables array
+    toLog('    Updating executable array')
+    Object.keys(MO2ini.customExecutables).forEach(entry => {
+      if (entry.includes('title') && MO2ini.customExecutables[entry] != undefined) {
+        toLog('      Found ' + MO2ini.customExecutables[entry])
+        modlistInfo.executables.push(MO2ini.customExecutables[entry])
+      }
+    })
+
+    // Update profiles array
+    toLog('    Updating profiles array')
+    const files = fs.readdirSync(path.join(modlistInfo.path, 'profiles'))
+    files.forEach(file => {
+      toLog('      Found ' + file)
+      modlistInfo.profiles.push(file)
+    })
+
+    // Push changes to saved config
+    config.Modlists[list] = modlistInfo
+  })
+
+  // Update config
+  saveConfig(config)
+  toLog('==========================================')
+  return true
+}
+
+function createModlist (modlistInfo) {
+  // modlist info is an Object with the modlist information taken from the config (config.Modlists[modlistName])
+  // Check if selected folder contains required files
+  toLog('Creating new Modlist, ' + modlistInfo.name)
+  toLog('==========================================')
+  toLog('  Modlist path: ' + modlistInfo.path)
+  toLog('  Checking for MO2 files')
   if (!fs.existsSync(path.join(modlistInfo.path, 'ModOrganizer.exe'))) { //Check if path contains Mod Organizer
-    win.webContents.send(['203', modlistInfo.path + ' does not contain ModOrganizer.exe'])
+    toLog('  ERROR: FOLDER DOES NOT CONTAIN MODORGANIZER.EXE')
+    toLog('==========================================')
+    win.webContents.send(['203', modlistInfo.path + ' does not contain ModOrganizer.exe. Please double check the path and try again'])
     return 'Error'
   }
+  if (!fs.existsSync(path.join(modlistInfo.path, 'ModOrganizer.ini'))) {
+    toLog('  ERROR: FOLDER DOES NOT CONTAIN MODORGANIZER.INI')
+    toLog('==========================================')
+    win.webContents.send(['203', modlistInfo.path + ' does not contain ModOrganizer.ini. Please double check the path and try again'])
+    return 'Error'
+  }
+
+  // Read MO2 configuration file
+  toLog('  Reading ModOrganizer.ini')
   const MO2ini = ini.parse(fs.readFileSync(path.join(modlistInfo.path, 'ModOrganizer.ini'), 'utf-8'))
+
+  // Get game name and set default executable
   modlistInfo.game = MO2ini.General.gameName
+  toLog('    Game name: ' + modlistInfo.game)
   switch (modlistInfo.game) {
     case 'Skyrim':
       modlistInfo.exe = 'SKSE'
@@ -186,22 +370,37 @@ ipcMain.handle('create-modlist-profile', async (_event, modlistInfo) => { // Add
       modlistInfo.exe = 'F4SE'
       break;
   }
+  toLog('    Setting default executable to ' + modlistInfo.exe)
+
+  // Get list of MO2 executables
   modlistInfo.executables = []
+  toLog('    Reading executables:')
   Object.keys(MO2ini.customExecutables).forEach(entry => {
     if (entry.includes('title') && MO2ini.customExecutables[entry] != undefined) {
+      toLog('      ' + MO2ini.customExecutables[entry])
       modlistInfo.executables.push(MO2ini.customExecutables[entry])
     }
   })
+
+  // Get list of MO2 profiles
+  toLog('    Reading profiles:')
   const files = fs.readdirSync(path.join(modlistInfo.path, 'profiles'))
   modlistInfo.profiles = []
   files.forEach(file => {
+    toLog('      ' + file)
     modlistInfo.profiles.push(file)
   })
   modlistInfo.selectedProfile = modlistInfo.profiles[0]
+  toLog('    Setting default profile: ' + modlistInfo.selectedProfile)
 
-  let options = JSON.parse(fs.readFileSync(path.join(homedir, 'options.json')))
+  // Save to config
+  let options = getConfig()
   options.Modlists[modlistInfo.name] = modlistInfo
-  fs.writeFileSync(path.join(homedir, '/options.json'), JSON.stringify(options, null, 2))
+  saveConfig(options)
+  toLog('==========================================')
+
+  // Return with new modlist info
+  // TODO: Check to see if this is required.
   return {
     name: modlistInfo.name,
     path: modlistInfo.path,
@@ -211,120 +410,61 @@ ipcMain.handle('create-modlist-profile', async (_event, modlistInfo) => { // Add
     selectedProfile: modlistInfo.selectedProfile,
     profiles: modlistInfo.profiles
   }
+}
+
+// IpcRenderer handling
+ipcMain.on('follow-link', (_event, args) => { // Open hyperlinks in the default browser
+  toLog('Opening link: ' + args)
+  shell.openExternal(args)
+}).on('open-modlist-profile', (_event, args) => { // Open path to modlist folder
+  toLog('Opening explorer path: ' + args)
+  shell.openPath(args)
 })
 
+// Add a new modlist profile
+ipcMain.handle('create-modlist-profile', async (_event, modlistInfo) => {
+  return createModlist(modlistInfo)
+})
+
+// Refresh modlist cache
 ipcMain.handle('refresh-modlists', async (_event, args) => {
-  let config = JSON.parse(fs.readFileSync(path.join(homedir, 'options.json'), { encoding:'utf8' }))
-  Object.keys(config.Modlists).forEach(list =>{
-    const MO2ini = ini.parse(fs.readFileSync(path.join(config.Modlists[list].path, 'ModOrganizer.ini'), 'utf-8'))
-    let modlistInfo = {
-      name: list,
-      path: config.Modlists[list].path,
-      game: MO2ini.General.gameName,
-      executables: [],
-      exe: config.Modlists[list].exe,
-      profiles: [],
-      selectedProfile: config.Modlists[list].selectedProfile
-    }
-    Object.keys(MO2ini.customExecutables).forEach(entry => {
-      if (entry.includes('title') && MO2ini.customExecutables[entry] != undefined) {
-        modlistInfo.executables.push(MO2ini.customExecutables[entry])
-      }
-    })
-    const files = fs.readdirSync(path.join(modlistInfo.path, 'profiles'))
-    files.forEach(file => {
-      modlistInfo.profiles.push(file)
-    })
-    config.Modlists[list] = modlistInfo
-  })
-  fs.writeFileSync(path.join(homedir, '/options.json'), JSON.stringify(config, null, 2))
-  return true
+  return refreshModlists()
 })
 
 // Update configuration file
 ipcMain.handle('update-config', async (_event, args) => {
-  const newConfig = JSON.stringify(args, null, 2)
-  fs.writeFileSync(path.join(homedir, '/options.json'), newConfig)
+  saveConfig(args)
 })
 
 // Get configuration
 ipcMain.handle('get-config', async (_event, args) => {
-  let options = fs.readFileSync(path.join(homedir, 'options.json'), { encoding:'utf8' })
-  let result = JSON.parse(options)
-  return result
-})
-
-
-ipcMain.handle('get-profiles', async (_event, args) => {
-  let options = fs.readFileSync(path.join(homedir, 'options.json'), { encoding:'utf8' })
-  return JSON.parse(options).Modlists[args].profiles
+  return getConfig()
 })
 
 // Get Directory
 ipcMain.handle('get-directory', async (_event, args) => {
+  toLog('Getting directory')
   return dialog.showOpenDialogSync({
     buttonLabel: 'Choose Folder',
     properties: ['openDirectory']
   })
 })
 
+// Launch modlist
 ipcMain.handle('launch-game', async (_event, args) => {
-  const currentConfig = JSON.parse(fs.readFileSync(path.join(homedir, 'options.json')))
-  const modlistPath = currentConfig.Modlists[args].path
-  const exe = currentConfig.Modlists[args].exe
-  const profile = currentConfig.Modlists[args].selectedProfile
-  const game = currentConfig.Modlists[args].game
-  const gamePath = currentConfig.Options.gameDirectories.find(x => x.game === game).path
-
-  if (game != 'Morrowind') {
-    ncp.ncp(path.join(modlistPath, 'Game Folder Files'), gamePath, err => {
-      if (err) {
-        win.webContents.send('game-closed')
-        return win.webContents.send('error', ['002', err])
-      }
-    })
-  }
-  const execCMD = '"' + modlistPath + '\\ModOrganizer.exe" -p "' + profile + '" "moshortcut://:' + exe + '"'
-  childProcess.exec(execCMD, (error) => {
-    if (error) {
-      win.webContents.send('game-closed')
-      return win.webContents.send(['204', error])
-    }
-  })
-
-  let isGameRunning = setInterval(checkProcess, 1000)
-  function checkProcess () {
-    isRunning('ModOrganizer.exe', (status) => {
-      if (!status) {
-        clearInterval(isGameRunning)
-        if (game != 'Morrowind') {
-          fs.readdir(path.join(modlistPath, 'Game Folder Files'), (err,files) => {
-            files.forEach(file => {
-              fs.unlink(path.join(gamePath, file), (err) => {})
-              fs.rmdir(path.join(gamePath, file), { recursive: true }, (err) => {})
-            })
-            win.show()
-            win.webContents.send('game-closed')
-          })
-        } else {
-          win.show()
-          win.webContents.send('game-closed')
-        }
-      }
-    })
-  }
+ launchGame(args)
 })
 
-ipcMain.handle('force-quit', async (_event, args) => {
-  childProcess.exec('kill ModOrganizer.exe')
-})
-
+// Launch MO2
 ipcMain.handle('launch-mo2', async (_event, args) => {
+  toLog('Launching MO2')
   const currentConfig = JSON.parse(fs.readFileSync(path.join(homedir, 'options.json')))
   const moPath = path.join(currentConfig.Modlists[args].path, '\\ModOrganizer.exe')
   childProcess.exec('"'+moPath+'"')
 })
 
+// Open console
 ipcMain.on('open-dev-tools', (_event, args) => {
+  toLog('Opening developer tools')
   win.webContents.openDevTools()
 })

@@ -18,7 +18,7 @@
       no-header
     >
       <h2
-        v-b-popover.hover.bottom="'Version 2.2.0'"
+        v-b-popover.hover.bottom="'Version ' + this.version"
         class="text-center"
         @click="changeMenu('changelog')"
         style="cursor:pointer;"
@@ -91,6 +91,7 @@ export default {
       currentMenu: '',
       advancedOptions: false,
       currentList: '',
+      version: '',
       links: [
         {
           name: 'Patreon',
@@ -152,6 +153,7 @@ export default {
   mounted () {
     window.ipcRenderer.invoke('get-config').then(result => {
       this.advancedOptions = result.Options.advancedOptions
+      this.version = result.version
     })
     window.ipcRenderer.on('cmd-launch', (event, args) => {
       window.ipcRenderer.once('game-closed', (event, args) => {

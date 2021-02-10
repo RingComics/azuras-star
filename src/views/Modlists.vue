@@ -194,11 +194,6 @@
     >
       <h2>Application locked while game is running</h2>
       <p>DO NOT EXIT AZURA'S STAR WHILE THE GAME IS RUNNING.</p>
-      <b-button
-        @click="forceQuit()"
-      >
-        Force quit {{ this.currentList }}
-      </b-button>
     </b-modal>
 
     <b-modal
@@ -371,9 +366,6 @@ export default {
       window.ipcRenderer.once('game-closed', (event, args) => {
         this.$refs['game-running'].hide()
       })
-    },
-    forceQuit () {
-      window.ipcRenderer.invoke('force-quit')
     },
     createShortcut (name) {
       window.ipcRenderer.invoke('create-shortcut', name)
