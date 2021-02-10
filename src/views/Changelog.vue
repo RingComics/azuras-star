@@ -2,6 +2,23 @@
   <b-container>
     <h1>Changelog</h1>
     <b-card>
+        <h2><b-link @click="followLink('https://github.com/RingComics/azuras-star/releases/tag/v2.2.1')">2.2.1</b-link></h2>
+        <h6>Released on Feb 9, 2021</h6>
+        <h4>Changes</h4>
+        <p>None</p>
+        <h4>Bug Fixes</h4>
+        <ul>
+            <li>Modlists no longer sync up with MO2's last executable</li>
+            <li>Modlists use script extenders as default executable on Modlist creation</li>
+        </ul>
+        <h4>Known Issues</h4>
+        <p>Modlists have a tendency to break if the selected executable is
+           deleted from MO2. This can easily be fixed by changing it in the
+           advanced Modlist options.
+        </p>
+    </b-card>
+
+    <b-card>
         <h2><b-link @click="followLink('https://github.com/RingComics/azuras-star/releases/tag/v2.2.0')">2.2.0</b-link></h2>
         <h6>Released on Feb 3, 2021</h6>
         <h4>Changes</h4>
