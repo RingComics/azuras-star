@@ -67,8 +67,7 @@
       </div>
     </b-overlay>
 
-    <b-modal
-      ref="add-modlist-modal"
+    <b-modal ref="add-modlist-modal"
       title="Name Your Profile"
       hide-footer
     >
@@ -107,8 +106,7 @@
       </b-form>
     </b-modal>
 
-    <b-modal
-      ref="morrowind-warning"
+    <b-modal ref="morrowind-warning"
       title="WARNING"
       ok-only
     >
@@ -121,8 +119,7 @@
       </p>
     </b-modal>
 
-    <b-modal
-      ref="delete-modlist-modal"
+    <b-modal ref="delete-modlist-modal"
       title="Delete Your Profile"
       hide-footer
     >
@@ -134,17 +131,30 @@
         >
           Are you sure you want to delete {{ this.deleteModal.name }}?
         </p>
-        <b-button
-          type="submit"
-          variant="danger"
-        >
-          Delete
-        </b-button>
+        <b-row>
+          <b-col>
+            <b-button
+              class="float-right"
+              type="submit"
+              variant="danger"
+            >
+              Delete from AS
+            </b-button>
+          </b-col>
+          <b-col>
+            <b-button
+              class="float-left"
+              variant="danger"
+              @click="deleteListFromDisk(this.deleteModal.name)"
+            >
+              Delete from disk
+            </b-button>
+        </b-col>
+        </b-row>
       </b-form>
     </b-modal>
 
-    <b-modal
-      ref="edit-modlist-modal"
+    <b-modal ref="edit-modlist-modal"
       :title="'Edit Profile ' + this.editModal.property"
       hide-footer
     >
@@ -184,8 +194,7 @@
       </b-form>
     </b-modal>
 
-    <b-modal
-      ref="game-running"
+    <b-modal ref="game-running"
       :title="'Currently running ' + this.currentList"
       hide-footer
       hide-header-close
@@ -194,14 +203,6 @@
     >
       <h2>Application locked while game is running</h2>
       <p>DO NOT EXIT AZURA'S STAR WHILE THE GAME IS RUNNING.</p>
-    </b-modal>
-
-    <b-modal
-      ref="error-message"
-      title="An error occured"
-      ok-only
-    >
-      <p> {{ this.error }} </p>
     </b-modal>
   </b-container>
 </template>
@@ -221,21 +222,19 @@ export default {
       currentList: null,
       currentConfig: '',
       search: '',
-      error: 'Something went wrong, but we aren\'t sure what',
       gamesList: [
         { value: null, text: 'Filter by game' },
-        { value: 'SkyrimLE', text: 'The Elder Scrolls V: Skyrim Legendary Edition' },
-        { value: 'SkyrimSE', text: 'The Elder Scrolls V: Skyrim Special Edition' },
-        { value: 'SkyrimVR', text: 'The Elder Scrolls V: Skyrim VR' },
+        { value: 'Skyrim', text: 'The Elder Scrolls V: Skyrim Legendary Edition' },
+        { value: 'Skyrim Special Edition', text: 'The Elder Scrolls V: Skyrim Special Edition' },
+        { value: 'Skyrim VR', text: 'The Elder Scrolls V: Skyrim VR' },
         { value: 'Oblivion', text: 'The Elder Scrolls IV: Oblivion' },
         { value: 'Morrowind', text: 'The Elder Scrolls III: Morrowind' },
         // { value: 'Enderal', text: 'Enderal' },
-        { value: 'Fallout4VR', text: 'Fallout 4 VR' },
-        { value: 'Fallout4', text: 'Fallout 4' },
-        { value: 'FalloutNV', text: 'Fallout: New Vegas' },
-        { value: 'Fallout3', text: 'Fallout 3' }
+        { value: 'Fallout 4 VR', text: 'Fallout 4 VR' },
+        { value: 'Fallout 4', text: 'Fallout 4' },
+        { value: 'New Vegas', text: 'Fallout: New Vegas' },
+        { value: 'Fallout 3', text: 'Fallout 3' }
       ],
-      // We should get this from the settings on-load
       profiles: [],
       addModal: {
         path: '',
@@ -376,6 +375,12 @@ export default {
     refreshModlists () {
       this.loading = true
       window.ipcRenderer.invoke('refresh-modlists').then(result => {
+        location.reload()
+      })
+    },
+    deleteListFromDisk (list) {
+      this.loading = true
+      window.ipcRenderer.invoke('delete-list-from-disk', list).then(result => {
         location.reload()
       })
     }

@@ -64,6 +64,18 @@
       >
         Open Developer Console
       </b-button>
+      <b-button
+        v-if="this.advancedOptions == true"
+        @click="openLog()"
+      >
+        Open Current Log File
+      </b-button>
+      <b-button
+        v-if="this.advancedOptions == true"
+        @click="openLogsFolder()"
+      >
+        All Logs
+      </b-button>
     </b-form>
   </div>
 </template>
@@ -108,6 +120,12 @@ export default {
     },
     openConsole () {
       window.ipcRenderer.send('open-dev-tools')
+    },
+    openLog () {
+      window.ipcRenderer.send('open-log')
+    },
+    openLogsFolder () {
+      window.ipcRenderer.send('open-logs-directory')
     }
   },
   beforeMount () {
