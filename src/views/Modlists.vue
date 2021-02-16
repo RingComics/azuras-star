@@ -131,26 +131,13 @@
         >
           Are you sure you want to delete {{ this.deleteModal.name }}?
         </p>
-        <b-row>
-          <b-col>
-            <b-button
-              class="float-right"
-              type="submit"
-              variant="danger"
-            >
-              Delete from AS
-            </b-button>
-          </b-col>
-          <b-col>
-            <b-button
-              class="float-left"
-              variant="danger"
-              @click="deleteListFromDisk(this.deleteModal.name)"
-            >
-              Delete from disk
-            </b-button>
-        </b-col>
-        </b-row>
+        <b-button
+          class="float-right"
+          type="submit"
+          variant="danger"
+        >
+          Delete from AS
+        </b-button>
       </b-form>
     </b-modal>
 
@@ -256,27 +243,24 @@ export default {
     showModal (name) {
       this.$refs[name].show()
     },
+    hideModal (name) {
+      this.$refs[name].hide()
+    },
     createModlistProfile () {
       this.loading = true
-      this.$refs['add-modlist-modal'].hide()
+      this.hideModal('add-modlist-modal')
 
       const modlistInfo = {
         name: this.addModal.name,
         path: this.addModal.path
       }
 
-      window.ipcRenderer.once('unknown-game', (event, args) => {
-        this.error = args + ' is not supported by Azura\'s Star (Error code 202)'
-        this.$refs['error-message'].show()
-        this.loading = false
-      })
-
       window.ipcRenderer.invoke('create-modlist-profile', modlistInfo).then((result) => {
-        if (result === 'ERROR 202') return
+        if (result === 'ERROR') return
         this.profiles.push(result)
         this.loading = false
         if (result.game === 'Morrowind') {
-          this.$refs['morrowind-warning'].show()
+          this.showModal('morrowind-warning')
         } else {
           location.reload()
         }
@@ -293,10 +277,10 @@ export default {
     },
     deleteModlistProfile () {
       this.loading = true
-      this.$refs['delete-modlist-modal'].hide()
+      this.hideModal('delete-modlist-modal')
       window.ipcRenderer.invoke('get-config').then(result => {
         delete result.Modlists[this.deleteModal.name]
-        window.ipcRenderer.invoke('update-config', result)
+        window.ipcRenderer.send('update-config', result)
       })
       this.loading = false
       location.reload()
@@ -331,12 +315,10 @@ export default {
         this.profiles[listIndex] = newProfile
         delete result.Modlists[this.editModal.list]
         result.Modlists[newProfile.name] = newProfile
-        window.ipcRenderer.invoke('update-config', result).then(() => {
-          location.reload()
-        })
+        window.ipcRenderer.send('update-config', result)
+        location.reload()
       })
-
-      this.$refs['edit-modlist-modal'].hide()
+      this.hideModal('edit-modlist-modal')
     },
     getPath () {
       window.ipcRenderer.invoke('get-directory').then(result => {
@@ -363,11 +345,8 @@ export default {
       this.showModal('game-running')
       window.ipcRenderer.invoke('launch-game', list)
       window.ipcRenderer.once('game-closed', (event, args) => {
-        this.$refs['game-running'].hide()
+        this.hideModal('game-running')
       })
-    },
-    createShortcut (name) {
-      window.ipcRenderer.invoke('create-shortcut', name)
     },
     launchMO2 (list) {
       window.ipcRenderer.invoke('launch-mo2', list)
@@ -375,12 +354,6 @@ export default {
     refreshModlists () {
       this.loading = true
       window.ipcRenderer.invoke('refresh-modlists').then(result => {
-        location.reload()
-      })
-    },
-    deleteListFromDisk (list) {
-      this.loading = true
-      window.ipcRenderer.invoke('delete-list-from-disk', list).then(result => {
         location.reload()
       })
     }
@@ -409,20 +382,6 @@ export default {
           )
         })
       })
-    })
-    window.ipcRenderer.on('error', (event, args) => {
-      switch (args[0]) {
-        case '204':
-          this.error = 'There was an issue launching the game (Error 204): ' + args[1]
-          break
-        case '002':
-          this.error = 'There was an issue moving Game Folder Files over (Error 002): ' + args[1]
-          break
-        default:
-          this.error = 'An error occured, but we aren\'t sure what (Error 000). Please report this to the developer. Error message:\n' + args[1]
-          break
-      }
-      this.showModal('error-message')
     })
   }
 }

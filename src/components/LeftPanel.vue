@@ -162,6 +162,7 @@ export default {
       this.currentList = args
       this.gameRunning = true
     })
+    window.ipcRenderer.send('initialized')
   }
 }
 </script>
