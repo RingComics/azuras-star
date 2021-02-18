@@ -1,3 +1,6 @@
+<!--
+  Error identifier: 04
+-->
 <template>
   <b-container
     fluid class="text-center"
@@ -109,6 +112,7 @@
     <b-modal ref="morrowind-warning"
       title="WARNING"
       ok-only
+      @submit="reload()"
     >
       <p>
         Your Morrowind modlist has been added, however, Azura's Star cannot
@@ -246,79 +250,115 @@ export default {
     hideModal (name) {
       this.$refs[name].hide()
     },
+    async getConfig () {
+      return await window.ipcRenderer.invoke('get-config')
+    },
+    reload () {
+      location.reload()
+    },
+    saveConfig (newConfig) {
+      window.ipcRenderer.send('update-config', { newConfig: newConfig })
+    },
     createModlistProfile () {
-      this.loading = true
-      this.hideModal('add-modlist-modal')
+      // Error identifier : 03
+      try {
+        this.loading = true
+        this.hideModal('add-modlist-modal')
 
-      const modlistInfo = {
-        name: this.addModal.name,
-        path: this.addModal.path
-      }
-
-      window.ipcRenderer.invoke('create-modlist-profile', modlistInfo).then((result) => {
-        if (result === 'ERROR') return
-        this.profiles.push(result)
-        this.loading = false
-        if (result.game === 'Morrowind') {
-          this.showModal('morrowind-warning')
-        } else {
-          location.reload()
+        const modlistInfo = {
+          name: this.addModal.name,
+          path: this.addModal.path
         }
-      })
+
+        window.ipcRenderer.invoke('create-modlist-profile', { modlistInfo }).then((result) => {
+          if (result === 'ERROR') {
+            this.loading = false
+            return
+          }
+          if (result.game === 'Morrowind') {
+            this.loading = false
+            this.showModal('morrowind-warning')
+          } else {
+            location.reload()
+          }
+        })
+      } catch (err) {
+        this.sendError('F04-03-00', 'Error while requesting modlist creation!', err, 0)
+      }
     },
     openModlistProfile (name) {
-      const profile = this.profiles.find(x => x.name === name)
-
-      window.ipcRenderer.send('open-modlist-profile', profile.path)
+      // Error identifier: 04
+      try {
+        const profile = this.profiles.find(x => x.name === name)
+        window.ipcRenderer.send('open-modlist-profile', profile.path)
+      } catch (err) {
+        this.sendError('F04-04-00', 'Error while opening modlist profile folder!', err, 0)
+      }
     },
     confirmDeleteModlistProfile (name) {
       this.deleteModal.name = name
       this.showModal('delete-modlist-modal')
     },
     deleteModlistProfile () {
-      this.loading = true
-      this.hideModal('delete-modlist-modal')
-      window.ipcRenderer.invoke('get-config').then(result => {
-        delete result.Modlists[this.deleteModal.name]
-        window.ipcRenderer.send('update-config', result)
-      })
-      this.loading = false
-      location.reload()
+      // Error identifier: 05
+      try {
+        this.loading = true
+        this.hideModal('delete-modlist-modal')
+        this.getConfig().then(result => {
+          if (result === 'ERROR') return
+          delete result.Modlists[this.deleteModal.name]
+          this.saveConfig(result)
+          location.reload()
+        })
+      } catch (err) {
+        this.sendError('F04-05-00', 'Error while requesting modlist deletion!', err, 0)
+      }
     },
     editModlist (args) {
-      this.editModal.list = args[0]
-      this.editModal.property = args[1]
-      if (args[1] === 'selectedProfile') {
-        this.profiles.find(
-          x => x.name === args[0]
-        ).profiles[0].forEach(
-          x => this.editModal.profiles.push(x)
-        )
+      // Error Identifier: 06
+      try {
+        this.editModal.list = args[0]
+        this.editModal.property = args[1]
+        if (args[1] === 'selectedProfile') {
+          this.profiles.find(
+            x => x.name === args[0]
+          ).profiles[0].forEach(
+            x => this.editModal.profiles.push(x)
+          )
+        }
+        if (args[1] === 'exe') {
+          this.profiles.find(
+            x => x.name === args[0]
+          ).executables.forEach(
+            x => this.editModal.executables.push(x)
+          )
+        }
+        this.showModal('edit-modlist-modal')
+      } catch (err) {
+        this.sendError('F04-06-00', 'Error while collecting modlist edit info!', err, 0)
       }
-      if (args[1] === 'exe') {
-        this.profiles.find(
-          x => x.name === args[0]
-        ).executables.forEach(
-          x => this.editModal.executables.push(x)
-        )
-      }
-      this.showModal('edit-modlist-modal')
     },
     changeModlist () {
-      this.loading = true
-      window.ipcRenderer.invoke('get-config').then(result => {
-        const listIndex = this.profiles.findIndex(
-          obj => obj.name === result.Modlists[this.editModal.list].name
-        )
-        result.Modlists[this.editModal.list][this.editModal.property] = this.editModal.value
-        const newProfile = result.Modlists[this.editModal.list]
-        this.profiles[listIndex] = newProfile
-        delete result.Modlists[this.editModal.list]
-        result.Modlists[newProfile.name] = newProfile
-        window.ipcRenderer.send('update-config', result)
-        location.reload()
-      })
-      this.hideModal('edit-modlist-modal')
+      // Error Identifier: 07
+      try {
+        this.loading = true
+        this.getConfig().then(result => {
+          if (result === 'ERROR') return
+          const listIndex = this.profiles.findIndex(
+            obj => obj.name === result.Modlists[this.editModal.list].name
+          )
+          result.Modlists[this.editModal.list][this.editModal.property] = this.editModal.value
+          const newProfile = result.Modlists[this.editModal.list]
+          this.profiles[listIndex] = newProfile
+          delete result.Modlists[this.editModal.list]
+          result.Modlists[newProfile.name] = newProfile
+          this.saveConfig(result)
+          location.reload()
+        })
+        this.hideModal('edit-modlist-modal')
+      } catch (err) {
+        this.sendError('F04-07-00', 'Error while requesting modlist edit!', err, 0)
+      }
     },
     getPath () {
       window.ipcRenderer.invoke('get-directory').then(result => {
@@ -335,18 +375,23 @@ export default {
       })
     },
     launchGame (list) {
-      this.currentList = list
-      const game = this.profiles[this.profiles.findIndex(x => x.name === list)].game
-      if (this.currentConfig.Options.gameDirectories.find(x => x.game === game).path === '') {
-        this.error = 'Your game directory for ' + game + ' could not be found. Please make sure it is set in the options menu and try again (Error code 201)'
-        this.showModal('error-message')
-        return
+      // Error ID: 08
+      try {
+        this.currentList = list
+        const game = this.profiles[this.profiles.findIndex(x => x.name === list)].game
+        if (this.currentConfig.Options.gameDirectories.find(x => x.game === game).path === '') {
+          this.error = 'Your game directory for ' + game + ' could not be found. Please make sure it is set in the options menu and try again (Error code 201)'
+          this.showModal('error-message')
+          return
+        }
+        this.showModal('game-running')
+        window.ipcRenderer.invoke('launch-game', list)
+        window.ipcRenderer.once('game-closed', (event, args) => {
+          this.hideModal('game-running')
+        })
+      } catch (err) {
+        this.sendError('F04-08-00', 'Error while initiating game launch!', err, 0)
       }
-      this.showModal('game-running')
-      window.ipcRenderer.invoke('launch-game', list)
-      window.ipcRenderer.once('game-closed', (event, args) => {
-        this.hideModal('game-running')
-      })
     },
     launchMO2 (list) {
       window.ipcRenderer.invoke('launch-mo2', list)
@@ -356,33 +401,43 @@ export default {
       window.ipcRenderer.invoke('refresh-modlists').then(result => {
         location.reload()
       })
+    },
+    sendError (code, message, err, tabbed) {
+      // Error identifier: God help us
+      window.ipcRenderer.send('error', { code, message, err, tabbed })
     }
   },
   beforeMount () {
-
+    // Error identifier 01
   },
   mounted () {
-    window.ipcRenderer.invoke('refresh-modlists').then(result => {
-      window.ipcRenderer.invoke('get-config').then((result) => {
-        this.currentConfig = result
-        Object.entries(this.currentConfig.Modlists).forEach(key => {
-          this.profiles.push({
-            name: key[1].name,
-            path: key[1].path,
-            executables: key[1].executables,
-            exe: key[1].exe,
-            game: key[1].game,
-            profiles: [],
-            selectedProfile: key[1].selectedProfile
+    // Error identifier 02
+    try {
+      window.ipcRenderer.invoke('refresh-modlists').then(result => {
+        this.getConfig().then((result) => {
+          if (result === 'ERROR') return
+          this.currentConfig = result
+          Object.entries(this.currentConfig.Modlists).forEach(key => {
+            this.profiles.push({
+              name: key[1].name,
+              path: key[1].path,
+              executables: key[1].executables,
+              exe: key[1].exe,
+              game: key[1].game,
+              profiles: [],
+              selectedProfile: key[1].selectedProfile
+            })
+            this.profiles[Object.keys(this.currentConfig.Modlists).indexOf(
+              key[1].name
+            )].profiles.push(
+              [...this.currentConfig.Modlists[key[1].name].profiles]
+            )
           })
-          this.profiles[Object.keys(this.currentConfig.Modlists).indexOf(
-            key[1].name
-          )].profiles.push(
-            [...this.currentConfig.Modlists[key[1].name].profiles]
-          )
         })
       })
-    })
+    } catch (err) {
+      this.sendError('F04-02-00', 'Error in Modlists.vue mounted()!', err, 0)
+    }
   }
 }
 </script>

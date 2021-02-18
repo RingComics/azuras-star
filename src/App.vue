@@ -5,13 +5,6 @@
       class="mb-4"
     />
     <router-view/>
-    <b-modal
-      ref="error-message"
-      title="An error occured"
-      ok-only
-    >
-      <p> {{ this.error }} </p>
-    </b-modal>
   </div>
 </template>
 
@@ -26,19 +19,6 @@ export default {
   },
   methods: {
 
-  },
-  mounted () {
-    window.ipcRenderer.on('error', (event, args) => {
-      switch (args[0]) {
-        case '001':
-          this.error = args[1]
-          break
-        default:
-          this.error = 'An error occured, but we aren\'t sure what (Error 000). Please report this to the developer. Error message:\n' + args[1]
-          break
-      }
-      this.$refs['error-message'].show()
-    })
   }
 }
 </script>

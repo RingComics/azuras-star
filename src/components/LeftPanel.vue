@@ -1,3 +1,6 @@
+<!--
+  Error Identifier: F01
+-->
 <template>
   <b-container
     fluid
@@ -79,7 +82,20 @@
           </b-link>
         </b-card>
       </b-collapse>
+      <div v-if="this.dev">
+        <h3>Dev Options</h3>
+          <b-button @click="sendError('DummyError', 'Tasked failed successfully!', '404: Error not found', 0)">Send Error</b-button>
+      </div>
     </b-sidebar>
+
+    <b-modal ref="error-modal"
+      ok-only
+      title="An error occured!"
+    >
+      <p>{{ this.error.message }}</p>
+      <p>Error code: {{ this.error.code}}</p>
+      <p>{{ this.error.err }}</p>
+    </b-modal>
   </b-container>
 </template>
 
@@ -92,6 +108,12 @@ export default {
       advancedOptions: false,
       currentList: '',
       version: '',
+      dev: false,
+      error: {
+        message: '',
+        err: '',
+        code: ''
+      },
       links: [
         {
           name: 'Patreon',
@@ -128,41 +150,54 @@ export default {
   },
   methods: {
     changeMenu (value) {
-      if (this.$route.path.endsWith(value)) {
-        this.$router.push('/')
-        this.currentMenu = ''
-      } else {
-        this.$router.push(value)
-        this.currentMenu = value
+      // Error identifier: 03
+      try {
+        if (this.$route.path.endsWith(value)) {
+          this.$router.push('/')
+          this.currentMenu = ''
+        } else {
+          this.$router.push(value)
+          this.currentMenu = value
+        }
+      } catch (err) {
+        this.sendError('F01-03-01', 'Error while changing menus!', err, 0)
       }
     },
     followLink (value) {
-      window.ipcRenderer.send('follow-link', value)
+      // Error Identifier: 04
+      try {
+        window.ipcRenderer.send('follow-link', { link: value })
+      } catch (err) {
+        this.sendError('F01-04-01', 'Error while opening web link!\nLink: ' + value, err, 0)
+      }
     },
-    getGameDirectory () {
-      window.ipcRenderer.invoke('get-directory').then((result) => {
-        if (result !== undefined) { this.GameDirectory = result[0] }
-      })
-    },
-    getModDirectory () {
-      window.ipcRenderer.invoke('get-directory').then((result) => {
-        if (result !== undefined) { this.ModDirectory = result[0] }
-      })
+    sendError (code, message, err, tabbed) {
+      // Error identifier: God help us
+      window.ipcRenderer.send('error', { code: code, message: message, err: err, tabbed: tabbed })
     }
   },
+  beforeMount () {
+    // Error identifier 01
+  },
   mounted () {
-    window.ipcRenderer.invoke('get-config').then(result => {
-      this.advancedOptions = result.Options.advancedOptions
-      this.version = result.version
-    })
-    window.ipcRenderer.on('cmd-launch', (event, args) => {
-      window.ipcRenderer.once('game-closed', (event, args) => {
-        this.gameRunning = false
+    // Error identifier 02
+    try {
+      window.ipcRenderer.invoke('get-config').then(result => {
+        if (result === 'ERROR') return
+        this.advancedOptions = result.Options.advancedOptions
+        this.version = result.version
+        this.dev = result.isDevelopment
       })
-      this.currentList = args
-      this.gameRunning = true
-    })
-    window.ipcRenderer.send('initialized')
+      window.ipcRenderer.send('initialized')
+      window.ipcRenderer.on('error', (_event, { code, message, err }) => {
+        this.error.code = code
+        this.error.message = message
+        this.error.err = err
+        this.$refs['error-modal'].show()
+      })
+    } catch (err) {
+      this.sendError('F01-02-00', 'Error in LeftPanel.vue mounted()!', err, 0)
+    }
   }
 }
 </script>

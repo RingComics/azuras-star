@@ -15,7 +15,9 @@
   "dependencies": {
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.8.3",
+    "form-data": "^4.0.0",
     "ncp": "^2.0.0",
+    "request": "^2.88.2",
     "vue": "^2.6.11",
     "vue-router": "^3.5.1"
   },

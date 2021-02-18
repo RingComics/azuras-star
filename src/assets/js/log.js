@@ -1,3 +1,5 @@
+//Purpose: Handle logging
+// Error ID: B05
 import { app, protocol, dialog, BrowserWindow, ipcMain, shell } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
@@ -11,7 +13,7 @@ import http from 'https'
 import { ModalPlugin } from 'bootstrap-vue'
 import { initializeConfiguration, getConfig, saveConfig } from './config.js'
 import { refreshModlists, createModlist, deleteModlistFromDisk, launchGame } from './modlists.js'
-import { getWebContents } from './errorHandling'
+import { sendError } from './errorHandler'
 
 const homeDirectory = path.join(os.homedir(), 'Azura\'s Star')
 
@@ -37,7 +39,10 @@ function getCurrentDate() {
 export const currentLogPath = path.join(homeDirectory, '/logs/', (getCurrentDate() + '.txt'))
 
 export function toLog(log, tabbed) {
-    fs.appendFileSync(currentLogPath, '\n' + getCurrentTime() + '  -  ' + '  '.repeat(tabbed) + log)
+    const logged = '\n' + getCurrentTime() + '  -  ' + '  '.repeat(tabbed) + log
+    fs.appendFile(currentLogPath, logged, err => {
+        if (err) sendError('B05-01-00', 'Error while writing to log! Logging has been disabled.', err, tabbed)
+    })
 }
 
 export function openLog() {

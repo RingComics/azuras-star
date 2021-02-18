@@ -1,3 +1,6 @@
+<!--
+    Error identifier: 02
+-->
 <template>
   <b-container>
     <h1>Changelog</h1>
@@ -174,7 +177,11 @@ export default {
   name: 'changelog',
   methods: {
     followLink (value) {
-      window.ipcRenderer.send('follow-link', value)
+      try {
+        window.ipcRenderer.send('follow-link', { link: value })
+      } catch (err) {
+        this.sendError('F02-01-01', 'Error while opening web link!\nLink: ' + value, err, 0)
+      }
     }
   }
 }

@@ -1,3 +1,7 @@
+<!--
+  Options.vue
+  Error identifier: F07
+-->
 <template>
   <div>
     <b-overlay
@@ -72,7 +76,7 @@
           <b-col>
             <b-button
               style="width: 100%"
-              v-if="this.advancedOptions == true"
+              v-if="advancedOptions"
               @click="openConsole()"
             >
               Open Developer Console
@@ -81,7 +85,7 @@
           <b-col>
             <b-button
               style="width: 100%"
-              v-if="this.advancedOptions == true"
+              v-if="advancedOptions"
               @click="openLog()"
             >
               Open Current Log File
@@ -90,7 +94,7 @@
           <b-col>
             <b-button
               style="width: 100%"
-              v-if="this.advancedOptions == true"
+              v-if="advancedOptions"
               @click="openLogsFolder()"
             >
               All Logs
@@ -105,7 +109,7 @@
           <b-button
             block
             v-b-toggle.config
-            v-if="this.advancedOptions"
+            v-if="advancedOptions"
           >
             Current Configuration
           </b-button>
@@ -120,7 +124,7 @@
             <li><strong><u>Development:</u></strong> {{ this.currentConfig.isDevelopment }}</li>
             <li><strong><u>Options:</u></strong></li>
             <ul>
-              <li><strong><u>Advanced Options:</u></strong> {{ this.currentConfig.Options.advancedOptions }}</li>
+              <li><strong><u>Advanced Options:</u></strong> {{ currentConfig.Options.advancedOptions }}</li>
               <li><strong><u>Game Directories</u></strong></li>
                 <ul>
                   <div
@@ -212,18 +216,29 @@ export default {
       this.$refs[name].hide()
     },
     loadConfig () {
-      window.ipcRenderer.invoke('get-config').then((result) => {
-        this.gameDirectories = result.Options.gameDirectories
-        this.WabbajackDirectory = result.Options.WabbajackDirectory
-        this.advancedOptions = result.Options.advancedOptions
-        this.currentConfig = result
-      })
+      // Error ID: F07-03
+      try {
+        window.ipcRenderer.invoke('get-config').then((result) => {
+          if (result === 'ERROR') return
+          this.gameDirectories = result.Options.gameDirectories
+          this.WabbajackDirectory = result.Options.WabbajackDirectory
+          this.advancedOptions = result.Options.advancedOptions
+          this.currentConfig = result
+        })
+      } catch (err) {
+        this.sendError('F07-03-00', 'Error while requesting config!', err, 0)
+      }
     },
     saveConfig () {
-      this.currentConfig.Options.gameDirectories = this.gameDirectories
-      this.currentConfig.Options.WabbajackDirectory = this.WabbajackDirectory
-      this.currentConfig.Options.advancedOptions = this.advancedOptions
-      window.ipcRenderer.send('update-config', this.currentConfig)
+      // Error ID: F07-04
+      try {
+        this.currentConfig.Options.gameDirectories = this.gameDirectories
+        this.currentConfig.Options.WabbajackDirectory = this.WabbajackDirectory
+        this.currentConfig.Options.advancedOptions = this.advancedOptions
+        window.ipcRenderer.send('update-config', { newConfig: this.currentConfig })
+      } catch (err) {
+        this.sendError('F07-04-00', 'Error while sending config!', err, 0)
+      }
     },
     openConfig () {
       window.ipcRenderer.send('open-config')
@@ -254,10 +269,21 @@ export default {
           this.hideModal('confirm-config-reset')
         }
       })
+    },
+    sendError (code, message, err, tabbed) {
+      // Error identifier: God help us
+      window.ipcRenderer.send('error', { code, message, err, tabbed })
     }
   },
   beforeMount () {
     this.loadConfig()
+  },
+  mounted () {
+    // Error Identifier: F07-02
+    try {
+    } catch (err) {
+
+    }
   }
 }
 </script>
