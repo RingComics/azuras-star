@@ -62,6 +62,9 @@ export function refreshModlists() {
 
             // Push changes to saved config
             config.Modlists[list] = modlistInfo
+            // Time
+            if (config.Modlists[list].created === undefined) config.Modlists[modlistInfo.name].created = Date.now()
+            if (config.Modlists[list].modified === undefined) config.Modlists[modlistInfo.name].modified = Date.now()
         })
 
         // Update config
@@ -181,6 +184,8 @@ export function createModlist(modlistInfo) {
         let options = getConfig(1)
         if (options === 'ERROR') return 'ERROR'
         options.Modlists[modlistInfo.name] = modlistInfo
+        options.Modlists[modlistInfo.name].created = Date.now()
+        options.Modlists[modlistInfo.name].modified = Date.now()
         saveConfig(options, 1)
         toLog('Done!\n' + '='.repeat(80) + '\n')
 

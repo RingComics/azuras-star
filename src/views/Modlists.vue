@@ -1,6 +1,3 @@
-<!--
-  Error identifier: 04
--->
 <template>
   <b-container
     fluid class="text-center"
@@ -17,8 +14,8 @@
       <br/>
       <br/>
       <label
-        class="float-left"
         for="gameFilter"
+        class="float-left"
       >
         <b-button
           @click="showModal('add-modlist-modal')"
@@ -31,6 +28,15 @@
           Refresh
         </b-button>
       </label>
+      <b-form-select v-model="sort" id="sortBy" @change="sortBy(sort)">
+        <b-select-option value=null>Sort By</b-select-option>
+        <b-form-select-option value="modified">Modified ↓</b-form-select-option>
+        <b-form-select-option value="modified-reverse">Modified ↑</b-form-select-option>
+        <b-form-select-option value="alpha">Alphabetical ↓</b-form-select-option>
+        <b-form-select-option value="alpha-reverse">Alphabetical ↑</b-form-select-option>
+        <b-form-select-option value="created">Created ↓</b-form-select-option>
+        <b-form-select-option value="created-reverse">Created ↑</b-form-select-option>
+      </b-form-select>
       <b-form-select
         id='gameFilter'
         v-model="selectedGame"
@@ -54,6 +60,8 @@
           :exe="profile.exe"
           :game="profile.game"
           :profiles="profile.profiles[0]"
+          :modified="profile.modified"
+          :created="profile.created"
           :selectedProfile="profile.selectedProfile"
           :selectedGame="selectedGame"
           :search="search"
@@ -112,7 +120,7 @@
     <b-modal ref="morrowind-warning"
       title="WARNING"
       ok-only
-      @submit="reload()"
+      @ok="reload()"
     >
       <p>
         Your Morrowind modlist has been added, however, Azura's Star cannot
@@ -240,7 +248,8 @@ export default {
         value: '',
         profiles: [],
         executables: []
-      }
+      },
+      sort: null
     }
   },
   methods: {
@@ -254,6 +263,7 @@ export default {
       return await window.ipcRenderer.invoke('get-config')
     },
     reload () {
+      this.loading = true
       location.reload()
     },
     saveConfig (newConfig) {
@@ -352,6 +362,7 @@ export default {
           this.profiles[listIndex] = newProfile
           delete result.Modlists[this.editModal.list]
           result.Modlists[newProfile.name] = newProfile
+          result.Modlists[newProfile.name].modified = Date.now()
           this.saveConfig(result)
           location.reload()
         })
@@ -405,6 +416,25 @@ export default {
     sendError (code, message, err, tabbed) {
       // Error identifier: God help us
       window.ipcRenderer.send('error', { code, message, err, tabbed })
+    },
+    sortBy (sorting) {
+      this.profiles.sort(function (a, b) {
+        switch (sorting) {
+          case 'alpha':
+            return (a.name > b.name) ? 1 : -1
+          case 'alpha-reverse':
+            return (a.name < b.name) ? 1 : -1
+          case 'modified':
+            return a.modified - b.modified
+          case 'modified-reverse':
+            return b.modified - a.modified
+          case 'created':
+            return a.created - b.created
+          case 'created-reverse':
+            return b.created - a.created
+        }
+      })
+      console.log(this.profiles)
     }
   },
   beforeMount () {
@@ -418,6 +448,7 @@ export default {
           if (result === 'ERROR') return
           this.currentConfig = result
           Object.entries(this.currentConfig.Modlists).forEach(key => {
+            console.log(key[1].modified)
             this.profiles.push({
               name: key[1].name,
               path: key[1].path,
@@ -425,7 +456,9 @@ export default {
               exe: key[1].exe,
               game: key[1].game,
               profiles: [],
-              selectedProfile: key[1].selectedProfile
+              selectedProfile: key[1].selectedProfile,
+              modified: key[1].modified,
+              created: key[1].created
             })
             this.profiles[Object.keys(this.currentConfig.Modlists).indexOf(
               key[1].name
@@ -433,6 +466,7 @@ export default {
               [...this.currentConfig.Modlists[key[1].name].profiles]
             )
           })
+          this.profiles.reverse()
         })
       })
     } catch (err) {

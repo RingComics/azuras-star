@@ -146,6 +146,8 @@
           >
             Open Folder
           </b-button>
+          <p>Created: {{ Date(this.$props.created) }}
+          <p>Last modified: {{ Date(this.$props.modified) }}</p>
         </b-tab>
       </b-tabs>
     </b-collapse>
@@ -162,6 +164,8 @@ export default {
     game: String,
     index: Number,
     profiles: Array,
+    modified: Number,
+    created: Number,
     search: String,
     selectedProfile: String,
     selectedGame: String,
