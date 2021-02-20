@@ -1,9 +1,10 @@
 /**
- * Handles modlist interactions. Error ID: B06
+ * Handles modlist interactions.
  * @author RingComics <thomasblasquez@gmail.com>
+ * @version 1.0.0
  * @module
  */
-// Import modules
+
 import path from 'path'
 import fs from 'fs'
 import childProcess from 'child_process'
@@ -15,7 +16,10 @@ import { sendError } from './errorHandler.js'
 
 /**
  * Refreshes modlists information from config.
+ * @author RingComics <thomasblasquez@gmail.com>
+ * @version 1.0.0
  * @throws B06-01-00
+ * 
  */
 export function refreshModlists() {
     try {
@@ -63,25 +67,46 @@ export function refreshModlists() {
         // Update config
         saveConfig(config, 1)
         toLog('Done!\n' + '='.repeat(80) + '\n', 1)
-        return true
     } catch (err) {
         sendError('B06-01-00', 'Error while refreshing modlists!', err)
     }
 }
 
+/**
+ * Creates a new modlist profile
+ * @author RingComics <thomasblasquez@gmail.com>
+ * @version 1.0.0
+ * @param {JSON} modlistInfo 
+ * @returns {Object} New Profile info
+ * @throws B06-02-00
+ * @throws B06-07-01
+ * @throws B06-07-02
+ * @throws B06-07-03
+ * 
+ * @todo Check to see if returning the modlistInfo is required.
+ */
 export function createModlist(modlistInfo) {
-    // modlist info is an Object with the modlist information taken from the config (config.Modlists[modlistName])
     try {
         // Check if selected folder contains required files
         toLog('Creating new Modlist, ' + modlistInfo.name + '\n' + '='.repeat(80), 0)
         toLog('Modlist path: ' + modlistInfo.path, 1)
         toLog('Checking for MO2 files', 1)
-        if (!fs.existsSync(path.join(modlistInfo.path, 'ModOrganizer.exe'))) { //Check if path contains Mod Organizer
-            toLog('ERROR: FOLDER DOES NOT CONTAIN MODORGANIZER.EXE\n' + '='.repeat(80), 2)
+        if (!fs.existsSync(path.join(modlistInfo.path, 'ModOrganizer.exe'))) {
+            sendError(
+                'B06-07-01',
+                'ModOrganizer.exe does not exist at this path. Cannot create new modlist profile.',
+                new Error('ModOrganizer.exe not found!'),
+                1
+            )
             return 'Error'
         }
         if (!fs.existsSync(path.join(modlistInfo.path, 'ModOrganizer.ini'))) {
-            toLog('ERROR: FOLDER DOES NOT CONTAIN MODORGANIZER.INI\n' + '='.repeat(80), 2)
+            sendError(
+                'B06-07-02',
+                'ModOrganizer.ini does not exist at this path. Cannot create new modlist profile.',
+                new Error('ModOrganizer.ini not found!'),
+                1
+            )
             return 'Error'
         }
 
@@ -120,6 +145,14 @@ export function createModlist(modlistInfo) {
             case 'Fallout 4 VR':
                 modlistInfo.exe = 'F4SE'
                 break;
+            default:
+                sendError(
+                    'B06-07-03',
+                    modlistInfo.game + ' is not supported! If you would like to see support added, please comment on the Supported Games pinned issue on GitHub',
+                    new Error('Game not supported by Azura\'s Star!'),
+                    3
+                )
+                return 'ERROR'
         }
         toLog('Setting default executable to ' + modlistInfo.exe, 2)
 
@@ -146,13 +179,12 @@ export function createModlist(modlistInfo) {
 
         // Save to config
         let options = getConfig(1)
-        if (options === 'ERROR') return
+        if (options === 'ERROR') return 'ERROR'
         options.Modlists[modlistInfo.name] = modlistInfo
         saveConfig(options, 1)
         toLog('Done!\n' + '='.repeat(80) + '\n')
 
         // Return with new modlist info
-        // TODO: Check to see if this is required.
         return {
             name: modlistInfo.name,
             path: modlistInfo.path,
@@ -167,26 +199,18 @@ export function createModlist(modlistInfo) {
     }
 }
 
-export function deleteModlistFromDisk(list) {
-    try {
-        let config = getConfig()
-        if (config === 'ERROR') return
-        let listPath = config.Modlists[list].path
-        toLog('Removing ' + list + ' from disk at ' + listPath, 0)
-        fs.rmdirSync(listPath, { recursive: true })
-        delete config.Modlists[list]
-        saveConfig(config)
-    } catch (err) {
-        sendError('B06-03-00', 'Error while deleting modlist: ' + list, err)
-    }
-}
-
+/**
+ * Launches modlist
+ * @author RingComics <thomasblasquez@gmail.com>
+ * @version 1.0.0
+ * @param {String} list
+ * @emits game-closed
+ */
 export function launchGame(list) {
     try {
-        // list is a string with the modlist name as it appears in the config (config.Modlists[modlistName].name)
         toLog('Launching: ' + list + '\n' + '='.repeat(80), 0)
         const currentConfig = getConfig(1)
-        if (currentConfig === 'ERROR') return
+        if (currentConfig === 'ERROR') return win.webContents.send('game-closed')
         const modlistPath = currentConfig.Modlists[list].path
         toLog('Path: ' + modlistPath, 2)
         const exe = currentConfig.Modlists[list].exe
@@ -207,9 +231,9 @@ export function launchGame(list) {
             })
             ncp.ncp(path.join(modlistPath, 'Game Folder Files'), gamePath, err => {
                 if (err) {
-                    toLog('ERROR WHILE MOVING GAME FOLDER FILES (background.js):\n' + err + '\n' + '='.repeat(80) + '\n', 2)
                     win.webContents.send('game-closed')
-                    return win.webContents.send('error', ['002', err])
+                    sendError('B06-03-01', 'Error while moving Game Folder Files', err, 2)
+                    return
                 }
             })
         } else {
@@ -219,28 +243,27 @@ export function launchGame(list) {
         const execCMD = '"' + modlistPath + '\\ModOrganizer.exe" -p "' + profile + '" "moshortcut://:' + exe + '"'
         childProcess.exec(execCMD, (error) => {
             if (error) {
-                toLog('ERROR WHILE EXECUTING MOD ORGANIZER (background.js):\n' + error + '\n' + '='.repeat(80) + '\n', 2)
-
                 win.webContents.send('game-closed')
-                return win.webContents.send(['204', error])
+                sendError('B06-03-02', 'Error while executing ModOrganizer!', err, 2)
+                return
             }
         })
-
-        const isRunning = (query, cb) => { // Check if queried program is running (This is a function, I promise)
-            let platform = process.platform;
-            let cmd = '';
-            switch (platform) {
-                case 'win32': cmd = `tasklist`; break;
-                case 'darwin': cmd = `ps -ax | grep ${query}`; break;
-                case 'linux': cmd = `ps -A`; break;
-                default: break;
-            }
-            childProcess.exec(cmd, (err, stdout, stderr) => {
+        /**
+         * Checks if queried program is still running
+         * @param {String} query 
+         * @param {Function} cb 
+         */
+        const isRunning = (query, cb) => {
+            childProcess.exec('tasklist', (err, stdout, stderr) => {
                 cb(stdout.toLowerCase().indexOf(query.toLowerCase()) > -1);
             });
         }
-
         let isGameRunning = setInterval(checkProcess, 1000)
+        /**
+         * Wrapper for checking if game is still running
+         * @author RingComics <thomasblasquez@gmail.com>
+         * @version 1.0.0
+         */
         function checkProcess() {
             isRunning('ModOrganizer.exe', (status) => {
                 if (!status) {
@@ -267,6 +290,7 @@ export function launchGame(list) {
             })
         }
     } catch (err) {
-        sendError('B06-04-00', 'Error while launching modlist: ' + list, err)
+        win.webContents.send('game-closed')
+        sendError('B06-03-00', 'Error while launching modlist: ' + list, err)
     }
 }

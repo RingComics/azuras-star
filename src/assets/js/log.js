@@ -1,22 +1,34 @@
-//Purpose: Handle logging
-// Error ID: B05
-import { app, protocol, dialog, BrowserWindow, ipcMain, shell } from 'electron'
-import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
-import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+/**
+ * Handles logging
+ * @author RingComics <thomasblasquez@gmail.com>
+ * @version 1.0.0
+ * @module
+ * @throws B05-01-00
+ * @requires electron
+ * @requires path
+ * @requires fs
+ * @requires os
+ */
+import { shell } from 'electron'
 import path from 'path'
 import fs from 'fs'
-import childProcess from 'child_process'
-import ncp from 'ncp'
 import os from 'os'
-import ini from 'ini'
-import http from 'https'
-import { ModalPlugin } from 'bootstrap-vue'
-import { initializeConfiguration, getConfig, saveConfig } from './config.js'
-import { refreshModlists, createModlist, deleteModlistFromDisk, launchGame } from './modlists.js'
 import { sendError } from './errorHandler'
 
+/**
+ * Location of config file and logs
+ * @type {String}
+ */
 const homeDirectory = path.join(os.homedir(), 'Azura\'s Star')
+/**
+ * Logging enabled
+ * @type {Boolean}
+ */
+let logging = true
 
+/**
+ * @ignore
+ */
 function getCurrentTime() {
     let date = new Date
     let time = [date.getHours(), date.getMinutes(), date.getSeconds()]
@@ -26,6 +38,9 @@ function getCurrentTime() {
     return (time[0] + ':' + time[1] + ':' + time[2])
 }
 
+/**
+ * @ignore
+ */
 function getCurrentDate() {
     let date = new Date
     let time = getCurrentTime()
@@ -36,15 +51,37 @@ function getCurrentDate() {
     return (currentDate[0] + '-' + currentDate[1] + '-' + currentDate[2] + '-' + currentDate[3])
 }
 
+/**
+ * Path to current log file
+ * @type {String}
+ */
 export const currentLogPath = path.join(homeDirectory, '/logs/', (getCurrentDate() + '.txt'))
 
+/**
+ * Appends param 'log' to current log file
+ * @author RingComics <thomasblasquez@gmail.com>
+ * @version 1.0.0
+ * @param {String} log 
+ * @param {Number} tabbed 
+ * @throws B05-01-00
+ */
 export function toLog(log, tabbed) {
-    const logged = '\n' + getCurrentTime() + '  -  ' + '  '.repeat(tabbed) + log
-    fs.appendFile(currentLogPath, logged, err => {
-        if (err) sendError('B05-01-00', 'Error while writing to log! Logging has been disabled.', err, tabbed)
-    })
+    if (logging) {
+        const logged = '\n' + getCurrentTime() + '  -  ' + '  '.repeat(tabbed) + log
+        fs.appendFile(currentLogPath, logged, err => {
+            if (err) {
+                logging = false
+                sendError('B05-01-00', 'Error while writing to log! Logging has been disabled.', err, tabbed)
+            }
+        })
+    }
 }
 
+/**
+ * Opens path to log folder
+ * @author RingComics <thomasblasquez@gmail.com>
+ * @version 1.0.0
+ */
 export function openLog() {
     shell.openPath(currentLogPath)
 }
