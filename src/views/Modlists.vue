@@ -1,5 +1,5 @@
 <template>
-  <b-container 
+  <b-container
     fluid
     key="profiles"
   >
