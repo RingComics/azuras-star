@@ -6,37 +6,38 @@
 
 // Alerts
 .alert.alert-light {
-    color:$gray-700;
+  color: $gray-700;
 }
 
 // Tables
 .table .table-light {
-    th, td {
-        color:$gray-700;
-    }
+  th,
+  td {
+    color: $gray-700;
+  }
 }
 
 // Text
 .text-primary {
-    color: lighten($primary, 10) !important;
+  color: lighten($primary, 10) !important;
 }
 
 .text-dark {
-    color: darken($dark, 5) !important;
+  color: darken($dark, 5) !important;
 }
 
 select::-ms-expand {
-    color:$body-color;
+  color: $body-color;
 }
 
 // Hide default arrow on the custom select list
 .custom-select {
-    /* for Firefox */
-    -moz-appearance: none;
-    /* for Chrome */
-    -webkit-appearance: none;
+  /* for Firefox */
+  -moz-appearance: none;
+  /* for Chrome */
+  -webkit-appearance: none;
 }
 
 .custom-switch .custom-control-input:checked ~ .custom-control-label::after {
-    background:white;
+  background: white;
 }

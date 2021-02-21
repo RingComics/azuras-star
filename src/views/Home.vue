@@ -1,15 +1,8 @@
 <template>
-  <b-container
-    fluid
-  >
-    <b-row
-      no-gutters
-    >
-      <b-col
-        cols="1.5"
-        style="width:10%"
-      >
-        <LeftPanel/>
+  <b-container fluid>
+    <b-row no-gutters>
+      <b-col cols="1.5" style="width: 10%">
+        <LeftPanel />
       </b-col>
       <b-col>
         <CenterPanel />
@@ -26,11 +19,9 @@ export default {
   name: 'Home',
   components: {
     LeftPanel,
-    CenterPanel
-  }
+    CenterPanel,
+  },
 }
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

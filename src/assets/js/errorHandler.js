@@ -7,10 +7,7 @@
  * @requires electron
  */
 
-import { 
-    app,
-    dialog
-} from 'electron'
+import { app, dialog } from 'electron'
 import { toLog } from './log.js'
 import { getWebContents } from './ipcHandler.js'
 
@@ -26,14 +23,21 @@ import { getWebContents } from './ipcHandler.js'
  * @throws B02-01-00
  */
 export function sendError(code, message, err, tabbed) {
-    toLog(message + '\n' + 'Error code: ' + code + '\n\n' + err + '\n\n', tabbed)
-    try {
-        /**
-         * Sends error to front-end
-         * @event webContents#error
-         */
-        getWebContents().send('error', { code: code, message: message, err: err })
-    } catch (e) { toLog('Error not sent to front end. WebContents is most likely not defined.\nError code: B02-01-00\n\n' + e + '\n\n', tabbed) }
+  toLog(message + '\n' + 'Error code: ' + code + '\n\n' + err + '\n\n', tabbed)
+  try {
+    /**
+     * Sends error to front-end
+     * @event webContents#error
+     */
+    getWebContents().send('error', { code: code, message: message, err: err })
+  } catch (e) {
+    toLog(
+      'Error not sent to front end. WebContents is most likely not defined.\nError code: B02-01-00\n\n' +
+        e +
+        '\n\n',
+      tabbed
+    )
+  }
 }
 
 /**
@@ -45,8 +49,20 @@ export function sendError(code, message, err, tabbed) {
  * @param {Number} tabbed
  */
 export function fatalError(code, message, err) {
-    dialog.showMessageBoxSync({ type: 'error', title: 'A fatal error occured!' }, () => {
-        toLog('\n\n' + '='.repeat(10) + 'A FATAL ERROR OCCURED' + '='.repeat(10) + message + '\n\n' + err + '\n\nEXITING AZURA\'S STAR.')
-        app.quit()
-    })
+  dialog.showMessageBoxSync(
+    { type: 'error', title: 'A fatal error occured!' },
+    () => {
+      toLog(
+        '\n\n' +
+          '='.repeat(10) +
+          'A FATAL ERROR OCCURED' +
+          '='.repeat(10) +
+          message +
+          '\n\n' +
+          err +
+          "\n\nEXITING AZURA'S STAR."
+      )
+      app.quit()
+    }
+  )
 }

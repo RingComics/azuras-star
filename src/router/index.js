@@ -19,30 +19,30 @@ const routes = [
     children: [
       {
         path: '/',
-        component: Welcome
+        component: Welcome,
       },
       {
         path: 'modlists',
-        component: Modlists
+        component: Modlists,
       },
       {
         path: 'options',
-        component: Options
+        component: Options,
       },
       {
         path: 'dev',
-        component: Dev
+        component: Dev,
       },
       {
         path: 'changelog',
-        component: Changelog
-      }
-    ]
-  }
+        component: Changelog,
+      },
+    ],
+  },
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
 })
 
 export default router
