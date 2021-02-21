@@ -1,5 +1,8 @@
 <template>
-  <b-container fluid>
+  <b-container 
+    fluid
+    key="profiles"
+  >
     <b-overlay
       :show="loading"
     >
