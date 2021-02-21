@@ -20,11 +20,13 @@ import childProcess from 'child_process'
 import os from 'os'
 import {
     getConfig,
-    saveConfig
+    saveConfig,
+    resetConfig
 } from './config.js'
 import {
     toLog,
-    openLog
+    openLog,
+    currentLogPath
 } from './log.js'
 import {
     refreshModlists,
@@ -43,6 +45,15 @@ const homeDirectory = path.join(os.homedir(), 'Azura\'s Star')
  * @typedef {object} WebContents
  */
 let webContents
+let win
+
+export function getWindow (window) {
+    if (window) {
+        win = window
+    } else {
+        return win
+    }
+}
 
 /**
  * Returns webContents object to modules without access to the win object.

@@ -17,6 +17,7 @@ import { toLog, openLog } from './assets/js/log.js'
 import { refreshModlists, createModlist, deleteModlistFromDisk, launchGame } from './assets/js/modlists.js'
 import { sendError, fatalError } from './assets/js/errorHandler.js'
 import './assets/js/ipcHandler.js'
+import { getWindow } from './assets/js/ipcHandler.js'
 
 try {
   let win
@@ -55,6 +56,8 @@ try {
 
       // Remove context menu
       win.removeMenu()
+
+      getWindow(win)
 
       win.on('closed', () => {
         win = null

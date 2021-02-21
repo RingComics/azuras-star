@@ -13,6 +13,7 @@ import ini from 'ini'
 import { getConfig, saveConfig } from './config.js'
 import { toLog } from './log.js'
 import { sendError } from './errorHandler.js'
+import { getWebContents, getWindow } from './ipcHandler'
 
 /**
  * Refreshes modlists information from config.
@@ -215,7 +216,7 @@ export function launchGame(list) {
     try {
         toLog('Launching: ' + list + '\n' + '='.repeat(80), 0)
         const currentConfig = getConfig(1)
-        if (currentConfig === 'ERROR') return win.webContents.send('game-closed')
+        if (currentConfig === 'ERROR') return getWebContents().send('game-closed')
         const modlistPath = currentConfig.Modlists[list].path
         toLog('Path: ' + modlistPath, 2)
         const exe = currentConfig.Modlists[list].exe
@@ -236,7 +237,7 @@ export function launchGame(list) {
             })
             ncp.ncp(path.join(modlistPath, 'Game Folder Files'), gamePath, err => {
                 if (err) {
-                    win.webContents.send('game-closed')
+                    getWebContents().send('game-closed')
                     sendError('B06-03-01', 'Error while moving Game Folder Files', err, 2)
                     return
                 }
@@ -248,7 +249,7 @@ export function launchGame(list) {
         const execCMD = '"' + modlistPath + '\\ModOrganizer.exe" -p "' + profile + '" "moshortcut://:' + exe + '"'
         childProcess.exec(execCMD, (error) => {
             if (error) {
-                win.webContents.send('game-closed')
+                getWebContents().send('game-closed')
                 sendError('B06-03-02', 'Error while executing ModOrganizer!', err, 2)
                 return
             }
@@ -282,20 +283,20 @@ export function launchGame(list) {
                                 fs.unlink(path.join(gamePath, file), (err) => { })
                                 fs.rmdir(path.join(gamePath, file), { recursive: true }, (err) => { })
                             })
-                            win.show()
-                            win.webContents.send('game-closed')
+                            getWindow().show()
+                            getWebContents().send('game-closed')
                             toLog('Done!\n' + '='.repeat(80) + '\n')
                         })
                     } else {
-                        win.show()
-                        win.webContents.send('game-closed')
+                        getWindow().show()
+                        getWebContents().send('game-closed')
                         toLog('Done!\n' + '='.repeat(80) + '\n', 1)
                     }
                 }
             })
         }
     } catch (err) {
-        win.webContents.send('game-closed')
+        getWebContents().send('game-closed')
         sendError('B06-03-00', 'Error while launching modlist: ' + list, err)
     }
 }

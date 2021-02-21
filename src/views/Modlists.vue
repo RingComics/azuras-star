@@ -11,37 +11,43 @@
       >
         Modlists
       </h2>
-      <br/>
-      <br/>
-      <label
-        for="gameFilter"
-        class="float-left"
-      >
-        <b-button
-          @click="showModal('add-modlist-modal')"
-        >
-          Add new Modlist
-        </b-button>
-        <b-button
-          @click="refreshModlists()"
-        >
-          Refresh
-        </b-button>
-      </label>
-      <b-form-select v-model="sort" id="sortBy" @change="sortBy(sort)">
-        <b-select-option value=null>Sort By</b-select-option>
-        <b-form-select-option value="modified">Modified ↓</b-form-select-option>
-        <b-form-select-option value="modified-reverse">Modified ↑</b-form-select-option>
-        <b-form-select-option value="alpha">Alphabetical ↓</b-form-select-option>
-        <b-form-select-option value="alpha-reverse">Alphabetical ↑</b-form-select-option>
-        <b-form-select-option value="created">Created ↓</b-form-select-option>
-        <b-form-select-option value="created-reverse">Created ↑</b-form-select-option>
-      </b-form-select>
-      <b-form-select
-        id='gameFilter'
-        v-model="selectedGame"
-        :options="gamesList"
-      />
+      <br/><br/>
+      <b-row class="float-left">
+        <b-col>
+          <label for="sortBy" class="float-left">Sort by:</label>
+          <b-form-select v-model="sort" id="sortBy" @change="sortBy(sort)">
+            <b-form-select-option value="modified">Modified ↓</b-form-select-option>
+            <b-form-select-option value="modified-reverse">Modified ↑</b-form-select-option>
+            <b-form-select-option value="alpha">Alphabetical ↓</b-form-select-option>
+            <b-form-select-option value="alpha-reverse">Alphabetical ↑</b-form-select-option>
+            <b-form-select-option value="created">Created ↓</b-form-select-option>
+            <b-form-select-option value="created-reverse">Created ↑</b-form-select-option>
+          </b-form-select>
+        </b-col>
+        <b-col>
+          <label for="gameFilter" class="float-left">Filter by game:</label>
+          <b-form-select
+            id='gameFilter'
+            v-model="selectedGame"
+            :options="gamesList"
+          />
+        </b-col>
+        <b-col>
+          <br />
+          <label>
+          <b-button
+            @click="showModal('add-modlist-modal')"
+          >
+            Add new Modlist
+          </b-button>
+          <b-button
+            @click="refreshModlists()"
+          >
+            Refresh
+          </b-button>
+        </label>
+        </b-col>
+      </b-row>
       <b-form-input
         placeholder="Search for a list..."
         v-model="search"
@@ -222,7 +228,7 @@ export default {
       currentConfig: '',
       search: '',
       gamesList: [
-        { value: null, text: 'Filter by game' },
+        { value: null, text: 'All Games' },
         { value: 'Skyrim', text: 'The Elder Scrolls V: Skyrim Legendary Edition' },
         { value: 'Skyrim Special Edition', text: 'The Elder Scrolls V: Skyrim Special Edition' },
         { value: 'Skyrim VR', text: 'The Elder Scrolls V: Skyrim VR' },
@@ -249,7 +255,7 @@ export default {
         profiles: [],
         executables: []
       },
-      sort: null
+      sort: 'modified'
     }
   },
   methods: {
@@ -391,12 +397,15 @@ export default {
         this.currentList = list
         const game = this.profiles[this.profiles.findIndex(x => x.name === list)].game
         if (this.currentConfig.Options.gameDirectories.find(x => x.game === game).path === '') {
-          this.error = 'Your game directory for ' + game + ' could not be found. Please make sure it is set in the options menu and try again (Error code 201)'
-          this.showModal('error-message')
+          window.ipcRenderer.send('error', {
+            code: 'F04-08-01',
+            message: 'Your game directory for ' + game + ' could not be found. Please make sure it is set in the options menu and try again',
+            err: new Error('Directory not found!')
+          })
           return
         }
         this.showModal('game-running')
-        window.ipcRenderer.invoke('launch-game', list)
+        window.ipcRenderer.invoke('launch-game', { listName: list })
         window.ipcRenderer.once('game-closed', (event, args) => {
           this.hideModal('game-running')
         })
@@ -434,7 +443,6 @@ export default {
             return b.created - a.created
         }
       })
-      console.log(this.profiles)
     }
   },
   beforeMount () {
@@ -448,7 +456,6 @@ export default {
           if (result === 'ERROR') return
           this.currentConfig = result
           Object.entries(this.currentConfig.Modlists).forEach(key => {
-            console.log(key[1].modified)
             this.profiles.push({
               name: key[1].name,
               path: key[1].path,

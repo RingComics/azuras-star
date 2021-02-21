@@ -119,16 +119,16 @@
         >
           <b-button style="width:20%;margin-left: 40%;margin-right: 40%;" @click="openConfig()">Open config file</b-button>
           <ul>
-            <li><strong><u>Version:</u></strong> {{ this.currentConfig.version}}</li>
-            <li><strong><u>App Path:</u></strong> {{ this.currentConfig.ASPath }}</li>
-            <li><strong><u>Development:</u></strong> {{ this.currentConfig.isDevelopment }}</li>
+            <li><strong><u>Version:</u></strong> {{ currentConfig.version}}</li>
+            <li><strong><u>App Path:</u></strong> {{ currentConfig.ASPath }}</li>
+            <li><strong><u>Development:</u></strong> {{ currentConfig.isDevelopment }}</li>
             <li><strong><u>Options:</u></strong></li>
             <ul>
               <li><strong><u>Advanced Options:</u></strong> {{ currentConfig.Options.advancedOptions }}</li>
               <li><strong><u>Game Directories</u></strong></li>
                 <ul>
                   <div
-                    v-for="(entry, index) in this.currentConfig.Options.gameDirectories"
+                    v-for="(entry, index) in currentConfig.Options.gameDirectories"
                     :key="index"
                   >
                     <li><strong><u>{{ entry.game }}:</u></strong> {{ entry.path }}</li>
@@ -138,7 +138,7 @@
             <li><strong><u>Modlists:</u></strong></li>
               <ul>
                 <div
-                  v-for="(list, index1) in Object.keys(this.currentConfig.Modlists)"
+                  v-for="(list, index1) in Object.keys(currentConfig.Modlists)"
                   :key="index1"
                 >
                   <li><strong><u>{{ list }}:</u></strong></li>
@@ -152,19 +152,24 @@
                         >
                           <strong><u>{{ entry }}:</u></strong> {{ currentConfig.Modlists[list][entry] }}
                         </li>
-                          <div
-                            v-if="Array.isArray(currentConfig.Modlists[list][entry])"
-                          >
-                            <li><strong><u>{{ entry }}:</u></strong></li>
-                            <ul>
-                              <li
-                                v-for="(value, index3) in currentConfig.Modlists[list][entry]"
-                                :key="index3"
-                              >
-                                {{ value }}
-                              </li>
-                            </ul>
-                          </div>
+                        <div
+                          v-if="Array.isArray(currentConfig.Modlists[list][entry])"
+                        >
+                          <li><strong><u>{{ entry }}:</u></strong></li>
+                          <ul>
+                            <li
+                              v-for="(value, index3) in currentConfig.Modlists[list][entry]"
+                              :key="index3"
+                            >
+                              {{ value }}
+                            </li>
+                          </ul>
+                        </div>
+                        <li
+                          v-if="typeof currentConfig.Modlists[list][entry] == 'number'"
+                        >
+                          <strong><u>{{ entry }}:</u></strong> {{ Date(currentConfig.Modlists[list][entry]) }}
+                        </li>
                       </div>
                     </ul>
                 </div>
@@ -266,6 +271,7 @@ export default {
         if (result) {
           location.reload()
         } else {
+          this.loading = false
           this.hideModal('confirm-config-reset')
         }
       })

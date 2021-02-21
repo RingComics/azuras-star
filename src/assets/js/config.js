@@ -198,10 +198,11 @@ export function resetConfig() {
     try {
         saveConfig(defaultConfig, 1)
         let newConfig = getConfig(1)
-        if (newConfig === 'ERROR') return
+        if (newConfig === 'ERROR') return 'ERROR'
         newConfig.ASPath = appPath
         newConfig.isDevelopment = isDevelopment
         saveConfig(newConfig, 1)
+        return true
     } catch (err) {
         sendError('B01-05-00', 'Error while returning WebContents', err, 0)
     }
