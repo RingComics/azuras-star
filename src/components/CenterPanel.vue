@@ -4,10 +4,8 @@
 
 <script>
 export default {
-  name: 'CenterPanel'
+  name: 'CenterPanel',
 }
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

@@ -1,6 +1,5 @@
-﻿
-@import "darkVariables";
-@import "../node_modules/bootstrap/scss/bootstrap.scss";
-@import "fixes";
-@import "customStyles/allCustomStyles";
-@import "plugins/allPlugins";
+﻿@import 'darkVariables';
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import 'fixes';
+@import 'customStyles/allCustomStyles';
+@import 'plugins/allPlugins';

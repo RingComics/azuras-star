@@ -1,7 +1,5 @@
-﻿
-// Variable overrides for Bootstrap
+﻿// Variable overrides for Bootstrap
 // When compiling Sass, this should be loaded before Bootstrap's Sass
-
 
 // Colors
 $white: #fff !default;
@@ -26,8 +24,7 @@ $dark: $gray-900 !default;
 
 // Body
 $body-bg: $gray-800 !default;
-$body-color: #F1F1F1 !default;
-
+$body-color: #f1f1f1 !default;
 
 $link-color: lighten($primary, 10) !default;
 
@@ -55,11 +52,11 @@ $custom-select-indicator-color: $input-color !default;
 
 $custom-range-track-bg: $gray-500 !default;
 
-
 // Navs
 $nav-tabs-border-color: $gray-700 !default;
 $nav-tabs-link-hover-color: $body-color !default;
-$nav-tabs-link-hover-border-color: transparent transparent $nav-tabs-border-color !default;
+$nav-tabs-link-hover-border-color: transparent transparent
+  $nav-tabs-border-color !default;
 $nav-tabs-link-active-color: $gray-300 !default;
 $nav-tabs-link-active-bg: $body-bg !default;
 $nav-tabs-link-active-border-color: $gray-700 $gray-700 $nav-tabs-link-active-bg !default;
@@ -82,16 +79,13 @@ $jumbotron-bg: $gray-900 !default;
 $card-border-color: darken($gray-700, 10) !default;
 $card-bg: $gray-900 !default;
 
-
 // Tooltips
-
 
 // Popovers
 $popover-bg: $gray-900 !default;
 $popover-border-color: $table-border-color !default;
 
 $popover-header-bg: lighten($popover-bg, 3%) !default;
-
 
 // Modals
 $modal-content-bg: $body-bg !default;
@@ -122,11 +116,10 @@ $dropdown-divider-bg: $input-border-color !default;
 
 $dropdown-link-color: $body-color !default;
 $dropdown-link-hover-color: lighten($body-color, 5) !default;
-$dropdown-link-hover-bg: darken($body-bg,3) !default;
+$dropdown-link-hover-bg: darken($body-bg, 3) !default;
 
 $dropdown-link-active-color: $white !default;
 $dropdown-link-active-bg: $primary !default;
-
 
 // Breadcrumbs
 $breadcrumb-bg: $gray-900 !default;
@@ -141,12 +134,10 @@ $kbd-bg: darken($gray-800, 10) !default;
 
 $pre-color: $body-color !default;
 
-
 // Alerts
 $alert-bg-level: 0 !default;
 $alert-border-level: -1 !default;
 $alert-color-level: -12 !default;
-
 
 // Toasts
 

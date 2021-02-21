@@ -1,25 +1,20 @@
 <template>
   <div id="app">
-    <b-container
-      fluid
-      class="mb-4"
-    />
-    <router-view/>
+    <b-container fluid class="mb-4" />
+    <router-view />
   </div>
 </template>
 
 <script>
 export default {
   name: 'App',
-  data () {
+  data() {
     return {
       error: '',
-      currentList: ''
+      currentList: '',
     }
   },
-  methods: {
-
-  }
+  methods: {},
 }
 </script>
 

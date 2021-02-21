@@ -12,11 +12,20 @@ import os from 'os'
 import ini from 'ini'
 import http from 'https'
 import { ModalPlugin } from 'bootstrap-vue'
-import { initializeConfiguration, getConfig, saveConfig, isDevelopment } from './assets/js/config.js'
+import {
+  initializeConfiguration,
+  getConfig,
+  saveConfig,
+  isDevelopment,
+} from './assets/js/config.js'
 import { toLog, openLog } from './assets/js/log.js'
-import { refreshModlists, createModlist, deleteModlistFromDisk, launchGame } from './assets/js/modlists.js'
+import {
+  refreshModlists,
+  createModlist,
+  deleteModlistFromDisk,
+  launchGame,
+} from './assets/js/modlists.js'
 import { sendError, fatalError } from './assets/js/errorHandler.js'
-import './assets/js/ipcHandler.js'
 import { getWindow } from './assets/js/ipcHandler.js'
 
 try {
@@ -24,12 +33,13 @@ try {
 
   // Scheme must be registered before the app is ready
   protocol.registerSchemesAsPrivileged([
-    { scheme: 'app', privileges: { secure: true, standard: true } }
+    { scheme: 'app', privileges: { secure: true, standard: true } },
   ])
 
-  //Functions
-  function createWindow () { // Create the browser window. Error ID: B00-01
-    try{
+  // Functions
+  function createWindow() {
+    // Create the browser window. Error ID: B00-01
+    try {
       win = new BrowserWindow({
         width: 1200,
         height: 600,
@@ -40,8 +50,8 @@ try {
           // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
           webviewTag: true,
           nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
-          preload: path.join(__dirname, 'preload.js')
-        }
+          preload: path.join(__dirname, 'preload.js'),
+        },
       })
 
       if (process.env.WEBPACK_DEV_SERVER_URL) {
@@ -89,22 +99,22 @@ try {
   })
 
   app.on('quit', () => {
-    toLog('EXITING AZURA\'S STAR', 0)
+    toLog("EXITING AZURA'S STAR", 0)
   })
 
   // Exit cleanly on request from parent process in development mode.
   if (isDevelopment) {
-  if (process.platform === 'win32') {
-    process.on('message', (data) => {
-      if (data === 'graceful-exit') {
+    if (process.platform === 'win32') {
+      process.on('message', (data) => {
+        if (data === 'graceful-exit') {
+          app.quit()
+        }
+      })
+    } else {
+      process.on('SIGTERM', () => {
         app.quit()
-      }
-    })
-  } else {
-    process.on('SIGTERM', () => {
-      app.quit()
-    })
-  }
+      })
+    }
   }
 } catch (err) {
   fatalError('B00-00', 'Unknown error in back-end!', err, 0)
