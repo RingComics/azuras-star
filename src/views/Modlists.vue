@@ -1,60 +1,65 @@
 <template>
-  <b-container
-    fluid class="text-center"
+  <b-container 
+    fluid
     key="profiles"
   >
     <b-overlay
       :show="loading"
     >
-      <h2
-        style="float:left;"
-      >
-        Modlists
-      </h2>
-      <br/><br/>
-      <b-row class="float-left">
+      <b-row>
         <b-col>
-          <label for="sortBy" class="float-left">Sort by:</label>
-          <b-form-select v-model="sort" id="sortBy" @change="sortBy(sort)">
-            <b-form-select-option value="modified">Modified ↓</b-form-select-option>
-            <b-form-select-option value="modified-reverse">Modified ↑</b-form-select-option>
-            <b-form-select-option value="alpha">Alphabetical ↓</b-form-select-option>
-            <b-form-select-option value="alpha-reverse">Alphabetical ↑</b-form-select-option>
-            <b-form-select-option value="created">Created ↓</b-form-select-option>
-            <b-form-select-option value="created-reverse">Created ↑</b-form-select-option>
-          </b-form-select>
-        </b-col>
-        <b-col>
-          <label for="gameFilter" class="float-left">Filter by game:</label>
-          <b-form-select
-            id='gameFilter'
-            v-model="selectedGame"
-            :options="gamesList"
-          />
-        </b-col>
-        <b-col>
-          <br />
-          <label>
-          <b-button
-            @click="showModal('add-modlist-modal')"
-          >
-            Add new Modlist
-          </b-button>
-          <b-button
-            @click="refreshModlists()"
-          >
-            Refresh
-          </b-button>
-        </label>
+        <h2
+          style="float:left;"
+        >
+          Modlists
+        </h2>
         </b-col>
       </b-row>
-      <b-form-input
-        placeholder="Search for a list..."
-        v-model="search"
-      />
-      <br/>
+      <b-row align-h="between" align-v="end" class="mb-2">
+        <b-col class="pb-0">
+            <b-form-select v-model="sort" id="sortBy" @change="sortBy(sort)">
+              <b-form-select-option value="modified">Modified ↓</b-form-select-option>
+              <b-form-select-option value="modified-reverse">Modified ↑</b-form-select-option>
+              <b-form-select-option value="alpha">Alphabetical ↓</b-form-select-option>
+              <b-form-select-option value="alpha-reverse">Alphabetical ↑</b-form-select-option>
+              <b-form-select-option value="created">Created ↓</b-form-select-option>
+              <b-form-select-option value="created-reverse">Created ↑</b-form-select-option>
+            </b-form-select>
+        </b-col>
+        <b-col class="pb-0">
+            <b-form-select
+              id='gameFilter'
+              v-model="selectedGame"
+              :options="gamesList"
+            />
+        </b-col>
+        <b-col align-h="end" class="pb-0">
+            <b-button-group>
+              <b-button
+              variant="success"
+              @click="showModal('add-modlist-modal')"
+              >
+                Add new Modlist
+              </b-button>
+              <b-button
+                variant="info"
+                @click="refreshModlists()"
+              >
+                Refresh
+              </b-button>
+            </b-button-group>
+        </b-col>
+      </b-row>
+      <b-row class="mb-3">
+        <b-col>
+          <b-form-input
+          placeholder="Search for a list..."
+          v-model="search"
+          />
+        </b-col>
+      </b-row>
       <div
-        class="accordian"
+        class="accordian text-center"
         role="tablist"
       >
         <ModlistProfile
