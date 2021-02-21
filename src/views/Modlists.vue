@@ -3,7 +3,7 @@
     <b-overlay :show="loading">
       <b-row>
         <b-col>
-          <h2 style="float: left">Modlists</h2>
+          <h2>Modlists</h2>
         </b-col>
       </b-row>
       <b-row align-h="between" align-v="end" class="mb-2">
