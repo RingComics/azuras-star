@@ -103,7 +103,6 @@ ipcMain.on('open-logs-directory', () => {
 })
 // Launch MO2. Error ID: B03-05
 ipcMain.on('launch-mo2', (_event, { listName }) => {
-  // listName = String
   try {
     toLog('Launching MO2 instance for ' + listName, 0)
     const currentConfig = getConfig(1)
