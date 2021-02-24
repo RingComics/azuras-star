@@ -292,7 +292,7 @@ export default {
       // Error identifier: 04
       try {
         const profile = this.profiles.find((x) => x.name === name)
-        window.ipcRenderer.send('open-modlist-profile', profile.path)
+        window.ipcRenderer.send('open-modlist-profile', { path: profile.path })
       } catch (err) {
         this.sendError(
           'F04-04-00',
