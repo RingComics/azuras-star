@@ -432,7 +432,7 @@ export default {
       }
     },
     launchMO2(list) {
-      window.ipcRenderer.invoke('launch-mo2', list)
+      window.ipcRenderer.send('launch-mo2', { listName: list })
     },
     refreshModlists() {
       this.loading = true
