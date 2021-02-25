@@ -6,6 +6,7 @@
     <b-button v-b-toggle.menu style="position: fixed"> Menu ≡ </b-button>
     <b-sidebar
       id="menu"
+      ref="menu"
       bg-variant="dark"
       text-variant="light"
       :backdrop-variant="'dark'"
@@ -18,14 +19,16 @@
         class="text-center"
         @click="changeMenu('changelog')"
         style="cursor: pointer"
+        v-b-toggle.menu
       >
         Azura's Star
       </h2>
       <b-button
         style="border-radius: 0"
         class="navbutton"
-        :pressed="this.currentMenu === 'modlists'"
-        @click="changeMenu('modlists')"
+        v-b-toggle.menu
+        :pressed="this.currentMenu === '/'"
+        @click="changeMenu('/')"
       >
         Modlists
       </b-button>
@@ -35,12 +38,14 @@
         class=navbutton
         :pressed="this.currentMenu === 'dev'"
         @click="changeMenu('dev')"
+        v-b-toggle.menu
       >
         Modlist Development
       </b-button>
       <br/>-->
       <b-button
         style="border-radius: 0"
+        v-b-toggle.menu
         class="navbutton"
         :pressed="this.currentMenu === 'options'"
         @click="changeMenu('options')"
@@ -56,6 +61,7 @@
           <b-link
             class="links"
             v-b-toggle.linksNav
+            v-b-toggle.menu
             v-for="link in links"
             :key="link.name"
             @click="followLink(link.href)"
@@ -143,10 +149,7 @@ export default {
     changeMenu(value) {
       // Error identifier: 03
       try {
-        if (this.$route.path.endsWith(value)) {
-          this.$router.push('/')
-          this.currentMenu = ''
-        } else {
+        if (!this.$route.path.endsWith(value)) {
           this.$router.push(value)
           this.currentMenu = value
         }

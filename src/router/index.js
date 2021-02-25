@@ -18,11 +18,11 @@ const routes = [
     mode: 'hash',
     children: [
       {
-        path: '/',
+        path: 'welcome',
         component: Welcome,
       },
       {
-        path: 'modlists',
+        path: '/',
         component: Modlists,
       },
       {
