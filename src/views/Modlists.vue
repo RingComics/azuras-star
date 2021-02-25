@@ -52,7 +52,7 @@
           <b-form-input placeholder="Search for a list..." v-model="search" />
         </b-col>
       </b-row>
-      <div class="accordian text-center" role="tablist">
+      <div class="accordian" role="tablist">
         <ModlistProfile
           v-for="(profile, index) in profiles"
           :key="profile.id"

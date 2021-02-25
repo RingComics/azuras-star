@@ -1,7 +1,7 @@
 <template>
   <b-card
     no-body
-    class="mb-1"
+    class="mb-2"
     v-if="
       (this.$props.selectedGame == this.$props.game ||
         this.$props.selectedGame == null) &
@@ -13,126 +13,124 @@
     <b-card-header
       :disabled="this.$props.gameRunning"
       header-tag="header"
-      class="p-1"
-      role="tab"
+      class="p-0"
     >
-      <b-button block v-b-toggle="'accordion-' + this.$props.index">
-        {{ this.$props.name }}
-      </b-button>
+      <b-button-group style="width: 100%">
+        <b-button block v-b-toggle="'accordion-' + this.$props.index">
+          <div class="m-0 p-0">
+            <p class="m-0 p-0">{{ this.$props.name }}</p>
+            <small class="m-0 p-0">{{ this.$props.game }}</small>
+          </div>
+        </b-button>
+        <b-button
+          variant="success"
+          @click="$emit('play', name)"
+          style="width: 10%"
+        >
+          Play
+        </b-button>
+        <b-button
+          v-b-popover.hover.top="'Delete this modlist'"
+          class="float-right"
+          variant="danger"
+          @click="$emit('delete', name)"
+        >
+          Delete
+        </b-button>
+      </b-button-group>
     </b-card-header>
     <b-collapse
       :id="'accordion-' + this.$props.index"
       role="tabpanel"
       accordion="modlist"
+      class="text-center p-2"
     >
-      <b-tabs>
-        <b-tab title="Play" active>
-          <b-button
-            v-b-popover.hover.top="
-              'Change the Mod Organizer profile used when launching the game'
-            "
-            variant="primary"
-            v-if="$props.profiles.length > 1"
-            @click="
-              $emit('change-modlist', [
-                name,
-                'selectedProfile',
-                $props.profiles,
-              ])
-            "
-          >
-            Change Profile
-          </b-button>
-          <br />
-          <p v-if="$props.profiles.length > 1">
-            Profile: {{ $props.selectedProfile }}
-          </p>
-          <b-button variant="success" block @click="$emit('play', name)">
-            Play
-          </b-button>
-          <br />
-        </b-tab>
-        <b-tab title="Options">
-          <p class="text-left">
-            Name: {{ this.$props.name }}
-            <b-button
-              v-b-popover.hover.top="'Change modlist name'"
-              variant="primary"
-              @click="$emit('change-modlist', [name, 'name'])"
-              class="float-right"
-            >
-              Change
-            </b-button>
-          </p>
-          <p class="text-left">
-            Path: {{ this.$props.path }}
-            <b-button
-              v-b-popover.hover.top="'Change modlist path'"
-              variant="primary"
-              @click="$emit('change-modlist', [name, 'path'])"
-              class="float-right"
-            >
-              Change
-            </b-button>
-          </p>
-          <p v-if="this.$props.advancedOptions" class="text-left">
-            Game: {{ this.$props.game }}
-            <b-button
-              v-b-popover.hover.top="'Change game the modlist is for'"
-              v-if="this.$props.advancedOptions"
-              variant="primary"
-              @click="$emit('change-modlist', [name, 'game'])"
-              class="float-right"
-            >
-              Change
-            </b-button>
-          </p>
-          <p v-if="this.$props.advancedOptions" class="text-left">
-            Executable: {{ this.$props.exe }}
-            <b-button
-              v-b-popover.hover.top="
-                'Change which Mod Organizer executable is used when launching the game'
-              "
-              v-if="this.$props.advancedOptions"
-              variant="primary"
-              @click="$emit('change-modlist', [name, 'exe'])"
-              class="float-right"
-            >
-              Change
-            </b-button>
-          </p>
-          <b-button
-            v-b-popover.hover.top="'Delete this modlist'"
-            class="float-right"
-            variant="danger"
-            @click="$emit('delete', name)"
-          >
-            Delete
-          </b-button>
-          <br />
-          <br />
-          <b-button
-            v-b-popover.hover.top="
-              'Open the Mod Organizer instance for this modlist'
-            "
-            v-if="this.$props.advancedOptions"
-            variant="primary"
-            @click="$emit('launch-mo2', name)"
-          >
-            Launch Mod Organizer
-          </b-button>
-          <b-button
-            v-b-popover.hover.top="'Open modlist folder'"
-            v-if="this.$props.advancedOptions"
-            variant="primary"
-            @click="$emit('configure', name)"
-          >
-            Open Folder
-          </b-button>
-          <p>Created: {{ Date(this.$props.created) }}</p>
-          <p>Last modified: {{ Date(this.$props.modified) }}</p>
-        </b-tab>
-      </b-tabs>
+      <p class="text-left">
+        Profile: {{ this.$props.selectedProfile }}
+        <b-button
+          v-b-popover.hover.top="
+            'Change the Mod Organizer profile used when launching the game'
+          "
+          variant="primary"
+          :disabled="$props.profiles.length <= 1"
+          @click="
+            $emit('change-modlist', [name, 'selectedProfile', $props.profiles])
+          "
+          class="float-right"
+        >
+          Change
+        </b-button>
+      </p>
+      <p class="text-left">
+        Name: {{ this.$props.name }}
+        <b-button
+          v-b-popover.hover.top="'Change modlist name'"
+          variant="primary"
+          @click="$emit('change-modlist', [name, 'name'])"
+          class="float-right"
+        >
+          Change
+        </b-button>
+      </p>
+      <p class="text-left">
+        Path: {{ this.$props.path }}
+        <b-button
+          v-b-popover.hover.top="'Change modlist path'"
+          variant="primary"
+          @click="$emit('change-modlist', [name, 'path'])"
+          class="float-right"
+        >
+          Change
+        </b-button>
+      </p>
+      <p v-if="this.$props.advancedOptions" class="text-left">
+        Game: {{ this.$props.game }}
+        <b-button
+          v-b-popover.hover.top="'Change game the modlist is for'"
+          v-if="this.$props.advancedOptions"
+          variant="primary"
+          @click="$emit('change-modlist', [name, 'game'])"
+          class="float-right"
+        >
+          Change
+        </b-button>
+      </p>
+      <p v-if="this.$props.advancedOptions" class="text-left">
+        Executable: {{ this.$props.exe }}
+        <b-button
+          v-b-popover.hover.top="
+            'Change which Mod Organizer executable is used when launching the game'
+          "
+          v-if="this.$props.advancedOptions"
+          variant="primary"
+          @click="$emit('change-modlist', [name, 'exe'])"
+          class="float-right"
+        >
+          Change
+        </b-button>
+      </p>
+      <b-button
+        v-b-popover.hover.top="
+          'Open the Mod Organizer instance for this modlist'
+        "
+        v-if="this.$props.advancedOptions"
+        variant="primary"
+        @click="$emit('launch-mo2', name)"
+        class="text-center"
+      >
+        Launch Mod Organizer
+      </b-button>
+      <b-button
+        v-b-popover.hover.top="'Open modlist folder'"
+        v-if="this.$props.advancedOptions"
+        variant="primary"
+        @click="$emit('configure', name)"
+      >
+        Open Folder
+      </b-button>
+
+      <p>Created: {{ Date(this.$props.created) }}</p>
+      <p>Last modified: {{ Date(this.$props.modified) }}</p>
     </b-collapse>
   </b-card>
 </template>
