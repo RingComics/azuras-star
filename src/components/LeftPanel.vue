@@ -19,14 +19,12 @@
         class="text-center"
         @click="changeMenu('changelog')"
         style="cursor: pointer"
-        v-b-toggle.menu
       >
         Azura's Star
       </h2>
       <b-button
         style="border-radius: 0"
         class="navbutton"
-        v-b-toggle.menu
         :pressed="this.currentMenu === '/'"
         @click="changeMenu('/')"
       >
@@ -38,14 +36,12 @@
         class=navbutton
         :pressed="this.currentMenu === 'dev'"
         @click="changeMenu('dev')"
-        v-b-toggle.menu
       >
         Modlist Development
       </b-button>
       <br/>-->
       <b-button
         style="border-radius: 0"
-        v-b-toggle.menu
         class="navbutton"
         :pressed="this.currentMenu === 'options'"
         @click="changeMenu('options')"
@@ -61,7 +57,6 @@
           <b-link
             class="links"
             v-b-toggle.linksNav
-            v-b-toggle.menu
             v-for="link in links"
             :key="link.name"
             @click="followLink(link.href)"
