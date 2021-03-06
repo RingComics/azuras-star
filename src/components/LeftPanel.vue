@@ -72,6 +72,8 @@
           </b-link>
         </b-card>
       </b-collapse>
+      <div>Game Version {{ getGameVersion() }}</div>
+      <div>UltSky Launcher v{{ getAppVersion() }}</div>
       <div v-if="this.dev">
         <h3>Dev Options</h3>
         <b-button
@@ -83,8 +85,8 @@
               0
             )
           "
-          >Send Error</b-button
-        >
+          >Send Error
+        </b-button>
       </div>
     </b-sidebar>
 
@@ -97,6 +99,8 @@
 </template>
 
 <script>
+import { version as appVersion } from '../../package.json'
+
 export default {
   name: 'LeftPanel',
   data() {
@@ -178,6 +182,13 @@ export default {
         err: err,
         tabbed: tabbed,
       })
+    },
+    getAppVersion() {
+      return appVersion
+    },
+    getGameVersion() {
+      // TODO replace hardcoded game version
+      return '1.0'
     },
   },
   beforeMount() {
