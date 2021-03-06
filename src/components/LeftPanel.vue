@@ -72,8 +72,7 @@
           </b-link>
         </b-card>
       </b-collapse>
-      <div>Game Version {{ getGameVersion() }}</div>
-      <div>UltSky Launcher v{{ getAppVersion() }}</div>
+      <div>Azura's Star version {{ getAppVersion() }}</div>
       <div v-if="this.dev">
         <h3>Dev Options</h3>
         <b-button
@@ -185,10 +184,6 @@ export default {
     },
     getAppVersion() {
       return appVersion
-    },
-    getGameVersion() {
-      // TODO replace hardcoded game version
-      return '1.0'
     },
   },
   beforeMount() {
