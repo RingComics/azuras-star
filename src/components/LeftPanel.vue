@@ -3,7 +3,12 @@
 -->
 <template>
   <b-container fluid>
-    <b-button v-b-toggle.menu style="position: fixed"> Menu ≡ </b-button>
+    <b-button class="d-sm-block" v-b-toggle.menu style="position: fixed">
+      ≡
+    </b-button>
+    <b-button class="d-none d-md-block" v-b-toggle.menu style="position: fixed">
+      Menu ≡
+    </b-button>
     <b-sidebar
       id="menu"
       ref="menu"
